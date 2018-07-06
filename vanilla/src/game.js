@@ -1,11 +1,11 @@
-import { createBoard } from './components/board/board.js';
+import { createApp } from './components/app/app.js';
 
 export function start() {
   console.log('hello world');
-  const board = createBoard({
-    row: 10,
-    col: 10,
+  const app = createApp({
+    row: 20,
+    col: 20,
   });
 
-  document.body.appendChild(board.render());
+  document.body.appendChild(app.render());
 }
