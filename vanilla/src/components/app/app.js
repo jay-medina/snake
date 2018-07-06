@@ -11,11 +11,13 @@ import { getInitialSnake } from './snakeUtil.js';
  */
 export function createApp({ row, col }) {
   const snake = getInitialSnake();
+  const apple = { row: 1, col: 1 };
 
   const board = createBoard({
     row,
     col,
     snake,
+    apple,
   });
 
   const score = 0;
