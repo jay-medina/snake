@@ -1,11 +1,13 @@
 import { createElement } from '../common/elements.js';
 import { createCol } from './col.js';
+import { isSnakeAtPosition } from '../app/snakeUtil.js';
 
 /**
  *
  * @param {Object} options
  * @param {number} options.row
  * @param {number} options.col
+ * @param {Object[]} options.snake
  */
 export function createRow(options) {
   const optsWithDefaults = {
@@ -14,24 +16,28 @@ export function createRow(options) {
     ...options,
   };
 
-  const { col } = optsWithDefaults;
+  const { row, col, snake } = optsWithDefaults;
   const children = [];
 
   for (let c = 0; c < col; c += 1) {
-    let col = createCol({
-      col: c,
-    });
+    let col;
+
+    if (isSnakeAtPosition(snake, row, c)) {
+      col = createCol({ col: c, filled: 'snake' });
+    } else {
+      col = createCol({ col: c });
+    }
     children.push(col);
   }
 
-  const row = createElement({
+  const boardRow = createElement({
     className: 'snake__board-row',
     children,
   });
 
   return {
     render() {
-      const el = row.render();
+      const el = boardRow.render();
 
       return el;
     },

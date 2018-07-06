@@ -1,6 +1,7 @@
 import { createElement } from '../common/elements.js';
 import { createBoard } from '../board/board.js';
 import { createScoreBoard } from '../scoreboard/scoreboard.js';
+import { getInitialSnake } from './snakeUtil.js';
 
 /**
  *
@@ -9,9 +10,12 @@ import { createScoreBoard } from '../scoreboard/scoreboard.js';
  * @param {number} options.col
  */
 export function createApp({ row, col }) {
+  const snake = getInitialSnake();
+
   const board = createBoard({
     row,
     col,
+    snake,
   });
 
   const score = 0;

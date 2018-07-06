@@ -13,7 +13,17 @@ export function createCol(options) {
     ...options,
   };
 
+  const { filled } = optsWithDefaults;
+
   let className = 'snake__board-col';
+
+  if (filled === 'apple') {
+    className = `${className} snake__board-col-apple`;
+  }
+
+  if (filled === 'snake') {
+    className = `${className} snake__board-col-snake`;
+  }
 
   const col = createElement({
     className,
