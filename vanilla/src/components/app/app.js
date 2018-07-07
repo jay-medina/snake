@@ -19,7 +19,7 @@ export function createApp(options) {
   const game = paintGame(initState);
   drawToBody(game);
 
-  gameLoop(1000, game, initState);
+  gameLoop(200, game, initState);
 }
 
 function gameLoop(timer, game, initState) {

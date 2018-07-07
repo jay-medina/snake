@@ -33,15 +33,19 @@ export function paintGame({ row, col, snake, apple, score, highScore }) {
   });
 
   return {
-    render() {
-      return app.render();
-    },
+    render: () => app.render(),
+
     update(newState) {
-      const { score, highScore } = newState;
+      const { score, highScore, snake, apple } = newState;
 
       scoreBoard.update({
         newScore: score,
         newHighScore: highScore,
+      });
+
+      board.update({
+        snake,
+        apple,
       });
     },
   };

@@ -15,25 +15,31 @@ export function createCol(options) {
 
   const { filled } = optsWithDefaults;
 
-  let className = 'snake__board-col';
-
-  if (filled === 'apple') {
-    className = `${className} snake__board-col-apple`;
-  }
-
-  if (filled === 'snake') {
-    className = `${className} snake__board-col-snake`;
-  }
-
   const col = createElement({
-    className,
+    className: getClassName(filled),
   });
 
   return {
-    render() {
-      const el = col.render();
+    render: () => col.render(),
 
-      return el;
+    update({ filled }) {
+      col.update({
+        className: getClassName(filled),
+      });
     },
   };
+}
+
+function getClassName(filled = '') {
+  let className = 'snake__board-col';
+
+  if (filled === 'apple') {
+    return `${className} snake__board-col-apple`;
+  }
+
+  if (filled === 'snake') {
+    return `${className} snake__board-col-snake`;
+  }
+
+  return className;
 }

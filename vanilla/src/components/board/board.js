@@ -28,10 +28,12 @@ export function createBoard(options) {
   });
 
   return {
-    render() {
-      const el = board.render();
+    render: () => board.render(),
 
-      return el;
+    update({ snake, apple }) {
+      children.forEach(row => {
+        row.update({ snake, apple });
+      });
     },
   };
 }

@@ -48,6 +48,10 @@ export function randomizeApple(snake, rows, cols) {
   };
 }
 
+export function isTheApple(apple, row, col) {
+  return row === apple.row && col === apple.col;
+}
+
 function randomNumber(num) {
   return Math.floor(Math.random() * num);
 }
