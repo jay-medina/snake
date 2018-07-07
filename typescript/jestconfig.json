@@ -1,0 +1,13 @@
+{
+  "cacheDirectory": "./.jest",
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest"
+  },
+  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+  "moduleNameMapper": {
+    "\\.(css)$": "<rootDir>/config/jest/styleMocks.js"
+  },
+  "setupFiles": ["./config/jest/enzyme.js"],
+  "snapshotSerializers": ["enzyme-to-json/serializer"]
+}
