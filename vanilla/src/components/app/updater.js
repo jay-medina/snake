@@ -86,7 +86,7 @@ const updateDirection = (state, newDirection) => {
 };
 
 const updateSnakeMovement = state => {
-  const { snake, currentDirection, row, col } = state;
+  const { snake, currentDirection } = state;
 
   const newSnake = moveSnake(snake, currentDirection);
 
@@ -100,11 +100,12 @@ const updateSnakeEatingApple = oldSnake => state => {
   const { snake, apple } = state;
 
   if (isSnakeAtApple(snake, apple)) {
-    const { score, highScore, row, col } = state;
+    const { score, highScore, row, col, timer } = state;
     const newScore = incrementScore(score);
 
     return {
       ...state,
+      timer: updateTimer(timer),
       snake: growSnake(snake, oldSnake),
       apple: randomizeApple(snake, row, col),
       score: newScore,
@@ -114,6 +115,15 @@ const updateSnakeEatingApple = oldSnake => state => {
 
   return state;
 };
+
+function updateTimer(timer) {
+  let timerDecrementor = 2.5;
+  let timerThreshold = 40;
+
+  if (timer <= timerThreshold) return timerThreshold;
+
+  return timer - timerDecrementor;
+}
 
 const updateDeadSnake = state => {
   const { snake, row, col, highScore } = state;

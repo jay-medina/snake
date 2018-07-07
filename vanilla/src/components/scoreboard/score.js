@@ -28,7 +28,7 @@ export function createScore(options = {}) {
     },
     update({ newNumber }) {
       number.update({
-        innerText: newNumber,
+        innerText: `${newNumber}`,
       });
     },
   };
