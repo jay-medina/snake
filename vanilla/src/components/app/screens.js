@@ -55,19 +55,20 @@ export function createGameOverScreen() {
   return {
     render: () => gameOverScreen.render(),
     update({ onNewGameClick }) {
-      options.onPlayClick = () => {
-        options.onPlayClick = () => {};
-
-        gameOverScreen.update({
-          className: `${className} hide`,
-        });
-
-        onNewGameClick();
-      };
+      options.onPlayClick = this.cleanUp(onNewGameClick);
 
       gameOverScreen.update({
         className,
       });
+    },
+    cleanUp: onClick => () => {
+      options.onPlayClick = () => {};
+
+      gameOverScreen.update({
+        className: `${className} hide`,
+      });
+
+      onClick();
     },
   };
 }
