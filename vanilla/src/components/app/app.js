@@ -1,7 +1,5 @@
-import { createElement } from '../common/elements.js';
-import { createBoard } from '../board/board.js';
-import { createScoreBoard } from '../scoreboard/scoreboard.js';
-import { getInitialSnake } from './snakeUtil.js';
+import { getInitialSnake, randomizeApple } from './snakeUtil.js';
+import { paintGame } from './paint.js';
 
 /**
  *
@@ -11,35 +9,29 @@ import { getInitialSnake } from './snakeUtil.js';
  */
 export function createApp({ row, col }) {
   const snake = getInitialSnake();
-  const apple = { row: 1, col: 1 };
+  const apple = randomizeApple(snake, row, col);
 
-  const board = createBoard({
+  const initState = {
     row,
     col,
     snake,
     apple,
-  });
-
-  const score = 0;
-  const highScore = 10;
-
-  const scoreBoard = createScoreBoard({
-    score,
-    highScore,
-  });
-
-  const children = [scoreBoard, board];
-
-  const app = createElement({
-    className: 'snake__app',
-    children,
-  });
-
-  return {
-    render() {
-      const el = app.render();
-
-      return el;
-    },
   };
+
+  gameLoop(200, initState);
+}
+
+function gameLoop(timer, state) {
+  setTimeout(() => {
+    const game = paintGame(state);
+    drawToBody(game);
+  }, timer);
+}
+
+function drawToBody(game) {
+  document.body.appendChild(game.render());
+}
+
+function updateState(state) {
+  return state;
 }
