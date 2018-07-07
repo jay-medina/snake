@@ -22,5 +22,14 @@ export function createScore(options = {}) {
     children: [title, number],
   });
 
-  return score;
+  return {
+    render() {
+      return score.render();
+    },
+    update({ newNumber }) {
+      number.update({
+        innerText: newNumber,
+      });
+    },
+  };
 }

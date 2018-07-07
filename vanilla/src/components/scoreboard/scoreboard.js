@@ -23,5 +23,18 @@ export function createScoreBoard(options = {}) {
     children: [score, highScore],
   });
 
-  return scoreBoard;
+  return {
+    render() {
+      return scoreBoard.render();
+    },
+    update({ newScore, newHighScore }) {
+      score.update({
+        newNumber: newScore,
+      });
+
+      highScore.update({
+        newNumber: newHighScore,
+      });
+    },
+  };
 }

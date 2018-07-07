@@ -12,5 +12,7 @@ export function start() {
     col,
     snake,
     apple,
+    score: 0,
+    highScore: 10,
   });
 }

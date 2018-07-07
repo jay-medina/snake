@@ -8,13 +8,12 @@ import { updateState } from './updater.js';
  * @param {number} options.col
  * @param {{row: number, col: number} []} options.snake
  * @param {{row: number, col: number}} options.apple
+ * @param {number} options.score
+ * @param {number} options.highScore
  */
-export function createApp({ row, col, snake, apple }) {
+export function createApp(options) {
   const initState = {
-    row,
-    col,
-    snake,
-    apple,
+    ...options,
   };
 
   const game = paintGame(initState);

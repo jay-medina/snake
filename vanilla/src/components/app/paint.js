@@ -9,17 +9,16 @@ import { createScoreBoard } from '../scoreboard/scoreboard.js';
  * @param {number} options.col
  * @param {{row: number, col: number} []} options.snake
  * @param {{row: number, col: number}} options.apple
+ * @param {number} options.score
+ * @param {number} options.highScore
  */
-export function paintGame({ row, col, snake, apple }) {
+export function paintGame({ row, col, snake, apple, score, highScore }) {
   const board = createBoard({
     row,
     col,
     snake,
     apple,
   });
-
-  const score = 0;
-  const highScore = 10;
 
   const scoreBoard = createScoreBoard({
     score,
@@ -35,12 +34,15 @@ export function paintGame({ row, col, snake, apple }) {
 
   return {
     render() {
-      const el = app.render();
-
-      return el;
+      return app.render();
     },
-    update(newOptions) {
-      
-    }
+    update(newState) {
+      const { score, highScore } = newState;
+
+      scoreBoard.update({
+        newScore: score,
+        newHighScore: highScore,
+      });
+    },
   };
 }

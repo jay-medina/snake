@@ -65,11 +65,13 @@ export function createElement(options = {}) {
     });
   }
 
+  let el = null;
+
   return {
     render() {
       const { className, innerText } = optsWithDefaults;
 
-      const el = document.createElement(optsWithDefaults.el);
+      el = document.createElement(optsWithDefaults.el);
 
       if (className) {
         el.className = className;
@@ -81,6 +83,18 @@ export function createElement(options = {}) {
       renderChildren(el);
 
       return el;
+    },
+    update({ className = '', innerText = '' }) {
+      if (!el) {
+        return;
+      }
+
+      if (className) {
+        el.className = className;
+      }
+      if (innerText) {
+        el.innerText = innerText;
+      }
     },
   };
 }
