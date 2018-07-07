@@ -1,5 +1,6 @@
 import { paintGame } from './paint.js';
 import { updateState } from './updater.js';
+import { wireKeyboard } from '../keyboard.js';
 
 /**
  *
@@ -12,6 +13,8 @@ import { updateState } from './updater.js';
  * @param {number} options.highScore
  */
 export function createApp(options) {
+  const keyboard = wireKeyboard();
+
   const initState = {
     ...options,
   };
@@ -19,13 +22,15 @@ export function createApp(options) {
   const game = paintGame(initState);
   drawToBody(game);
 
-  gameLoop(200, game, initState);
+  gameLoop(500, game, keyboard, initState);
 }
 
-function gameLoop(timer, game, initState) {
+function gameLoop(timer, game, keyboard, initState) {
   setTimeout(() => {
-    let state = updateState(initState, 'right');
+    let direction = keyboard.getDirection();
+    let state = updateState(initState, direction);
     game.update(state);
+    // gameLoop(timer, game, keyboard, state);
   }, timer);
 }
 
