@@ -1,7 +1,7 @@
 import { createElement } from '../common/elements.js';
 import { createBoard } from '../board/board.js';
 import { createScoreBoard } from '../scoreboard/scoreboard.js';
-import { createStartScreen } from './screens.js';
+import { createStartScreen, createGameOverScreen } from './screens.js';
 
 /**
  *
@@ -41,7 +41,9 @@ export function paintGame({
     onPlayClick: onStartGameClick,
   });
 
-  let children = [scoreBoard, board, startScreen];
+  const gameOverScreen = createGameOverScreen();
+
+  let children = [scoreBoard, board, startScreen, gameOverScreen];
 
   const app = createElement({
     className: 'snake__app',
@@ -52,7 +54,7 @@ export function paintGame({
     render: () => app.render(),
 
     update(newState) {
-      const { score, highScore, snake, apple, gameState } = newState;
+      const { score, highScore, snake, apple, gameState, onNewGameClick } = newState;
 
       scoreBoard.update({
         newScore: score,
@@ -67,6 +69,9 @@ export function paintGame({
       startScreen.update();
 
       if (gameState.current === 'gameover') {
+        gameOverScreen.update({
+          onNewGameClick,
+        });
       }
     },
   };

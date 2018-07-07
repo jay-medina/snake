@@ -37,7 +37,15 @@ function gameLoop(screen, keyboard, initState) {
     let state = updateState(initState, direction);
     screen.update(state);
 
-    if (!isGameOver(state)) {
+    if (isGameOver(state)) {
+      screen.update({
+        ...state,
+        onNewGameClick: () => {
+          keyboard.resetDirection();
+          gameLoop(screen, keyboard, getInitialState(state));
+        },
+      });
+    } else {
       gameLoop(screen, keyboard, state);
     }
   }, initState.timer);

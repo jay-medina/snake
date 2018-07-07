@@ -28,24 +28,49 @@ export function createStartScreen({ onPlayClick }) {
   };
 }
 
-// export function createGameOverScreen({ onPlayClick }) {
-//   const title = createElement({
-//     innerText: 'Game Over',
-//     className: 'snake__game-over-title',
-//   });
+export function createGameOverScreen() {
+  let options = {
+    onPlayClick: () => {},
+  };
 
-//   const playButton = createPlayButton({
-//     text: 'Play Again',
-//     onClick: onPlayClick,
-//   });
+  const title = createElement({
+    innerText: 'Game Over',
+    className: 'snake__game-over-title',
+  });
 
-//   const gameOverScreen = createElement({
-//     className: 'snake__game-over-screen',
-//     children: [title, playButton],
-//   });
+  const playButton = createPlayButton({
+    text: 'Play Again',
+    onClick: () => {
+      options.onPlayClick();
+    },
+  });
 
-//   return gameOverScreen;
-// }
+  let className = 'snake__game-over-screen';
+
+  const gameOverScreen = createElement({
+    className: `${className} hide`,
+    children: [title, playButton],
+  });
+
+  return {
+    render: () => gameOverScreen.render(),
+    update({ onNewGameClick }) {
+      options.onPlayClick = () => {
+        options.onPlayClick = () => {};
+
+        gameOverScreen.update({
+          className: `${className} hide`,
+        });
+
+        onNewGameClick();
+      };
+
+      gameOverScreen.update({
+        className,
+      });
+    },
+  };
+}
 
 function createPlayButton({ onClick, text }) {
   const playButton = createElement({
