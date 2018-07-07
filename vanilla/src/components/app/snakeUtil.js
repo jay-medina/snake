@@ -61,6 +61,21 @@ export function randomizeApple(snake, rows, cols) {
   };
 }
 
+export function isSnakeDead(snake, rows, cols) {
+  return isSnakeInWall(snake, rows, cols) || isSnakeAtItself(snake);
+}
+
+function isSnakeInWall(snake, rows, cols) {
+  const [{ row, col }] = snake;
+  return row < 0 || row >= rows || col < 0 || col >= cols;
+}
+
+function isSnakeAtItself(snake) {
+  const [head, ...rest] = snake;
+
+  return isSnakeAtPosition(rest, head.row, head.col);
+}
+
 export function isTheApple(apple, row, col) {
   return row === apple.row && col === apple.col;
 }

@@ -1,6 +1,61 @@
-import { moveSnake, isSnakeAtApple, growSnake, randomizeApple } from './snakeUtil.js';
+import {
+  moveSnake,
+  isSnakeAtApple,
+  growSnake,
+  randomizeApple,
+  isSnakeDead,
+  getInitialSnake,
+} from './snakeUtil.js';
 import { getNextDirection } from './directionUtil.js';
 import { incrementScore, getNewHighScore } from './scoreUtil.js';
+
+/**
+ * State in which the game initially starts
+ */
+export function getInitialState({ row, col }) {
+  return getNewGameState({
+    row,
+    col,
+    gameState: {
+      current: 'start',
+    },
+  });
+}
+
+/**
+ * Start for starting a new game
+ *
+ * @param {Object} options
+ * @param {number} options.row
+ * @param {number} options.col
+ * @param {Object} [options.gameState]
+ */
+export function getNewGameState({ row, col, gameState }) {
+  const initSnake = getInitialSnake();
+  const initApple = randomizeApple(initSnake, row, col);
+  const highScore = 100;
+  const score = 0;
+  const timer = 200;
+
+  let newGameState = {
+    current: 'run',
+  };
+
+  if (gameState) {
+    newGameState = gameState;
+  }
+
+  return {
+    row,
+    col,
+    score,
+    highScore,
+    timer,
+    snake: initSnake,
+    apple: initApple,
+    gameState: newGameState,
+  };
+}
 
 /**
  *
@@ -10,14 +65,25 @@ import { incrementScore, getNewHighScore } from './scoreUtil.js';
 export function updateState(state, newDirection) {
   const updateEatApple = updateSnakeEatingApple(state.snake);
 
-  return updateEatApple(updateSnakeDirection(state, newDirection));
+  return updateDeadSnake(updateEatApple(updateSnakeDirection(state, newDirection)));
+}
+
+export function isGameOver(state) {
+  return state.gameState.current === 'gameover';
 }
 
 const updateSnakeDirection = (state, newDirection) => {
-  const { snake, currentDirection } = state;
+  const { snake, currentDirection, row, col } = state;
 
   const nextDirection = getNextDirection(currentDirection, newDirection);
   const newSnake = moveSnake(snake, nextDirection);
+
+  if (isSnakeDead(newSnake, row, col)) {
+    return {
+      ...state,
+      currentDirection: nextDirection,
+    };
+  }
 
   return {
     ...state,
@@ -39,6 +105,21 @@ const updateSnakeEatingApple = oldSnake => state => {
       apple: randomizeApple(snake, row, col),
       score: newScore,
       highScore: getNewHighScore(newScore, highScore),
+    };
+  }
+
+  return state;
+};
+
+const updateDeadSnake = state => {
+  const { snake, row, col } = state;
+
+  if (isSnakeDead(snake, row, col)) {
+    return {
+      ...state,
+      gameState: {
+        current: 'gameover',
+      },
     };
   }
 
