@@ -1,4 +1,4 @@
-# Squarespace Homework
+# Snake
 
 ## Background
 
