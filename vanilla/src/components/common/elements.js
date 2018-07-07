@@ -53,6 +53,14 @@ export function createElement(options = {}) {
     }
   }
 
+  function removeEventListeners(el) {
+    const { onClick } = optsWithDefaults;
+
+    if (onClick) {
+      el.removeEventListener('click', onClick);
+    }
+  }
+
   function renderChildren(el) {
     const { children } = optsWithDefaults;
 
@@ -65,13 +73,11 @@ export function createElement(options = {}) {
     });
   }
 
-  let el = null;
+  let el = document.createElement(optsWithDefaults.el);
 
   return {
     render() {
       const { className, innerText } = optsWithDefaults;
-
-      el = document.createElement(optsWithDefaults.el);
 
       if (className) {
         el.className = className;
@@ -79,22 +85,21 @@ export function createElement(options = {}) {
 
       el.innerText = innerText;
 
+      removeEventListeners(el);
       addEventListeners(el);
       renderChildren(el);
 
       return el;
     },
-    update({ className = '', innerText = '' }) {
-      if (!el) {
-        return;
-      }
-
+    update({ className = '', innerText = '', children }) {
       if (className) {
-        el.className = className;
+        optsWithDefaults.className = className;
       }
       if (innerText) {
-        el.innerText = innerText;
+        optsWithDefaults.innerText = innerText;
       }
+
+      this.render();
     },
   };
 }

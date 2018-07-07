@@ -9,10 +9,11 @@ import { createScoreBoard } from '../scoreboard/scoreboard.js';
  * @param {number} options.col
  * @param {{row: number, col: number} []} options.snake
  * @param {{row: number, col: number}} options.apple
+ * @param {Object} options.gameState
  * @param {number} options.score
  * @param {number} options.highScore
  */
-export function paintGame({ row, col, snake, apple, score, highScore }) {
+export function paintGame({ row, col, snake, apple, gameState, score, highScore }) {
   const board = createBoard({
     row,
     col,
