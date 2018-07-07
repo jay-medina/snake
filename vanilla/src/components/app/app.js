@@ -1,16 +1,15 @@
-import { getInitialSnake, randomizeApple } from './snakeUtil.js';
 import { paintGame } from './paint.js';
+import { updateState } from './updater.js';
 
 /**
  *
  * @param {Object} options
  * @param {number} options.row
  * @param {number} options.col
+ * @param {{row: number, col: number} []} options.snake
+ * @param {{row: number, col: number}} options.apple
  */
-export function createApp({ row, col }) {
-  const snake = getInitialSnake();
-  const apple = randomizeApple(snake, row, col);
-
+export function createApp({ row, col, snake, apple }) {
   const initState = {
     row,
     col,
@@ -18,20 +17,19 @@ export function createApp({ row, col }) {
     apple,
   };
 
-  gameLoop(200, initState);
+  const game = paintGame(initState);
+  drawToBody(game);
+
+  gameLoop(1000, game, initState);
 }
 
-function gameLoop(timer, state) {
+function gameLoop(timer, game, initState) {
   setTimeout(() => {
-    const game = paintGame(state);
-    drawToBody(game);
+    let state = updateState(initState, 'right');
+    game.update(state);
   }, timer);
 }
 
 function drawToBody(game) {
   document.body.appendChild(game.render());
-}
-
-function updateState(state) {
-  return state;
 }

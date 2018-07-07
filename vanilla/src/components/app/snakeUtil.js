@@ -9,6 +9,28 @@ export function isSnakeAtPosition(snake, row, col) {
   return !!snake.find(part => part.row === row && part.col === col);
 }
 
+export function moveSnake(snake, direction) {
+  const [head] = snake;
+
+  if (direction === 'right') {
+    return [{ row: head.row, col: head.col + 1 }, ...snake.slice(0, snake.length - 1)];
+  }
+
+  if (direction === 'left') {
+    return [{ row: head.row, col: head.col - 1 }, ...snake.slice(0, snake.length - 1)];
+  }
+
+  if (direction === 'up') {
+    return [{ row: head.row - 1, col: head.col }, ...snake.slice(0, snake.length - 1)];
+  }
+
+  if (direction === 'down') {
+    return [{ row: head.row + 1, col: head.col }, ...snake.slice(0, snake.length - 1)];
+  }
+
+  return snake;
+}
+
 /**
  * Gets the new position for the apple
  */

@@ -39,5 +39,8 @@ export function paintGame({ row, col, snake, apple }) {
 
       return el;
     },
+    update(newOptions) {
+      
+    }
   };
 }
