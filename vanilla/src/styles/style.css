@@ -40,6 +40,10 @@ body {
   margin-bottom: 12rem;
 }
 
+.hide {
+  display: none;
+}
+
 .snake__start-screen-play-container {
   text-align: center;
 }

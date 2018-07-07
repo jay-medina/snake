@@ -91,10 +91,15 @@ export function createElement(options = {}) {
 
       return el;
     },
-    update({ className = '', innerText = '', children }) {
+    /**
+     *
+     * @param {Object} param0
+     */
+    update({ className = '', innerText = '' }) {
       if (className) {
         optsWithDefaults.className = className;
       }
+
       if (innerText) {
         optsWithDefaults.innerText = innerText;
       }

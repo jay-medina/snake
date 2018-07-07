@@ -13,10 +13,22 @@ export function createApp(options) {
 
   const initState = getInitialState(options);
 
-  const screen = paintGame(initState);
-  drawToBody(screen);
+  const onStartGameClick = () => {
+    gameLoop(screen, keyboard, initState);
+  };
 
-  gameLoop(screen, keyboard, initState);
+  const screen = paintGame({
+    row: initState.row,
+    col: initState.col,
+    snake: initState.snake,
+    apple: initState.apple,
+    gameState: initState.gameState,
+    score: initState.score,
+    highScore: initState.highScore,
+    onStartGameClick,
+  });
+
+  drawToBody(screen);
 }
 
 function gameLoop(screen, keyboard, initState) {

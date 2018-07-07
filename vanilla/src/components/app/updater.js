@@ -90,10 +90,6 @@ const updateSnakeMovement = state => {
 
   const newSnake = moveSnake(snake, currentDirection);
 
-  if (isSnakeDead(newSnake, row, col)) {
-    return state;
-  }
-
   return {
     ...state,
     snake: newSnake,

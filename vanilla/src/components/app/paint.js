@@ -1,6 +1,7 @@
 import { createElement } from '../common/elements.js';
 import { createBoard } from '../board/board.js';
 import { createScoreBoard } from '../scoreboard/scoreboard.js';
+import { createStartScreen } from './screens.js';
 
 /**
  *
@@ -12,8 +13,18 @@ import { createScoreBoard } from '../scoreboard/scoreboard.js';
  * @param {Object} options.gameState
  * @param {number} options.score
  * @param {number} options.highScore
+ * @param {() => void} options.onStartGameClick
  */
-export function paintGame({ row, col, snake, apple, gameState, score, highScore }) {
+export function paintGame({
+  row,
+  col,
+  snake,
+  apple,
+  gameState,
+  score,
+  highScore,
+  onStartGameClick,
+}) {
   const board = createBoard({
     row,
     col,
@@ -26,7 +37,11 @@ export function paintGame({ row, col, snake, apple, gameState, score, highScore 
     highScore,
   });
 
-  const children = [scoreBoard, board];
+  const startScreen = createStartScreen({
+    onPlayClick: onStartGameClick,
+  });
+
+  let children = [scoreBoard, board, startScreen];
 
   const app = createElement({
     className: 'snake__app',
@@ -37,7 +52,7 @@ export function paintGame({ row, col, snake, apple, gameState, score, highScore 
     render: () => app.render(),
 
     update(newState) {
-      const { score, highScore, snake, apple } = newState;
+      const { score, highScore, snake, apple, gameState } = newState;
 
       scoreBoard.update({
         newScore: score,
@@ -48,6 +63,11 @@ export function paintGame({ row, col, snake, apple, gameState, score, highScore 
         snake,
         apple,
       });
+
+      startScreen.update();
+
+      if (gameState.current === 'gameover') {
+      }
     },
   };
 }
