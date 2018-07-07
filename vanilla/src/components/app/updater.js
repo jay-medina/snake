@@ -33,7 +33,7 @@ export function getInitialState({ row, col }) {
 export function getNewGameState({ row, col, gameState }) {
   const initSnake = getInitialSnake();
   const initApple = randomizeApple(initSnake, row, col);
-  const highScore = 100;
+  const highScore = 0;
   const score = 0;
   const timer = 200;
 
@@ -63,31 +63,39 @@ export function getNewGameState({ row, col, gameState }) {
  *
  */
 export function updateState(state, newDirection) {
-  const updateEatApple = updateSnakeEatingApple(state.snake);
-
-  return updateDeadSnake(updateEatApple(updateSnakeDirection(state, newDirection)));
+  let newState = updateDirection(state, newDirection);
+  newState = updateSnakeMovement(newState);
+  newState = updateSnakeEatingApple(state.snake)(newState);
+  newState = updateDeadSnake(newState);
+  return newState;
 }
 
 export function isGameOver(state) {
   return state.gameState.current === 'gameover';
 }
 
-const updateSnakeDirection = (state, newDirection) => {
-  const { snake, currentDirection, row, col } = state;
+const updateDirection = (state, newDirection) => {
+  const { currentDirection } = state;
 
   const nextDirection = getNextDirection(currentDirection, newDirection);
-  const newSnake = moveSnake(snake, nextDirection);
-
-  if (isSnakeDead(newSnake, row, col)) {
-    return {
-      ...state,
-      currentDirection: nextDirection,
-    };
-  }
 
   return {
     ...state,
     currentDirection: nextDirection,
+  };
+};
+
+const updateSnakeMovement = state => {
+  const { snake, currentDirection, row, col } = state;
+
+  const newSnake = moveSnake(snake, currentDirection);
+
+  if (isSnakeDead(newSnake, row, col)) {
+    return state;
+  }
+
+  return {
+    ...state,
     snake: newSnake,
   };
 };
