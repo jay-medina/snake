@@ -16,22 +16,23 @@ export function createApp(options) {
   const keyboard = wireKeyboard();
 
   const initState = {
+    timer: 200,
     ...options,
   };
 
   const game = paintGame(initState);
   drawToBody(game);
 
-  gameLoop(500, game, keyboard, initState);
+  gameLoop(game, keyboard, initState);
 }
 
-function gameLoop(timer, game, keyboard, initState) {
+function gameLoop(game, keyboard, initState) {
   setTimeout(() => {
     let direction = keyboard.getDirection();
     let state = updateState(initState, direction);
     game.update(state);
-    // gameLoop(timer, game, keyboard, state);
-  }, timer);
+    // gameLoop(game, keyboard, state);
+  }, initState.timer);
 }
 
 function drawToBody(game) {

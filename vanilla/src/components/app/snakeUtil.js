@@ -9,6 +9,10 @@ export function isSnakeAtPosition(snake, row, col) {
   return !!snake.find(part => part.row === row && part.col === col);
 }
 
+export function isSnakeAtApple(snake, apple) {
+  return isSnakeAtPosition(snake, apple.row, apple.col);
+}
+
 export function moveSnake(snake, direction) {
   const [head] = snake;
 
@@ -29,6 +33,15 @@ export function moveSnake(snake, direction) {
   }
 
   return snake;
+}
+
+/**
+ * Increases the size of the snake
+ */
+export function growSnake(snake, oldSnake) {
+  let lastPosition = oldSnake[oldSnake.length - 1];
+
+  return [...snake, lastPosition];
 }
 
 /**
