@@ -7,7 +7,7 @@ import {
   getInitialSnake,
 } from './snakeUtil.js';
 import { getNextDirection } from './directionUtil.js';
-import { incrementScore, getNewHighScore } from './scoreUtil.js';
+import { incrementScore, getNewHighScore, getHighScore, storeHighScore } from './scoreUtil.js';
 
 /**
  * State in which the game initially starts
@@ -33,7 +33,7 @@ export function getInitialState({ row, col }) {
 export function getNewGameState({ row, col, gameState }) {
   const initSnake = getInitialSnake();
   const initApple = randomizeApple(initSnake, row, col);
-  const highScore = 0;
+  const highScore = getHighScore();
   const score = 0;
   const timer = 200;
 
@@ -120,9 +120,11 @@ const updateSnakeEatingApple = oldSnake => state => {
 };
 
 const updateDeadSnake = state => {
-  const { snake, row, col } = state;
+  const { snake, row, col, highScore } = state;
 
   if (isSnakeDead(snake, row, col)) {
+    storeHighScore(highScore);
+
     return {
       ...state,
       gameState: {
