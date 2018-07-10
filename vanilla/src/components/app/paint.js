@@ -15,16 +15,7 @@ import { createStartScreen, createGameOverScreen } from './screens.js';
  * @param {number} options.highScore
  * @param {() => void} options.onStartGameClick
  */
-export function paintGame({
-  row,
-  col,
-  snake,
-  apple,
-  gameState,
-  score,
-  highScore,
-  onStartGameClick,
-}) {
+export function paintGame({ row, col, snake, apple, score, highScore, onStartGameClick }) {
   const board = createBoard({
     row,
     col,
