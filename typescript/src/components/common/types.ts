@@ -6,3 +6,5 @@ interface Item {
 export type Apple = Item;
 
 export type Snake = Item[];
+
+export type Direction = 'left' | 'right' | 'up' | 'down';
