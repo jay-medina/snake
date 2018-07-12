@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Paint from './Paint';
 
-import './style.css';
 import { getInitialSnake } from '../common/util';
+import { Snake } from '../common/types';
+import { getNextDirection } from '../common/directionUtil';
+import { moveSnake } from '../updater/snakeMovement';
 
 export interface AppOptions {
   row: number;
@@ -11,17 +13,36 @@ export interface AppOptions {
 }
 
 export function createApp(options: AppOptions) {
-  paintGame(options);
+  let snake = getInitialSnake();
+
+  const gameOpts = {
+    snake,
+    ...options,
+  };
+
+  paintGame(gameOpts);
+
+  setTimeout(() => {
+    snake = moveSnake(snake, 'right');
+    paintGame({
+      ...gameOpts,
+      snake,
+    });
+  }, 500);
 }
 
-function paintGame(options: AppOptions) {
+interface GameOptions extends AppOptions {
+  snake: Snake;
+}
+
+function paintGame(options: GameOptions) {
   ReactDOM.render(
     <Paint
       row={options.row}
       col={options.col}
       score={10}
       highScore={100}
-      snake={getInitialSnake()}
+      snake={options.snake}
       apple={{ row: 0, col: 0 }}
     />,
     document.getElementById('root'),
