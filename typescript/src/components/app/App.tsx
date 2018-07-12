@@ -1,22 +1,29 @@
 import React from 'react';
-import ScoreBoard from '../scoreboard/Scoreboard';
-import Board from '../board/Board';
-import { Snake, Apple } from '../common/types';
+import ReactDOM from 'react-dom';
+import Paint from './Paint';
 
-export interface AppProps {
+import './style.css';
+import { getInitialSnake } from '../common/util';
+
+export interface AppOptions {
   row: number;
   col: number;
-  score: number;
-  highScore: number;
-  snake: Snake;
-  apple: Apple;
 }
 
-const App: React.StatelessComponent<AppProps> = ({ row, col, score, highScore, snake, apple }) => (
-  <div className="snake__app">
-    <ScoreBoard score={score} highScore={highScore} />
-    <Board apple={apple} snake={snake} row={row} col={col} />
-  </div>
-);
+export function createApp(options: AppOptions) {
+  paintGame(options);
+}
 
-export default App;
+function paintGame(options: AppOptions) {
+  ReactDOM.render(
+    <Paint
+      row={options.row}
+      col={options.col}
+      score={10}
+      highScore={100}
+      snake={getInitialSnake()}
+      apple={{ row: 0, col: 0 }}
+    />,
+    document.getElementById('root'),
+  );
+}
