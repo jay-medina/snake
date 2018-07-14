@@ -2,13 +2,13 @@ import React from 'react';
 
 export interface ScoreProps {
   title: string;
-  number: number;
+  num: number;
 }
 
-const Score: React.StatelessComponent<ScoreProps> = ({ title, number }) => (
+const Score: React.StatelessComponent<ScoreProps> = ({ title, num }) => (
   <div className="snake__score">
     <div className="snake__score-title">{title}</div>
-    <div className="snake__score-number">{number}</div>
+    <div className="snake__score-number">{num}</div>
   </div>
 );
 

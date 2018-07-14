@@ -1,4 +1,4 @@
-import { Snake, Direction, State } from '../common/types';
+import { Direction, Snake, State } from '../common/types';
 import { isSnakeDead } from '../common/util';
 
 export const updateSnakeMovement = (state: State): State => {

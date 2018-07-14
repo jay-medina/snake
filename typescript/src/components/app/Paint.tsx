@@ -1,9 +1,9 @@
 import React from 'react';
-import ScoreBoard from '../scoreboard/Scoreboard';
 import Board from '../board/Board';
-import { Snake, Apple, GameState } from '../common/types';
-import { Start } from './Start';
+import { Apple, GameState, Snake } from '../common/types';
+import ScoreBoard from '../scoreboard/Scoreboard';
 import { GameOver } from './GameOver';
+import { Start } from './Start';
 
 export interface AppProps {
   row: number;

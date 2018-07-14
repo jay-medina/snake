@@ -8,8 +8,8 @@ export interface ScoreBoardProps {
 
 const ScoreBoard: React.StatelessComponent<ScoreBoardProps> = ({ score, highScore }) => (
   <div className="snake__scoreboard">
-    <Score title="score" number={score} />
-    <Score title="high" number={highScore} />
+    <Score title="score" num={score} />
+    <Score title="high" num={highScore} />
   </div>
 );
 

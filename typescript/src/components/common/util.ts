@@ -1,4 +1,4 @@
-import { Snake, Apple, State } from './types';
+import { Apple, Snake, State } from './types';
 
 export function isSnakeAtApple(snake: Snake, apple: Apple) {
   return isSnakeAtPosition(snake, apple.row, apple.col);
@@ -32,8 +32,8 @@ export function randomizeApple(snake: Snake, rows: number, cols: number): Apple 
   }
 
   return {
-    row,
     col,
+    row,
   };
 }
 

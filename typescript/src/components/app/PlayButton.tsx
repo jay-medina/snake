@@ -9,3 +9,5 @@ export const PlayButton: React.SFC<{ onClick: () => void }> = ({ onClick }) => {
     </div>
   );
 };
+
+PlayButton.displayName = 'PlayButton';
