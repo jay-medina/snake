@@ -1,5 +1,9 @@
 import { Snake, Apple, State } from './types';
 
+export function isSnakeAtApple(snake: Snake, apple: Apple) {
+  return isSnakeAtPosition(snake, apple.row, apple.col);
+}
+
 export function isSnakeAtPosition(snake: Snake, row: number, col: number) {
   return !!snake.find((part) => part.row === row && part.col === col);
 }
@@ -16,6 +20,23 @@ export function isGameOver(state: State) {
   // return state.gameState.current === 'gameover';
 }
 
+/**
+ * Gets the new position for the apple
+ */
+export function randomizeApple(snake: Snake, rows: number, cols: number): Apple {
+  const row = randomNumber(rows);
+  const col = randomNumber(cols);
+
+  if (isSnakeAtPosition(snake, row, col)) {
+    return randomizeApple(snake, row, col);
+  }
+
+  return {
+    row,
+    col,
+  };
+}
+
 export function isSnakeDead(snake: Snake, rows: number, cols: number) {
   return isSnakeInWall(snake, rows, cols) || isSnakeAtItself(snake);
 }
@@ -29,4 +50,8 @@ function isSnakeAtItself(snake: Snake) {
   const [head, ...rest] = snake;
 
   return isSnakeAtPosition(rest, head.row, head.col);
+}
+
+function randomNumber(num: number) {
+  return Math.floor(Math.random() * num);
 }

@@ -1,12 +1,10 @@
 import { State, Apple, Snake } from '../common/types';
 import { updateDirection, keyboard } from './direction';
-import { getInitialSnake } from '../common/util';
+import { getInitialSnake, randomizeApple } from '../common/util';
 import { updateSnakeMovement } from './snakeMovement';
 import { updateDeadSnake } from './snakeDead';
-
-// import { moveSnake, isSnakeAtApple, growSnake, randomizeApple, isSnakeDead, getInitialSnake } from './snakeUtil.js';
-// import { getNextDirection } from './directionUtil.js';
-// import { incrementScore, getNewHighScore, getHighScore, storeHighScore } from './scoreUtil.js';
+import { updateSnakeEatingApple } from './snakeEat';
+import { getHighScore } from './score';
 
 export interface StateOptions {
   row: number;
@@ -29,8 +27,8 @@ export function getInitialState({ row, col }: StateOptions): State {
  */
 export function getNewGameState({ row, col }: StateOptions): State {
   const initSnake: Snake = getInitialSnake();
-  const initApple: Apple = { row: 0, col: 0 }; // randomizeApple(initSnake, row, col);
-  const highScore = 100; // getHighScore();
+  const initApple: Apple = randomizeApple(initSnake, row, col);
+  const highScore = getHighScore();
   const score = 0;
   const timer = 200;
 
@@ -55,44 +53,10 @@ export function getNewGameState({ row, col }: StateOptions): State {
   };
 }
 
-/**
- *
- * Retrieves the new set of options based on the keyboard pressed
- *
- */
 export function updateState(state: State) {
   let newState = updateDirection(state);
   newState = updateDeadSnake(newState);
   newState = updateSnakeMovement(newState);
-  // newState = updateSnakeEatingApple(state.snake)(newState);
+  newState = updateSnakeEatingApple(state.snake)(newState);
   return newState;
 }
-
-// const updateSnakeEatingApple = (oldSnake) => (state) => {
-//   const { snake, apple } = state;
-
-//   if (isSnakeAtApple(snake, apple)) {
-//     const { score, highScore, row, col, timer } = state;
-//     const newScore = incrementScore(score);
-
-//     return {
-//       ...state,
-//       timer: updateTimer(timer),
-//       snake: growSnake(snake, oldSnake),
-//       apple: randomizeApple(snake, row, col),
-//       score: newScore,
-//       highScore: getNewHighScore(newScore, highScore),
-//     };
-//   }
-
-//   return state;
-// };
-
-// function updateTimer(timer) {
-//   let timerDecrementor = 2.5;
-//   let timerThreshold = 40;
-
-//   if (timer <= timerThreshold) return timerThreshold;
-
-//   return timer - timerDecrementor;
-// }
