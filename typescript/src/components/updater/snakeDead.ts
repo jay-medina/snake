@@ -10,9 +10,7 @@ export const updateDeadSnake = (state: State): State => {
 
     return {
       ...state,
-      // gameState: {
-      //   current: 'gameover',
-      // },
+      gameState: 'gameover',
     };
   }
 

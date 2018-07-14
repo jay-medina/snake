@@ -17,7 +17,7 @@ export function getInitialSnake() {
 }
 
 export function isGameOver(state: State) {
-  // return state.gameState.current === 'gameover';
+  return state.gameState === 'gameover';
 }
 
 /**

@@ -4,7 +4,7 @@ import Paint from './Paint';
 
 import { State } from '../common/types';
 import { StateOptions, getInitialState, updateState } from '../updater/updater';
-import { isSnakeDead } from '../common/util';
+import { isGameOver } from '../common/util';
 
 export function createApp(options: StateOptions) {
   let state = getInitialState(options);
@@ -19,7 +19,7 @@ function gameLoop(state: State) {
     const newState = updateState(state);
     paintGame(newState);
 
-    if (!isSnakeDead(state.snake, state.row, state.col)) {
+    if (!isGameOver(newState)) {
       gameLoop(newState);
     }
   }, state.timer);

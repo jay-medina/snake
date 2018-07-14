@@ -1,4 +1,4 @@
-import { State, Apple, Snake } from '../common/types';
+import { State, Apple, Snake, GameState } from '../common/types';
 import { updateDirection, keyboard } from './direction';
 import { getInitialSnake, randomizeApple } from '../common/util';
 import { updateSnakeMovement } from './snakeMovement';
@@ -32,14 +32,6 @@ export function getNewGameState({ row, col }: StateOptions): State {
   const score = 0;
   const timer = 200;
 
-  // let newGameState = {
-  //   current: 'run',
-  // };
-
-  // if (gameState) {
-  //   newGameState = gameState;
-  // }
-
   return {
     row,
     col,
@@ -49,7 +41,7 @@ export function getNewGameState({ row, col }: StateOptions): State {
     snake: initSnake,
     apple: initApple,
     direction: keyboard.getDirection(),
-    // gameState: newGameState,
+    gameState: 'run',
   };
 }
 
