@@ -27,6 +27,8 @@ export function getInitialState({ row, col }: StateOptions): State {
  *
  */
 export function getNewGameState({ row, col, gameState }: StateOptions & { gameState: GameState }): State {
+  keyboard.resetDirection();
+
   const initSnake: Snake = getInitialSnake();
   const initApple: Apple = randomizeApple(initSnake, row, col);
   const highScore = getHighScore();

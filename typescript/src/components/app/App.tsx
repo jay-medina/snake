@@ -15,9 +15,9 @@ export function createApp(options: StateOptions) {
 }
 
 function gameLoop(state: State) {
-  setTimeout(() => {
+  let timerId = setTimeout(() => {
     const newState = updateState(state);
-    
+
     paintGame(newState, () => {
       gameLoop(resetGame(state));
     });
