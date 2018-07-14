@@ -1,4 +1,15 @@
-import { Snake, Direction } from '../common/types';
+import { Snake, Direction, State } from '../common/types';
+
+export const updateSnakeMovement = (state: State): State => {
+  const { snake, direction } = state;
+
+  const newSnake = moveSnake(snake, direction);
+
+  return {
+    ...state,
+    snake: newSnake,
+  };
+};
 
 export function moveSnake(snake: Snake, direction: Direction) {
   const [head] = snake;
