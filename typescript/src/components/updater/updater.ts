@@ -1,6 +1,7 @@
 import { State, Apple, Snake } from '../common/types';
 import { updateDirection, keyboard } from './direction';
 import { getInitialSnake } from '../common/util';
+import { updateSnakeMovement } from './snakeMovement';
 
 // import { moveSnake, isSnakeAtApple, growSnake, randomizeApple, isSnakeDead, getInitialSnake } from './snakeUtil.js';
 // import { getNextDirection } from './directionUtil.js';
@@ -60,7 +61,7 @@ export function getNewGameState({ row, col }: StateOptions): State {
  */
 export function updateState(state: State) {
   let newState = updateDirection(state);
-  // newState = updateSnakeMovement(newState);
+  newState = updateSnakeMovement(newState);
   // newState = updateSnakeEatingApple(state.snake)(newState);
   // newState = updateDeadSnake(newState);
   return newState;

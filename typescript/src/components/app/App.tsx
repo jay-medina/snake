@@ -17,6 +17,7 @@ function gameLoop(state: State) {
   setTimeout(() => {
     const newState = updateState(state);
     paintGame(newState);
+    gameLoop(newState);
   }, state.timer);
 }
 
