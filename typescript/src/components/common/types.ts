@@ -9,7 +9,7 @@ export type Snake = GridItem[];
 
 export type Direction = 'left' | 'right' | 'up' | 'down';
 
-export type GameState = 'run' | 'gameover';
+export type GameState = 'start' | 'run' | 'gameover';
 
 export type State = {
   row: number;

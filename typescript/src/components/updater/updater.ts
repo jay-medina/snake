@@ -18,6 +18,7 @@ export function getInitialState({ row, col }: StateOptions): State {
   return getNewGameState({
     row,
     col,
+    gameState: 'start',
   });
 }
 
@@ -25,7 +26,7 @@ export function getInitialState({ row, col }: StateOptions): State {
  * Start for starting a new game
  *
  */
-export function getNewGameState({ row, col }: StateOptions): State {
+export function getNewGameState({ row, col, gameState }: StateOptions & { gameState: GameState }): State {
   const initSnake: Snake = getInitialSnake();
   const initApple: Apple = randomizeApple(initSnake, row, col);
   const highScore = getHighScore();
@@ -38,15 +39,20 @@ export function getNewGameState({ row, col }: StateOptions): State {
     score,
     highScore,
     timer,
+    gameState,
     snake: initSnake,
     apple: initApple,
     direction: keyboard.getDirection(),
-    gameState: 'run',
   };
 }
 
 export function updateState(state: State) {
-  let newState = updateDirection(state);
+  let newState: State = {
+    ...state,
+    gameState: 'run',
+  };
+
+  newState = updateDirection(newState);
   newState = updateDeadSnake(newState);
   newState = updateSnakeMovement(newState);
   newState = updateSnakeEatingApple(state.snake)(newState);
