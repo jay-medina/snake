@@ -4,6 +4,7 @@ import Paint from './Paint';
 
 import { State } from '../common/types';
 import { StateOptions, getInitialState, updateState } from '../updater/updater';
+import { isSnakeDead } from '../common/util';
 
 export function createApp(options: StateOptions) {
   let state = getInitialState(options);
@@ -17,7 +18,10 @@ function gameLoop(state: State) {
   setTimeout(() => {
     const newState = updateState(state);
     paintGame(newState);
-    gameLoop(newState);
+
+    if (!isSnakeDead(state.snake, state.row, state.col)) {
+      gameLoop(newState);
+    }
   }, state.timer);
 }
 

@@ -2,6 +2,7 @@ import { State, Apple, Snake } from '../common/types';
 import { updateDirection, keyboard } from './direction';
 import { getInitialSnake } from '../common/util';
 import { updateSnakeMovement } from './snakeMovement';
+import { updateDeadSnake } from './snakeDead';
 
 // import { moveSnake, isSnakeAtApple, growSnake, randomizeApple, isSnakeDead, getInitialSnake } from './snakeUtil.js';
 // import { getNextDirection } from './directionUtil.js';
@@ -61,15 +62,11 @@ export function getNewGameState({ row, col }: StateOptions): State {
  */
 export function updateState(state: State) {
   let newState = updateDirection(state);
+  newState = updateDeadSnake(newState);
   newState = updateSnakeMovement(newState);
   // newState = updateSnakeEatingApple(state.snake)(newState);
-  // newState = updateDeadSnake(newState);
   return newState;
 }
-
-// export function isGameOver(state: State) {
-//   return state.gameState.current === 'gameover';
-// }
 
 // const updateSnakeEatingApple = (oldSnake) => (state) => {
 //   const { snake, apple } = state;
@@ -99,20 +96,3 @@ export function updateState(state: State) {
 
 //   return timer - timerDecrementor;
 // }
-
-// const updateDeadSnake = (state) => {
-//   const { snake, row, col, highScore } = state;
-
-//   if (isSnakeDead(snake, row, col)) {
-//     storeHighScore(highScore);
-
-//     return {
-//       ...state,
-//       gameState: {
-//         current: 'gameover',
-//       },
-//     };
-//   }
-
-//   return state;
-// };

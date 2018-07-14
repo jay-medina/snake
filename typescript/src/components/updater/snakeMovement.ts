@@ -1,7 +1,12 @@
 import { Snake, Direction, State } from '../common/types';
+import { isSnakeDead } from '../common/util';
 
 export const updateSnakeMovement = (state: State): State => {
   const { snake, direction } = state;
+
+  if (isSnakeDead(snake, state.row, state.col)) {
+    return state;
+  }
 
   const newSnake = moveSnake(snake, direction);
 
