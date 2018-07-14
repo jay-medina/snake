@@ -11,7 +11,7 @@ export type Direction = 'left' | 'right' | 'up' | 'down';
 
 export type GameState = 'start' | 'run' | 'gameover';
 
-export type State = {
+export interface State {
   row: number;
   col: number;
   snake: Snake;
@@ -21,4 +21,4 @@ export type State = {
   timer: number;
   apple: Apple;
   gameState: GameState;
-};
+}

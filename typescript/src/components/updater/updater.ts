@@ -1,10 +1,10 @@
-import { State, Apple, Snake, GameState } from '../common/types';
-import { updateDirection, keyboard } from './direction';
+import { Apple, GameState, Snake, State } from '../common/types';
 import { getInitialSnake, randomizeApple } from '../common/util';
-import { updateSnakeMovement } from './snakeMovement';
+import { keyboard, updateDirection } from './direction';
+import { getHighScore } from './score';
 import { updateDeadSnake } from './snakeDead';
 import { updateSnakeEatingApple } from './snakeEat';
-import { getHighScore } from './score';
+import { updateSnakeMovement } from './snakeMovement';
 
 export interface StateOptions {
   row: number;

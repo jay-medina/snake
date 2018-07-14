@@ -1,0 +1,12 @@
+{
+  "extends": "tslint:recommended",
+  "jsRules": {
+    "quotemark": [true, "single"],
+    "object-literal-sort-keys": false
+  },
+  "rules": {
+    "quotemark": [true, "single", "jsx-double"],
+    "interface-name": [true, "never-prefix"],
+    "object-literal-sort-keys": false
+  }
+}

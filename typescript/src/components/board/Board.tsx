@@ -1,6 +1,6 @@
 import React from 'react';
-import Row from './Row';
 import { Apple, Snake } from '../common/types';
+import Row from './Row';
 
 export interface BoardProps {
   row: number;

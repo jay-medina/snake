@@ -1,5 +1,5 @@
-import { Direction, State } from '../common/types';
 import { wireKeyboard } from '../common/keyboard';
+import { Direction, State } from '../common/types';
 
 export const keyboard = wireKeyboard();
 

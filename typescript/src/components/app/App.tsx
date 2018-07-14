@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import Paint from './Paint';
 
 import { State } from '../common/types';
-import { StateOptions, getInitialState, updateState, resetGame } from '../updater/updater';
 import { isGameOver } from '../common/util';
+import { getInitialState, resetGame, StateOptions, updateState } from '../updater/updater';
 
 export function createApp(options: StateOptions) {
-  let state = getInitialState(options);
+  const state = getInitialState(options);
 
   paintGame(state, () => {
     gameLoop(state);
@@ -15,7 +15,7 @@ export function createApp(options: StateOptions) {
 }
 
 function gameLoop(state: State) {
-  let timerId = setTimeout(() => {
+  setTimeout(() => {
     const newState = updateState(state);
 
     paintGame(newState, () => {

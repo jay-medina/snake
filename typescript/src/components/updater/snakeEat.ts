@@ -1,6 +1,6 @@
 import { Snake, State } from '../common/types';
 import { isSnakeAtApple, randomizeApple } from '../common/util';
-import { incrementScore, getNewHighScore } from './score';
+import { getNewHighScore, incrementScore } from './score';
 import { updateTimer } from './timer';
 
 export const updateSnakeEatingApple = (oldSnake: Snake) => (state: State) => {
@@ -27,7 +27,7 @@ export const updateSnakeEatingApple = (oldSnake: Snake) => (state: State) => {
  * Increases the size of the snake
  */
 export function growSnake(snake: Snake, oldSnake: Snake) {
-  let lastPosition = oldSnake[oldSnake.length - 1];
+  const lastPosition = oldSnake[oldSnake.length - 1];
 
   return [...snake, lastPosition];
 }
