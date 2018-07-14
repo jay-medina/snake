@@ -4,8 +4,8 @@ import Paint from './Paint';
 
 import { getInitialSnake } from '../common/util';
 import { Snake } from '../common/types';
-import { getNextDirection } from '../common/directionUtil';
 import { moveSnake } from '../updater/snakeMovement';
+import { wireKeyboard } from '../common/keyboard';
 
 export interface AppOptions {
   row: number;
@@ -14,6 +14,7 @@ export interface AppOptions {
 
 export function createApp(options: AppOptions) {
   let snake = getInitialSnake();
+  const keyboard = wireKeyboard();
 
   const gameOpts = {
     snake,
@@ -22,8 +23,8 @@ export function createApp(options: AppOptions) {
 
   paintGame(gameOpts);
 
-  setTimeout(() => {
-    snake = moveSnake(snake, 'right');
+  setInterval(() => {
+    snake = moveSnake(snake, keyboard.getDirection());
     paintGame({
       ...gameOpts,
       snake,
