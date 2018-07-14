@@ -46,6 +46,8 @@ export function getNewGameState({ row, col, gameState }: StateOptions & { gameSt
   };
 }
 
+export const resetGame = getInitialState;
+
 export function updateState(state: State) {
   let newState: State = {
     ...state,
