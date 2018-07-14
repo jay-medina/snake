@@ -22,7 +22,6 @@ export function createApp(options) {
     col: initState.col,
     snake: initState.snake,
     apple: initState.apple,
-    gameState: initState.gameState,
     score: initState.score,
     highScore: initState.highScore,
     onStartGameClick,
