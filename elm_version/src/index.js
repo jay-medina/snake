@@ -1,5 +1,7 @@
 import './style.css';
 
-console.log('*******************');
-console.log('HELLLO WORRLD');
-console.log('*******************');
+import { Main } from './Main.elm';
+
+const node = document.getElementById('root');
+
+Main.embed(node);
