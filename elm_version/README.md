@@ -14,11 +14,15 @@ In order to run the application, the user must have node installed.
 
 - Mac and Windows: https://nodejs.org
 
+#### Elm
+
+- Install elm. Instructions are located here: https://guide.elm-lang.org/install.html
+
 ## How to run solution
 
 The following instructions are to start a localhost using Node.
 
-- Install elm. Instructions are located here: https://guide.elm-lang.org/install.html
+- Run npm start.
 
 ## Game Play
 
