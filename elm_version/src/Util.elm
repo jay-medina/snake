@@ -1,4 +1,4 @@
-module Util exposing (isSnakeAtPosition, isTheApple)
+module Util exposing (initialSnake, isSnakeAtPosition, isTheApple)
 
 import Model exposing (Apple, GridItem, Snake)
 
@@ -16,3 +16,8 @@ isTheApple =
 isSnakeAtPosition : GridItem -> Snake -> Bool
 isSnakeAtPosition gridItem =
     List.any (isAtPosition gridItem)
+
+
+initialSnake : Snake
+initialSnake =
+    [ { row = 12, col = 12 }, { row = 12, col = 11 }, { row = 12, col = 10 } ]

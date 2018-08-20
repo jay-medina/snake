@@ -4,6 +4,7 @@ import Html exposing (Html, div, program, text)
 import Html.Attributes exposing (class)
 import Model exposing (Model)
 import Msg exposing (Msg)
+import Util exposing (initialSnake)
 import Views.Board exposing (board)
 import Views.Score exposing (scoreboard)
 
@@ -44,7 +45,7 @@ createApp { row, col } =
             , row = row
             , col = col
             , apple = { row = 4, col = 4 }
-            , snake = [ { row = 14, col = 10 }, { row = 14, col = 11 }, { row = 14, col = 12 } ]
+            , snake = initialSnake
             }
 
         init : ( Model, Cmd Msg )
