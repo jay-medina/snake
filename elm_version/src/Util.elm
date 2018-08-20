@@ -1,17 +1,18 @@
-module Util exposing (..)
+module Util exposing (isSnakeAtPosition, isTheApple)
 
-import Model exposing (Apple, GridItem)
+import Model exposing (Apple, GridItem, Snake)
+
+
+isAtPosition : GridItem -> GridItem -> Bool
+isAtPosition item1 item2 =
+    item1.row == item2.row && item1.col == item2.col
 
 
 isTheApple : Apple -> GridItem -> Bool
-isTheApple apple gridItem =
-    apple.row == gridItem.row && apple.col == gridItem.col
+isTheApple =
+    isAtPosition
 
 
-
--- export function isTheApple(apple: Apple, row: number, col: number) {
---   return row === apple.row && col === apple.col;
--- }
--- export function isSnakeAtPosition(snake: Snake, row: number, col: number) {
---   return !!snake.find((part) => part.row === row && part.col === col);
--- }
+isSnakeAtPosition : GridItem -> Snake -> Bool
+isSnakeAtPosition gridItem =
+    List.any (isAtPosition gridItem)

@@ -25,7 +25,7 @@ view : Model -> Html Msg
 view model =
     div [ class "snake__app" ]
         [ scoreboard { current = model.score, highScore = model.highScore }
-        , board { row = model.row, col = model.col, apple = model.apple }
+        , board { row = model.row, col = model.col, apple = model.apple, snake = model.snake }
         ]
 
 
@@ -44,6 +44,7 @@ createApp { row, col } =
             , row = row
             , col = col
             , apple = { row = 4, col = 4 }
+            , snake = [ { row = 14, col = 10 }, { row = 14, col = 11 }, { row = 14, col = 12 } ]
             }
 
         init : ( Model, Cmd Msg )

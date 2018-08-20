@@ -7,6 +7,7 @@ type alias Model =
     , row : Int
     , col : Int
     , apple : Apple
+    , snake : Snake
     }
 
 

@@ -2,14 +2,15 @@ module Views.Board exposing (board)
 
 import Html exposing (Html, div)
 import Html.Attributes exposing (class)
-import Model exposing (Apple)
-import Util exposing (isTheApple)
+import Model exposing (Apple, Snake)
+import Util exposing (isSnakeAtPosition, isTheApple)
 
 
 type alias BoardProps =
     { row : Int
     , col : Int
     , apple : Apple
+    , snake : Snake
     }
 
 
@@ -40,11 +41,17 @@ boardcol filled =
 
 
 boardrow : BoardProps -> Html msg
-boardrow { apple, row, col } =
+boardrow { snake, apple, row, col } =
     let
-        getFilled col =
-            if isTheApple apple { row = row, col = col } then
+        getFilled currentCol =
+            let
+                gridItem =
+                    { row = row, col = currentCol }
+            in
+            if isTheApple apple gridItem then
                 Apple
+            else if isSnakeAtPosition gridItem snake then
+                Snake
             else
                 Nothing
     in
