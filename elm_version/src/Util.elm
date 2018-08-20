@@ -1,7 +1,7 @@
 module Util exposing (..)
 
-import Debug
-import Model exposing (Apple, GridItem, Snake)
+import Model exposing (Apple, GridItem, Model, Snake)
+import Msg exposing (Msg(..))
 import Random
 
 
@@ -25,6 +25,21 @@ initialSnake =
     [ { row = 12, col = 12 }, { row = 12, col = 11 }, { row = 12, col = 10 } ]
 
 
-randomizeApple : Apple
-randomizeApple =
+initialApple : Apple
+initialApple =
     { row = 4, col = 4 }
+
+
+randomizeApple : Model -> Cmd Msg
+randomizeApple model =
+    let
+        rowGenerator =
+            Random.int 1 model.row
+
+        colGenerator =
+            Random.int 1 model.col
+
+        rowCol =
+            Random.pair rowGenerator colGenerator
+    in
+    Random.generate NewApple rowCol

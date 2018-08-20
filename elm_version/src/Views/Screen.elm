@@ -2,6 +2,7 @@ module Views.Screen exposing (..)
 
 import Html exposing (Html, button, div, program, text)
 import Html.Attributes exposing (class)
+import Html.Events exposing (onClick)
 import Model exposing (GameState(..), Model)
 import Msg exposing (Msg)
 import Views.Board exposing (board)
@@ -12,7 +13,7 @@ playButton : Html Msg
 playButton =
     div
         [ class "snake__start-screen-play-container" ]
-        [ button [ class "snake__start-screen-play" ] [ text "Play" ] ]
+        [ button [ class "snake__start-screen-play", onClick Msg.Play ] [ text "Play" ] ]
 
 
 start : Html Msg

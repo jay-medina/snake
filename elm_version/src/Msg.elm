@@ -2,4 +2,5 @@ module Msg exposing (..)
 
 
 type Msg
-    = Nothing
+    = Play
+    | NewApple ( Int, Int )
