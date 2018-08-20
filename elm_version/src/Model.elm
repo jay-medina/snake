@@ -1,6 +1,12 @@
 module Model exposing (..)
 
 
+type GameState
+    = Start
+    | Run
+    | GameOver
+
+
 type alias Model =
     { score : Int
     , highScore : Int
@@ -8,6 +14,7 @@ type alias Model =
     , col : Int
     , apple : Apple
     , snake : Snake
+    , gameState : GameState
     }
 
 

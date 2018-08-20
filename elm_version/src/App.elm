@@ -1,12 +1,10 @@
 module App exposing (createApp)
 
 import Html exposing (Html, div, program, text)
-import Html.Attributes exposing (class)
-import Model exposing (Model)
+import Model exposing (GameState(..), Model)
 import Msg exposing (Msg)
-import Util exposing (initialSnake)
-import Views.Board exposing (board)
-import Views.Score exposing (scoreboard)
+import Util exposing (initialSnake, randomizeApple)
+import Views.Screen exposing (screen)
 
 
 type alias AppOptions =
@@ -23,11 +21,8 @@ update msg model =
 
 
 view : Model -> Html Msg
-view model =
-    div [ class "snake__app" ]
-        [ scoreboard { current = model.score, highScore = model.highScore }
-        , board { row = model.row, col = model.col, apple = model.apple, snake = model.snake }
-        ]
+view =
+    screen
 
 
 subscriptions : Model -> Sub Msg
@@ -44,8 +39,9 @@ createApp { row, col } =
             , highScore = 20
             , row = row
             , col = col
-            , apple = { row = 4, col = 4 }
+            , apple = randomizeApple
             , snake = initialSnake
+            , gameState = Start
             }
 
         init : ( Model, Cmd Msg )

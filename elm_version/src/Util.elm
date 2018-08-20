@@ -1,6 +1,8 @@
-module Util exposing (initialSnake, isSnakeAtPosition, isTheApple)
+module Util exposing (..)
 
+import Debug
 import Model exposing (Apple, GridItem, Snake)
+import Random
 
 
 isAtPosition : GridItem -> GridItem -> Bool
@@ -21,3 +23,8 @@ isSnakeAtPosition gridItem =
 initialSnake : Snake
 initialSnake =
     [ { row = 12, col = 12 }, { row = 12, col = 11 }, { row = 12, col = 10 } ]
+
+
+randomizeApple : Apple
+randomizeApple =
+    { row = 4, col = 4 }
