@@ -1,5 +1,5 @@
 import { Apple, GameState, Snake, State } from '../common/types';
-import { getInitialSnake, randomizeApple } from '../common/util';
+import { initialSnake, randomizeApple } from '../common/util';
 import { keyboard, updateDirection } from './direction';
 import { getHighScore } from './score';
 import { updateDeadSnake } from './snakeDead';
@@ -29,7 +29,7 @@ export function getInitialState({ row, col }: StateOptions): State {
 export function getNewGameState({ row, col, gameState }: StateOptions & { gameState: GameState }): State {
   keyboard.resetDirection();
 
-  const initSnake: Snake = getInitialSnake();
+  const initSnake: Snake = [...initialSnake];
   const initApple: Apple = randomizeApple(initSnake, row, col);
   const highScore = getHighScore();
   const score = 0;
