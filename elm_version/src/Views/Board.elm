@@ -58,7 +58,7 @@ boardrow { snake, apple, row, col } =
     div
         [ class "snake__board-row" ]
         (List.map
-            (\x -> boardcol <| getFilled x)
+            (\x -> getFilled x |> boardcol)
             (List.range 0 col)
         )
 
@@ -68,6 +68,6 @@ board props =
     div
         [ class "snake__board" ]
         (List.map
-            (\r -> boardrow <| { props | row = r })
+            (\r -> { props | row = r } |> boardrow)
             (List.range 0 props.row)
         )
