@@ -1,4 +1,4 @@
-module Components.Score exposing (ScoreboardProps, scoreboard)
+module Views.Score exposing (ScoreboardProps, scoreboard)
 
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (class)

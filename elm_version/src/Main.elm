@@ -1,8 +1,9 @@
 module Main exposing (..)
 
-import Components.Score exposing (scoreboard)
 import Html exposing (Html, div, program, text)
 import Html.Attributes exposing (class)
+import Views.Board exposing (board)
+import Views.Score exposing (scoreboard)
 
 
 type Msg
@@ -10,19 +11,32 @@ type Msg
 
 
 type alias Model =
-    String
+    { score : Int
+    , highScore : Int
+    , row : Int
+    , col : Int
+    }
+
+
+initModel : Model
+initModel =
+    { score = 0
+    , highScore = 20
+    , row = 25
+    , col = 25
+    }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( "hello", Cmd.none )
+    ( initModel, Cmd.none )
 
 
 view : Model -> Html Msg
 view model =
     div [ class "snake__app" ]
-        [ scoreboard { current = 20, highScore = 25 }
-        , text model
+        [ scoreboard { current = model.score, highScore = model.highScore }
+        , board { row = model.row, col = model.col }
         ]
 
 
