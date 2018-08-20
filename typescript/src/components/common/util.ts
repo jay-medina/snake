@@ -1,20 +1,22 @@
-import { Apple, Snake, State } from './types';
+import { Apple, Snake, State, GridItem } from './types';
+
+const isAtPosition = (gridItem1: GridItem) => (gridItem2: GridItem) => {
+  return gridItem1.row === gridItem2.row && gridItem1.col === gridItem2.col;
+};
 
 export function isSnakeAtApple(snake: Snake, apple: Apple) {
   return isSnakeAtPosition(snake, apple.row, apple.col);
 }
 
 export function isSnakeAtPosition(snake: Snake, row: number, col: number) {
-  return !!snake.find((part) => part.row === row && part.col === col);
+  return !!snake.find(isAtPosition({ row, col }));
 }
 
-export function isTheApple(apple: Apple, row: number, col: number) {
-  return row === apple.row && col === apple.col;
-}
+export const isTheApple = (apple: Apple, row: number, col: number) => {
+  return isAtPosition(apple)({ row, col });
+};
 
-export function getInitialSnake() {
-  return [{ row: 12, col: 12 }, { row: 12, col: 11 }, { row: 12, col: 10 }];
-}
+export const initialSnake = [{ row: 12, col: 12 }, { row: 12, col: 11 }, { row: 12, col: 10 }];
 
 export function isGameOver(state: State) {
   return state.gameState === 'gameover';

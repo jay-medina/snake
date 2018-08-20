@@ -1,4 +1,4 @@
-interface GridItem {
+export interface GridItem {
   row: number;
   col: number;
 }
