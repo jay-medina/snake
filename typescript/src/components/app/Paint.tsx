@@ -1,8 +1,8 @@
 import React from 'react';
-import Board from '../board/Board';
 import { Apple, GameState, Snake } from '../common/types';
-import ScoreBoard from '../scoreboard/Scoreboard';
+import Board from './Board';
 import { GameOver } from './GameOver';
+import ScoreBoard from './Scoreboard';
 import { Start } from './Start';
 
 export interface AppProps {
