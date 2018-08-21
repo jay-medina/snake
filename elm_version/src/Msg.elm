@@ -1,9 +1,9 @@
 module Msg exposing (..)
 
-import Time exposing (Time)
+import Time exposing (Posix)
 
 
 type Msg
     = StartGame
     | NewApple ( Int, Int )
-    | Tick Time
+    | Tick Posix

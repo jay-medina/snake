@@ -1,6 +1,7 @@
 module Views.Screen exposing (..)
 
-import Html exposing (Html, button, div, program, text)
+import Browser exposing (Document)
+import Html exposing (Html, button, div, text)
 import Html.Attributes exposing (class)
 import Html.Events exposing (onClick)
 import Model exposing (GameState(..), Model)
@@ -43,23 +44,23 @@ screen model =
         scoreBoardView =
             scoreboard { current = model.score, highScore = model.highScore }
     in
-    case model.gameState of
-        Start ->
-            div [ class "snake__app" ]
-                [ scoreBoardView
-                , boardView
-                , start
-                ]
+        case model.gameState of
+            Start ->
+                div [ class "snake__app" ]
+                    [ scoreBoardView
+                    , boardView
+                    , start
+                    ]
 
-        GameOver ->
-            div [ class "snake__app" ]
-                [ scoreBoardView
-                , boardView
-                , gameOver
-                ]
+            GameOver ->
+                div [ class "snake__app" ]
+                    [ scoreBoardView
+                    , boardView
+                    , gameOver
+                    ]
 
-        Run ->
-            div [ class "snake__app" ]
-                [ scoreBoardView
-                , boardView
-                ]
+            Run ->
+                div [ class "snake__app" ]
+                    [ scoreBoardView
+                    , boardView
+                    ]

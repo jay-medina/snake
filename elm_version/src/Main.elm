@@ -1,21 +1,25 @@
 module Main exposing (..)
 
-import App exposing (createApp)
-import Model exposing (Model)
+import Browser
+import Model exposing (Model, GameState(..), Direction(..))
 import Msg exposing (Msg)
+import Time exposing (every)
+import Util exposing (initialSnake, initialApple)
+import Views.Screen exposing (screen)
+import Update exposing (update)
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
         [ if model.gameState == Run then
-            every model.timer Tick
+            every model.timer Msg.Tick
           else
             Sub.none
         ]
 
 
-main : Program Never Model Msg
+main : Program Int Model Msg
 main =
     let
         initModel : Model
@@ -31,11 +35,11 @@ main =
             , direction = Right
             }
 
-        init : ( Model, Cmd Msg )
-        init =
+        init : Int -> ( Model, Cmd Msg )
+        init flags =
             ( initModel, Cmd.none )
     in
-        Html.program
+        Browser.element
             { init = init
             , view = screen
             , update = update

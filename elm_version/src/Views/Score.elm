@@ -15,7 +15,7 @@ score : String -> Int -> Html Msg
 score title num =
     div [ class "snake__score" ]
         [ div [ class "snake__score-title" ] [ text title ]
-        , div [ class "snake__score-number" ] [ text <| toString num ]
+        , div [ class "snake__score-number" ] [ text <| String.fromInt num ]
         ]
 
 
