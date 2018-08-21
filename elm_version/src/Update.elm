@@ -2,7 +2,7 @@ module Update exposing (..)
 
 import Model exposing (Direction(..), GameState(..), Model)
 import Msg exposing (Msg(..))
-import Util exposing (initialApple, initialSnake, isSnakeAtPosition, randomizeApple)
+import Util exposing (initialApple, initialSnake, isSnakeAtPosition, isSnakeDead, randomizeApple)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -11,7 +11,7 @@ update msg model =
         StartGame ->
             let
                 updateModel =
-                    { model | gameState = Run }
+                    { model | gameState = Run, snake = initialSnake }
             in
             ( updateModel, randomizeApple model )
 
@@ -28,9 +28,17 @@ update msg model =
                 )
 
         Tick time ->
-            ( model |> updateSnakeMovement
+            ( model |> updateSnakeMovement |> updateSnakeDead
             , Cmd.none
             )
+
+
+updateSnakeDead : Model -> Model
+updateSnakeDead model =
+    if isSnakeDead model.snake model.row model.col then
+        { model | gameState = GameOver }
+    else
+        model
 
 
 updateSnakeMovement : Model -> Model

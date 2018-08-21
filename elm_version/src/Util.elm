@@ -20,6 +20,31 @@ isSnakeAtPosition gridItem =
     List.any (isAtPosition gridItem)
 
 
+isSnakeInWall : GridItem -> Int -> Int -> Bool
+isSnakeInWall snakeHead rows cols =
+    snakeHead.row < 0 || snakeHead.row >= rows || snakeHead.col < 0 || snakeHead.col >= cols
+
+
+isSnakeAtItself : GridItem -> Snake -> Bool
+isSnakeAtItself =
+    isSnakeAtPosition
+
+
+isSnakeDead : Snake -> Int -> Int -> Bool
+isSnakeDead snake rows cols =
+    let
+        head =
+            List.head snake
+    in
+    case head of
+        Just snakeHead ->
+            isSnakeInWall snakeHead rows cols
+                || isSnakeAtItself snakeHead (List.drop 1 snake)
+
+        Nothing ->
+            False
+
+
 initialSnake : Snake
 initialSnake =
     [ { row = 12, col = 12 }, { row = 12, col = 11 }, { row = 12, col = 10 } ]
