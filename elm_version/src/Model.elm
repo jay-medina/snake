@@ -7,6 +7,13 @@ type GameState
     | GameOver
 
 
+type Direction
+    = Left
+    | Right
+    | Up
+    | Down
+
+
 type alias Model =
     { score : Int
     , highScore : Int
@@ -15,6 +22,8 @@ type alias Model =
     , apple : Apple
     , snake : Snake
     , gameState : GameState
+    , direction : Direction
+    , timer : Float
     }
 
 

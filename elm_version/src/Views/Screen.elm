@@ -13,7 +13,7 @@ playButton : Html Msg
 playButton =
     div
         [ class "snake__start-screen-play-container" ]
-        [ button [ class "snake__start-screen-play", onClick Msg.Play ] [ text "Play" ] ]
+        [ button [ class "snake__start-screen-play", onClick Msg.StartGame ] [ text "Play" ] ]
 
 
 start : Html Msg

@@ -1,8 +1,10 @@
 module App exposing (createApp)
 
 import Html exposing (Html, div, program, text)
-import Model exposing (GameState(..), Model)
-import Msg exposing (Msg)
+import Model exposing (Direction(..), GameState(..), Model)
+import Msg exposing (Msg(..))
+import Time exposing (every, second)
+import Update exposing (update)
 import Util exposing (initialApple, initialSnake, isSnakeAtPosition, randomizeApple)
 import Views.Screen exposing (screen)
 
@@ -13,37 +15,14 @@ type alias AppOptions =
     }
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    case msg of
-        Msg.Play ->
-            let
-                updateModel =
-                    { model | gameState = Run }
-            in
-            ( updateModel, randomizeApple model )
-
-        Msg.NewApple ( row, col ) ->
-            let
-                newApple =
-                    { row = row, col = col }
-            in
-            if isSnakeAtPosition newApple model.snake then
-                ( model, randomizeApple model )
-            else
-                ( { model | apple = newApple }
-                , Cmd.none
-                )
-
-
-view : Model -> Html Msg
-view =
-    screen
-
-
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Sub.batch
+        [ if model.gameState == Run then
+            every model.timer Tick
+          else
+            Sub.none
+        ]
 
 
 createApp : AppOptions -> Program Never Model Msg
@@ -53,11 +32,13 @@ createApp { row, col } =
         initModel =
             { score = 0
             , highScore = 20
+            , timer = 200
             , row = row
             , col = col
             , apple = initialApple
             , snake = initialSnake
             , gameState = Start
+            , direction = Right
             }
 
         init : ( Model, Cmd Msg )
@@ -66,7 +47,7 @@ createApp { row, col } =
     in
     Html.program
         { init = init
-        , view = view
+        , view = screen
         , update = update
         , subscriptions = subscriptions
         }
