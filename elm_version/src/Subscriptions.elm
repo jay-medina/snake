@@ -5,7 +5,6 @@ import Msg exposing (Msg)
 import Browser.Events exposing (onKeyDown)
 import Time exposing (every)
 import Json.Decode as Decode
-import Debug
 
 
 keyDecoder : Decode.Decoder String
@@ -14,11 +13,8 @@ keyDecoder =
 
 
 mapStringToDirection : Model -> String -> Msg
-mapStringToDirection model str =
+mapStringToDirection model keyFired =
     let
-        keyFired =
-            str |> (Debug.log "keyfired")
-
         direction =
             if keyFired == "ArrowLeft" || keyFired == "a" then
                 Left

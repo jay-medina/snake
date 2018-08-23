@@ -11,7 +11,6 @@ import Util
         , randomizeApple
         , initialDirection
         )
-import Debug
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -42,7 +41,35 @@ update msg model =
             )
 
         KeyUp direction ->
-            ( { model | direction = direction }, Cmd.none )
+            ( updateDirection model direction, Cmd.none )
+
+
+updateDirection : Model -> Direction -> Model
+updateDirection model direction =
+    if isOppositeDirection model.direction direction then
+        model
+    else
+        { model | direction = direction }
+
+
+isOppositeDirection : Direction -> Direction -> Bool
+isOppositeDirection currentDirection newDirection =
+    currentDirection
+        == Left
+        && newDirection
+        == Right
+        || currentDirection
+        == Right
+        && newDirection
+        == Left
+        || currentDirection
+        == Up
+        && newDirection
+        == Down
+        || currentDirection
+        == Down
+        && newDirection
+        == Up
 
 
 updateSnakeDead : Model -> Model
@@ -57,7 +84,7 @@ updateSnakeMovement : Model -> Model
 updateSnakeMovement model =
     let
         snake =
-            model.snake |> Debug.log "snake"
+            model.snake
 
         headOfSnake =
             List.head snake
