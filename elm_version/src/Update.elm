@@ -28,7 +28,7 @@ update msg model =
                 )
 
         Tick time ->
-            ( model |> updateSnakeMovement |> updateSnakeDead
+            ( model |> updateSnakeDead |> updateSnakeMovement
             , Cmd.none
             )
 

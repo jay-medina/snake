@@ -1,4 +1,4 @@
-module Views.Screen exposing (..)
+module Views.Screen exposing (screen)
 
 import Browser exposing (Document)
 import Html exposing (Html, button, div, text)

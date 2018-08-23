@@ -4,20 +4,19 @@
 <head>
   <meta charset="utf-8">
   <title>Snake</title>
-  <link href="https://fonts.googleapis.com/css?family=Wendy+One" rel="stylesheet">
-  <link ref="stylesheet" href="./style.css">
+  <link href="https://fonts.googleapis.com/css?family=Wendy+One" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
   <div id="root"></div>
 
-  <script src="./elm.js"></script>
+  <script src="elm.js"></script>
   <script>
-    const node = document.getElementById('root');
-
-    debugger;
-
-    console.log(Elm);
+    Elm.Main.init({
+      node: document.getElementById('root'),
+      flags: 1,
+    })
   </script>
 </body>
 

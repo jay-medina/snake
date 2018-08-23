@@ -7,7 +7,7 @@
     "copy:static": "cp -R src/static/ dist/",
     "build:elm": "elm make src/Main.elm --output=dist/elm.js",
     "build": "run-s build:elm copy:static",
-    "start:server": "http-server -p=8080",
+    "start:server": "http-server dist -o",
     "start": "npm run build && npm run start:server"
   },
   "author": "",
