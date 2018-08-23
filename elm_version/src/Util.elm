@@ -1,6 +1,6 @@
 module Util exposing (..)
 
-import Model exposing (Apple, GridItem, Model, Snake)
+import Model exposing (Apple, GridItem, Model, Snake, Direction(..))
 import Msg exposing (Msg(..))
 import Random
 
@@ -36,18 +36,23 @@ isSnakeDead snake rows cols =
         head =
             List.head snake
     in
-    case head of
-        Just snakeHead ->
-            isSnakeInWall snakeHead rows cols
-                || isSnakeAtItself snakeHead (List.drop 1 snake)
+        case head of
+            Just snakeHead ->
+                isSnakeInWall snakeHead rows cols
+                    || isSnakeAtItself snakeHead (List.drop 1 snake)
 
-        Nothing ->
-            False
+            Nothing ->
+                False
 
 
 initialSnake : Snake
 initialSnake =
     [ { row = 12, col = 12 }, { row = 12, col = 11 }, { row = 12, col = 10 } ]
+
+
+initialDirection : Direction
+initialDirection =
+    Right
 
 
 initialApple : Apple
@@ -67,4 +72,4 @@ randomizeApple model =
         rowCol =
             Random.pair rowGenerator colGenerator
     in
-    Random.generate NewApple rowCol
+        Random.generate NewApple rowCol

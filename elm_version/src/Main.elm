@@ -3,20 +3,10 @@ module Main exposing (..)
 import Browser
 import Model exposing (Model, GameState(..), Direction(..))
 import Msg exposing (Msg)
-import Time exposing (every)
-import Util exposing (initialSnake, initialApple)
+import Util exposing (initialSnake, initialApple, initialDirection)
 import Views.Screen exposing (screen)
 import Update exposing (update)
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.batch
-        [ if model.gameState == Run then
-            every model.timer Msg.Tick
-          else
-            Sub.none
-        ]
+import Subscriptions exposing (subscriptions)
 
 
 main : Program Int Model Msg
@@ -32,7 +22,7 @@ main =
             , apple = initialApple
             , snake = initialSnake
             , gameState = Start
-            , direction = Right
+            , direction = initialDirection
             }
 
         init : Int -> ( Model, Cmd Msg )
