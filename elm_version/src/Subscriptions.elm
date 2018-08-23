@@ -20,13 +20,13 @@ mapStringToDirection model str =
             str |> (Debug.log "keyfired")
 
         direction =
-            if keyFired == "ArrowUp" || keyFired == "a" then
+            if keyFired == "ArrowLeft" || keyFired == "a" then
                 Left
             else if keyFired == "ArrowRight" || keyFired == "d" then
                 Right
             else if keyFired == "ArrowDown" || keyFired == "s" then
                 Down
-            else if keyFired == "ArrayUp" || keyFired == "w" then
+            else if keyFired == "ArrowUp" || keyFired == "w" then
                 Up
             else
                 model.direction
