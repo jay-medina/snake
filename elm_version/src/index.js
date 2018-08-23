@@ -1,4 +1,3 @@
-import './style.css';
 
 import { Main } from './Main.elm';
 

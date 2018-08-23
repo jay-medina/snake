@@ -3,6 +3,7 @@ module Views.Board exposing (board)
 import Html exposing (Html, div)
 import Html.Attributes exposing (class)
 import Model exposing (Apple, Snake)
+import Msg exposing (Msg)
 import Util exposing (isSnakeAtPosition, isTheApple)
 
 
@@ -20,7 +21,7 @@ type Filled
     | Nothing
 
 
-boardcol : Filled -> Html msg
+boardcol : Filled -> Html Msg
 boardcol filled =
     let
         className =
@@ -40,7 +41,7 @@ boardcol filled =
     div [ class colClassName ] []
 
 
-boardrow : BoardProps -> Html msg
+boardrow : BoardProps -> Html Msg
 boardrow { snake, apple, row, col } =
     let
         getFilled currentCol =
@@ -63,7 +64,7 @@ boardrow { snake, apple, row, col } =
         )
 
 
-board : BoardProps -> Html msg
+board : BoardProps -> Html Msg
 board props =
     div
         [ class "snake__board" ]
