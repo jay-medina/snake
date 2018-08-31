@@ -20,6 +20,11 @@ isSnakeAtPosition gridItem =
     List.any (isAtPosition gridItem)
 
 
+isSnakeAtApple : Apple -> Snake -> Bool
+isSnakeAtApple =
+    isSnakeAtPosition
+
+
 isSnakeInWall : GridItem -> Int -> Int -> Bool
 isSnakeInWall snakeHead rows cols =
     snakeHead.row < 0 || snakeHead.row >= rows || snakeHead.col < 0 || snakeHead.col >= cols

@@ -7,6 +7,7 @@ import Util
         ( initialApple
         , initialSnake
         , isSnakeAtPosition
+        , isSnakeAtApple
         , isSnakeDead
         , randomizeApple
         , initialDirection
@@ -36,9 +37,12 @@ update msg model =
                     )
 
         Tick time ->
-            ( model |> updateSnakeDead |> updateSnakeMovement
-            , Cmd.none
-            )
+            if isSnakeDead model.snake model.row model.col then
+                ( updateSnakeDead model, Cmd.none )
+            else if isSnakeAtApple model.apple model.snake then
+                updateSnakeEatingApple model
+            else
+                ( updateSnakeMovement model, Cmd.none )
 
         KeyUp direction ->
             ( updateDirection model direction, Cmd.none )
@@ -74,10 +78,28 @@ isOppositeDirection currentDirection newDirection =
 
 updateSnakeDead : Model -> Model
 updateSnakeDead model =
-    if isSnakeDead model.snake model.row model.col then
-        { model | gameState = GameOver }
-    else
-        model
+    { model | gameState = GameOver }
+
+
+updateSnakeEatingApple : Model -> ( Model, Cmd Msg )
+updateSnakeEatingApple model =
+    let
+        lastItem =
+            (model.snake |> List.reverse |> List.head)
+
+        newModel =
+            updateSnakeMovement model
+    in
+        case lastItem of
+            Just item ->
+                let
+                    snakeWithItem =
+                        (item :: (List.reverse newModel.snake)) |> List.reverse
+                in
+                    ( { newModel | snake = snakeWithItem }, randomizeApple newModel )
+
+            Nothing ->
+                ( newModel, Cmd.none )
 
 
 updateSnakeMovement : Model -> Model

@@ -8,7 +8,7 @@
     "build:elm": "elm make src/Main.elm --output=dist/elm.js",
     "build": "run-s build:elm copy:static",
     "start:server": "elm-live src/Main.elm --output=dist/elm.js --port=8080 --dir=dist/",
-    "start": "run-p copy:static start:server:elm"
+    "start": "run-p copy:static start:server"
   },
   "author": "",
   "license": "ISC",
