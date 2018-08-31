@@ -11,6 +11,7 @@ import Util
         , isSnakeDead
         , randomizeApple
         , initialDirection
+        , increment
         )
 
 
@@ -95,8 +96,11 @@ updateSnakeEatingApple model =
                 let
                     snakeWithItem =
                         (item :: (List.reverse newModel.snake)) |> List.reverse
+
+                    updatedModel =
+                        { newModel | snake = snakeWithItem, score = increment newModel.score }
                 in
-                    ( { newModel | snake = snakeWithItem }, randomizeApple newModel )
+                    ( updatedModel, randomizeApple updatedModel )
 
             Nothing ->
                 ( newModel, Cmd.none )

@@ -5,6 +5,11 @@ import Msg exposing (Msg(..))
 import Random
 
 
+increment : Int -> Int
+increment score =
+    score + 10
+
+
 isAtPosition : GridItem -> GridItem -> Bool
 isAtPosition item1 item2 =
     item1.row == item2.row && item1.col == item2.col
