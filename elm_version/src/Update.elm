@@ -4,14 +4,12 @@ import Model exposing (Direction(..), GameState(..), Model)
 import Msg exposing (Msg(..))
 import Util
     exposing
-        ( initialApple
-        , initialSnake
-        , isSnakeAtPosition
+        ( isSnakeAtPosition
         , isSnakeAtApple
         , isSnakeDead
         , randomizeApple
-        , initialDirection
         , increment
+        , initialModel
         )
 
 
@@ -19,11 +17,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         StartGame ->
-            let
-                updateModel =
-                    { model | gameState = Run, snake = initialSnake, direction = initialDirection }
-            in
-                ( updateModel, randomizeApple model )
+            ( { initialModel | gameState = Run }, randomizeApple model )
 
         NewApple ( row, col ) ->
             let
@@ -98,7 +92,11 @@ updateSnakeEatingApple model =
                         (item :: (List.reverse newModel.snake)) |> List.reverse
 
                     updatedModel =
-                        { newModel | snake = snakeWithItem, score = increment newModel.score }
+                        { newModel
+                            | snake = snakeWithItem
+                            , score = increment newModel.score
+                            , timer = updateTimer newModel.timer
+                        }
                 in
                     ( updatedModel, randomizeApple updatedModel )
 
@@ -135,3 +133,18 @@ updateSnakeMovement model =
 
             Nothing ->
                 model
+
+
+updateTimer : Float -> Float
+updateTimer timer =
+    let
+        decrementor =
+            2.5
+
+        threshold =
+            40
+    in
+        if timer <= threshold then
+            threshold
+        else
+            timer - decrementor

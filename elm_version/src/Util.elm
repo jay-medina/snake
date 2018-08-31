@@ -1,6 +1,6 @@
 module Util exposing (..)
 
-import Model exposing (Apple, GridItem, Model, Snake, Direction(..))
+import Model exposing (Apple, GridItem, Model, Snake, Direction(..), GameState(..))
 import Msg exposing (Msg(..))
 import Random
 
@@ -55,19 +55,18 @@ isSnakeDead snake rows cols =
                 False
 
 
-initialSnake : Snake
-initialSnake =
-    [ { row = 12, col = 12 }, { row = 12, col = 11 }, { row = 12, col = 10 } ]
-
-
-initialDirection : Direction
-initialDirection =
-    Right
-
-
-initialApple : Apple
-initialApple =
-    { row = 4, col = 4 }
+initialModel : Model
+initialModel =
+    { score = 0
+    , highScore = 20
+    , timer = 200
+    , row = 25
+    , col = 25
+    , apple = { row = 4, col = 4 }
+    , snake = [ { row = 12, col = 12 }, { row = 12, col = 11 }, { row = 12, col = 10 } ]
+    , gameState = Start
+    , direction = Right
+    }
 
 
 randomizeApple : Model -> Cmd Msg
