@@ -58,7 +58,7 @@ isSnakeDead snake rows cols =
 initialModel : Model
 initialModel =
     { score = 0
-    , highScore = 20
+    , highScore = 0
     , timer = 200
     , row = 25
     , col = 25

@@ -95,6 +95,7 @@ updateSnakeEatingApple model =
                         { newModel
                             | snake = snakeWithItem
                             , score = increment newModel.score
+                            , highScore = increment newModel.score
                             , timer = updateTimer newModel.timer
                         }
                 in
