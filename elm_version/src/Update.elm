@@ -4,12 +4,12 @@ import Model exposing (Direction(..), GameState(..), Model)
 import Msg exposing (Msg(..))
 import Util
     exposing
-        ( initialApple
-        , initialSnake
-        , isSnakeAtPosition
+        ( isSnakeAtPosition
+        , isSnakeAtApple
         , isSnakeDead
         , randomizeApple
-        , initialDirection
+        , increment
+        , initialModel
         )
 
 
@@ -17,11 +17,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         StartGame ->
-            let
-                updateModel =
-                    { model | gameState = Run, snake = initialSnake, direction = initialDirection }
-            in
-                ( updateModel, randomizeApple model )
+            ( { initialModel | gameState = Run }, randomizeApple model )
 
         NewApple ( row, col ) ->
             let
@@ -36,9 +32,12 @@ update msg model =
                     )
 
         Tick time ->
-            ( model |> updateSnakeDead |> updateSnakeMovement
-            , Cmd.none
-            )
+            if isSnakeDead model.snake model.row model.col then
+                ( updateSnakeDead model, Cmd.none )
+            else if isSnakeAtApple model.apple model.snake then
+                updateSnakeEatingApple model
+            else
+                ( updateSnakeMovement model, Cmd.none )
 
         KeyUp direction ->
             ( updateDirection model direction, Cmd.none )
@@ -74,10 +73,36 @@ isOppositeDirection currentDirection newDirection =
 
 updateSnakeDead : Model -> Model
 updateSnakeDead model =
-    if isSnakeDead model.snake model.row model.col then
-        { model | gameState = GameOver }
-    else
-        model
+    { model | gameState = GameOver }
+
+
+updateSnakeEatingApple : Model -> ( Model, Cmd Msg )
+updateSnakeEatingApple model =
+    let
+        lastItem =
+            (model.snake |> List.reverse |> List.head)
+
+        newModel =
+            updateSnakeMovement model
+    in
+        case lastItem of
+            Just item ->
+                let
+                    snakeWithItem =
+                        (item :: (List.reverse newModel.snake)) |> List.reverse
+
+                    updatedModel =
+                        { newModel
+                            | snake = snakeWithItem
+                            , score = increment newModel.score
+                            , highScore = increment newModel.score
+                            , timer = updateTimer newModel.timer
+                        }
+                in
+                    ( updatedModel, randomizeApple updatedModel )
+
+            Nothing ->
+                ( newModel, Cmd.none )
 
 
 updateSnakeMovement : Model -> Model
@@ -109,3 +134,18 @@ updateSnakeMovement model =
 
             Nothing ->
                 model
+
+
+updateTimer : Float -> Float
+updateTimer timer =
+    let
+        decrementor =
+            2.5
+
+        threshold =
+            40
+    in
+        if timer <= threshold then
+            threshold
+        else
+            timer - decrementor

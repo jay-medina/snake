@@ -38,7 +38,7 @@ boardcol filled =
                 Nothing ->
                     className
     in
-    div [ class colClassName ] []
+        div [ class colClassName ] []
 
 
 boardrow : BoardProps -> Html Msg
@@ -49,19 +49,19 @@ boardrow { snake, apple, row, col } =
                 gridItem =
                     { row = row, col = currentCol }
             in
-            if isTheApple apple gridItem then
-                Apple
-            else if isSnakeAtPosition gridItem snake then
-                Snake
-            else
-                Nothing
+                if isSnakeAtPosition gridItem snake then
+                    Snake
+                else if isTheApple apple gridItem then
+                    Apple
+                else
+                    Nothing
     in
-    div
-        [ class "snake__board-row" ]
-        (List.map
-            (\x -> getFilled x |> boardcol)
-            (List.range 0 col)
-        )
+        div
+            [ class "snake__board-row" ]
+            (List.map
+                (\x -> getFilled x |> boardcol)
+                (List.range 0 col)
+            )
 
 
 board : BoardProps -> Html Msg
