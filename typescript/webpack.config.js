@@ -1,7 +1,14 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// @ts-check
 
-module.exports = {
+const path = require('path');
+// @ts-ignore
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+
+/**
+ * @type webpack.Configuration
+ */
+const config = {
   entry: './src/index.ts',
   mode: 'development',
   output: {
@@ -35,3 +42,5 @@ module.exports = {
     }),
   ],
 };
+
+module.exports = config;
