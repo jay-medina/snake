@@ -65,7 +65,8 @@ initialModel =
     , apple = { row = 4, col = 4 }
     , snake = [ { row = 12, col = 12 }, { row = 12, col = 11 }, { row = 12, col = 10 } ]
     , gameState = Start
-    , direction = Right
+    , currentDirection = Right
+    , nextDirection = Right
     }
 
 

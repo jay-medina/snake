@@ -37,18 +37,26 @@ update msg model =
             else if isSnakeAtApple model.apple model.snake then
                 updateSnakeEatingApple model
             else
-                ( updateSnakeMovement model, Cmd.none )
+                ( model |> updateCurrentDirection |> updateSnakeMovement, Cmd.none )
 
-        KeyUp direction ->
-            ( updateDirection model direction, Cmd.none )
+        KeyUp newDirection ->
+            ( updateNextDirection model newDirection, Cmd.none )
 
 
-updateDirection : Model -> Direction -> Model
-updateDirection model direction =
-    if isOppositeDirection model.direction direction then
+updateNextDirection : Model -> Direction -> Model
+updateNextDirection model newDirection =
+    if isOppositeDirection model.nextDirection newDirection then
         model
     else
-        { model | direction = direction }
+        { model | nextDirection = newDirection }
+
+
+updateCurrentDirection : Model -> Model
+updateCurrentDirection model =
+    if isOppositeDirection model.nextDirection model.currentDirection then
+        model
+    else
+        { model | currentDirection = model.nextDirection }
 
 
 isOppositeDirection : Direction -> Direction -> Bool
@@ -119,7 +127,7 @@ updateSnakeMovement model =
     in
         case headOfSnake of
             Just item ->
-                case model.direction of
+                case model.currentDirection of
                     Right ->
                         { model | snake = { row = item.row, col = item.col + 1 } :: lastOneDropped }
 

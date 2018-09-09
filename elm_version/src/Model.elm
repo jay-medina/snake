@@ -22,7 +22,8 @@ type alias Model =
     , apple : Apple
     , snake : Snake
     , gameState : GameState
-    , direction : Direction
+    , nextDirection : Direction
+    , currentDirection : Direction
     , timer : Float
     }
 

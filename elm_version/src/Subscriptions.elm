@@ -15,7 +15,7 @@ keyDecoder =
 mapStringToDirection : Model -> String -> Msg
 mapStringToDirection model keyFired =
     let
-        direction =
+        newDirection =
             if keyFired == "ArrowLeft" || keyFired == "a" then
                 Left
             else if keyFired == "ArrowRight" || keyFired == "d" then
@@ -25,9 +25,9 @@ mapStringToDirection model keyFired =
             else if keyFired == "ArrowUp" || keyFired == "w" then
                 Up
             else
-                model.direction
+                model.nextDirection
     in
-        Msg.KeyUp direction
+        Msg.KeyUp newDirection
 
 
 mapper : Model -> Decode.Decoder Msg
@@ -46,6 +46,6 @@ tickGameForward model =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-        [ tickGameForward model
-        , onKeyDown (mapper model)
+        [ onKeyDown (mapper model)
+        , tickGameForward model
         ]
