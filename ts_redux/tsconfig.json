@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "esnext",
+    "module": "commonjs",
+    "allowJs": true /* Allow javascript files to be compiled. */,
+    "jsx": "react",
+    "sourceMap": true,
+    "strict": true,
+    "noUnusedLocals": true /* Report errors on unused locals. */,
+    "noUnusedParameters": true /* Report errors on unused parameters. */,
+    "noImplicitReturns": true /* Report error when not all code paths in function return a value. */,
+    "noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
+    "pretty": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmitOnError": false,
+
+    /* Module Resolution Options */
+    "moduleResolution": "node",
+    "esModuleInterop": true /* Type declaration files to be included in compilation. */,
+    "allowSyntheticDefaultImports": true
+  }
+}
