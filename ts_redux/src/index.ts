@@ -1,3 +1,5 @@
+import { createGame } from './components/app';
+
 import './style.css';
 
-console.log('hello world');
+createGame();
