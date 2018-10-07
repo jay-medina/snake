@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server",
-    "test": "run-s test:lint test:unit",
+    "test": "run-s test:lint test:coverage",
     "test:lint": "tslint --project ./tsconfig.json",
     "test:unit": "jest --config=./jestconfig.json",
     "test:watch": "jest --watch --config=./jestconfig.json",

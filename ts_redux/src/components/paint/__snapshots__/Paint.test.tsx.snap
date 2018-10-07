@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Paint /> renders the component 1`] = `
+<div
+  className="snake__app"
+>
+  <Scoreboard
+    highScore={10}
+    score={10}
+  />
+</div>
+`;
