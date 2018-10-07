@@ -1,6 +1,6 @@
 import { mount } from 'enzyme';
 import React from 'react';
-import { ScoreBoard } from './scoreBoard';
+import { ScoreBoard } from './ScoreBoard';
 
 describe('<ScoreBoard /> ', () => {
   it('displays the scoreboard', () => {
