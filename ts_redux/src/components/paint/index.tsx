@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScoreBoard } from '../scoreboard';
+import { ScoreBoard } from '../scoreboard/scoreBoard';
 
 export const Paint = () => {
   return (

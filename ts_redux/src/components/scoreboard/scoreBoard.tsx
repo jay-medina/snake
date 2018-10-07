@@ -23,3 +23,4 @@ export const ScoreBoard: React.SFC<ScoreBoardProps> = ({ score, highScore }) => 
     <Score title="high" num={highScore} />
   </div>
 );
+ScoreBoard.displayName = 'Scoreboard';
