@@ -8,5 +8,8 @@
     "quotemark": [true, "single", "jsx-double"],
     "interface-name": [true, "never-prefix"],
     "object-literal-sort-keys": false
+  },
+  "linterOptions": {
+    "exclude": ["coverage/**/*"]
   }
 }
