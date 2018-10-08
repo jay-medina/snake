@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ScoreBoard />  displays the scoreboard 1`] = `
+<Scoreboard
+  highScore={20}
+  score={10}
+>
+  <div
+    className="snake__scoreboard"
+  >
+    <Score
+      num={10}
+      title="score"
+    >
+      <div
+        className="snake__score"
+      >
+        <div
+          className="snake__score-title"
+        >
+          score
+        </div>
+        <div
+          className="snake__score-number"
+        >
+          10
+        </div>
+      </div>
+    </Score>
+    <Score
+      num={20}
+      title="high"
+    >
+      <div
+        className="snake__score"
+      >
+        <div
+          className="snake__score-title"
+        >
+          high
+        </div>
+        <div
+          className="snake__score-number"
+        >
+          20
+        </div>
+      </div>
+    </Score>
+  </div>
+</Scoreboard>
+`;
