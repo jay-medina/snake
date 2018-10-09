@@ -17,6 +17,9 @@ describe('createGame', () => {
   });
 
   it('paints the game to the DOM node', () => {
-    expect(ReactDOM.render).toHaveBeenCalledWith(<Paint />, document.getElementById('root'));
+    expect(ReactDOM.render).toHaveBeenCalledWith(
+      <Paint />,
+      document.getElementById('root'),
+    );
   });
 });
