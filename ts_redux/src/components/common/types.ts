@@ -6,3 +6,5 @@ export interface GridItem {
 export type Apple = GridItem;
 
 export type Snake = GridItem[];
+
+export type GameState = 'start' | 'run' | 'gameover';

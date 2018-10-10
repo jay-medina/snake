@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GameOver /> renders the component 1`] = `
+<div
+  className="snake__game-over-screen"
+>
+  <div
+    className="snake__game-over-title"
+  >
+    Game Over
+  </div>
+  <PlayButton
+    onClick={[MockFunction]}
+  />
+</div>
+`;
+
+exports[`<Start /> renders the component 1`] = `
+<div
+  className="snake__start-screen"
+>
+  <div
+    className="snake__start-screen-title"
+  >
+    Snake
+  </div>
+  <PlayButton
+    onClick={[MockFunction]}
+  />
+</div>
+`;
+
+exports[`<TransitionScreen /> when the game is in end state renders the end screen 1`] = `
+<GameOver
+  onPlayClick={[MockFunction]}
+/>
+`;
+
+exports[`<TransitionScreen /> when the game is in start state renders the start screen 1`] = `
+<Start
+  onPlayClick={[MockFunction]}
+/>
+`;
+
+exports[`<TransitionScreen /> when the game is running doesnt render anything 1`] = `""`;

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PlayButton /> renders the component 1`] = `
+<div
+  className="snake__start-screen-play-container"
+>
+  <button
+    className="snake__start-screen-play"
+    onClick={[MockFunction]}
+  >
+    Play
+  </button>
+</div>
+`;
