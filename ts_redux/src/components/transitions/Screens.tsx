@@ -1,7 +1,7 @@
 import React, { SFC } from 'react';
 import { PlayButton } from './PlayButton';
 
-interface StartProps {
+export interface StartProps {
   onPlayClick(): void;
 }
 
