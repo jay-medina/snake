@@ -1,5 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<TransitionScreen /> when the game is in end state renders the end screen 1`] = `
+<GameOver
+  onPlayClick={[Function]}
+>
+  <div
+    className="snake__game-over-screen"
+  >
+    <div
+      className="snake__game-over-title"
+    >
+      Game Over
+    </div>
+    <PlayButton
+      onClick={[Function]}
+    >
+      <div
+        className="snake__start-screen-play-container"
+      >
+        <button
+          className="snake__start-screen-play"
+          onClick={[Function]}
+        >
+          Play
+        </button>
+      </div>
+    </PlayButton>
+  </div>
+</GameOver>
+`;
+
+exports[`<TransitionScreen /> when the game is in start state renders the start screen 1`] = `
+<Start
+  onPlayClick={[Function]}
+>
+  <div
+    className="snake__start-screen"
+  >
+    <div
+      className="snake__start-screen-title"
+    >
+      Snake
+    </div>
+    <PlayButton
+      onClick={[Function]}
+    >
+      <div
+        className="snake__start-screen-play-container"
+      >
+        <button
+          className="snake__start-screen-play"
+          onClick={[Function]}
+        >
+          Play
+        </button>
+      </div>
+    </PlayButton>
+  </div>
+</Start>
+`;
+
 exports[`<TransitionScreen /> when the game is running doesnt render a screen 1`] = `
 <Provider
   store={

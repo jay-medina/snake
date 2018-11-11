@@ -7,10 +7,12 @@ import configureStore, {
 import { GameState, AppState } from '../store/util';
 import TransitionScreen from './TransitionScreen';
 import { Provider } from 'react-redux';
+import { startGame } from '../store/actions';
 
 describe('<TransitionScreen />', () => {
   let wrapper: ReactWrapper;
   let mockStore: MockStoreCreator<AppState>;
+  type noop = () => void;
 
   beforeEach(() => {
     mockStore = configureStore();
@@ -42,53 +44,61 @@ describe('<TransitionScreen />', () => {
     });
   });
 
-  // describe('when the game is in start state', () => {
-  //   let onPlayClick: jest.Mock;
+  describe('when the game is in start state', () => {
+    let store: MockStoreEnhanced<AppState>;
 
-  //   beforeEach(() => {
-  //     onPlayClick = jest.fn();
-  //     wrapper = shallow(
-  //       <TransitionScreen
-  //         gameState={GameState.Start}
-  //         onPlayClick={onPlayClick}
-  //       />,
-  //     );
-  //   });
+    beforeEach(() => {
+      store = mockStore({
+        gameState: GameState.Start,
+      });
 
-  //   it('renders the start screen', () => {
-  //     expect(wrapper).toMatchSnapshot();
-  //   });
+      wrapper = mount(
+        <Provider store={store}>
+          <TransitionScreen />
+        </Provider>,
+      );
+    });
 
-  //   describe('when user clicks play', () => {
-  //     it('invokes the onPlayClick callback', () => {
-  //       wrapper.simulate('playClick');
-  //       expect(onPlayClick).toHaveBeenCalled();
-  //     });
-  //   });
-  // });
+    it('renders the start screen', () => {
+      expect(wrapper.find('Start')).toMatchSnapshot();
+    });
 
-  // describe('when the game is in end state', () => {
-  //   let onPlayClick: jest.Mock;
+    describe('when user clicks play', () => {
+      it('dispatches the start game action', () => {
+        const onPlayClick = wrapper.find('Start').prop<noop>('onPlayClick');
 
-  //   beforeEach(() => {
-  //     onPlayClick = jest.fn();
-  //     wrapper = shallow(
-  //       <TransitionScreen
-  //         gameState={GameState.GameOver}
-  //         onPlayClick={onPlayClick}
-  //       />,
-  //     );
-  //   });
+        onPlayClick();
+        expect(store.getActions()).toEqual([startGame()]);
+      });
+    });
+  });
 
-  //   it('renders the end screen', () => {
-  //     expect(wrapper).toMatchSnapshot();
-  //   });
+  describe('when the game is in end state', () => {
+    let store: MockStoreEnhanced<AppState>;
 
-  //   describe('when user clicks play', () => {
-  //     it('invokes the onPlayClick callback', () => {
-  //       wrapper.simulate('playClick');
-  //       expect(onPlayClick).toHaveBeenCalled();
-  //     });
-  //   });
-  // });
+    beforeEach(() => {
+      store = mockStore({
+        gameState: GameState.GameOver,
+      });
+
+      wrapper = mount(
+        <Provider store={store}>
+          <TransitionScreen />
+        </Provider>,
+      );
+    });
+
+    it('renders the end screen', () => {
+      expect(wrapper.find('GameOver')).toMatchSnapshot();
+    });
+
+    describe('when user clicks play', () => {
+      it('dispatches the start game action', () => {
+        const onPlayClick = wrapper.find('GameOver').prop<noop>('onPlayClick');
+
+        onPlayClick();
+        expect(store.getActions()).toEqual([startGame()]);
+      });
+    });
+  });
 });
