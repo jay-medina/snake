@@ -7,11 +7,11 @@ import { createGameStore } from './store/gameStore';
 export function createGame() {
   const store = createGameStore();
 
-  const Game = () => (
+  const Game = (
     <Provider store={store}>
       <Paint />
     </Provider>
   );
 
-  ReactDOM.render(<Game />, document.getElementById('root'));
+  ReactDOM.render(Game, document.getElementById('root'));
 }

@@ -3,7 +3,7 @@ import { Board } from '../board/Board';
 import { ScoreBoard } from '../scoreboard/ScoreBoard';
 import TransitionScreen from '../transitions/TransitionScreen';
 
-export const Paint = () => {
+export function Paint() {
   const apple = { row: 1, col: 1 };
   const snake = [{ row: 5, col: 1 }, { row: 5, col: 2 }, { row: 5, col: 3 }];
 
@@ -14,4 +14,4 @@ export const Paint = () => {
       <TransitionScreen />
     </div>
   );
-};
+}
