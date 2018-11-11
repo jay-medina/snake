@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { startGame } from '../store/actions';
 import { DTP, STP } from '../store/types';
@@ -15,7 +15,7 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps;
 
-export const TransitionScreen: SFC<Props> = ({ gameState, onPlayClick }) => {
+function TransitionScreen({ gameState, onPlayClick }: Props) {
   if (gameState === GameState.Start) {
     return <Start onPlayClick={onPlayClick} />;
   }
@@ -24,9 +24,7 @@ export const TransitionScreen: SFC<Props> = ({ gameState, onPlayClick }) => {
   }
 
   return null;
-};
-
-TransitionScreen.displayName = 'TransitionScreen';
+}
 
 const mapDispatchToProps: DTP<DispatchProps> = (dispatch) => {
   return {
