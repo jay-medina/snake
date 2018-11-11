@@ -1,16 +1,20 @@
-type GameState = number;
+import { AppAction } from './actions';
 
-interface GameAction {
-  type: 'INCREMENT' | 'DECREMENT';
+enum GameState {
+  Start,
+  Run,
+  GameOver,
 }
 
-export function game(state: GameState = 0, action: GameAction): GameState {
-  if (action.type === 'INCREMENT') {
-    return state + 1;
-  }
+interface AppState {
+  gameState: GameState;
+}
 
-  if (action.type === 'DECREMENT') {
-    return state - 1;
+export function game(state: AppState, action: AppAction): AppState {
+  if (action.type === 'START_GAME') {
+    return {
+      gameState: GameState.Run,
+    };
   }
 
   return state;
