@@ -4,6 +4,6 @@ interface GameAction {
 
 export type AppAction = GameAction;
 
-export const startGame = () => ({
+export const startGame = (): GameAction => ({
   type: 'START_GAME',
 });

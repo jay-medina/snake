@@ -4,12 +4,12 @@ import {
 } from 'react-redux';
 import { AppState } from './util';
 
-export type MapDispatchToProps<DispatchProps, OwnProps = {}> = MDTP<
+export type DTP<DispatchProps, OwnProps = {}> = MDTP<
   DispatchProps,
   OwnProps
 >;
 
-export type MapStateToProps<StateProps, OwnProps = {}> = MSTP<
+export type STP<StateProps, OwnProps = {}> = MSTP<
   StateProps,
   OwnProps,
   AppState

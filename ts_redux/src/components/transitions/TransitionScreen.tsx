@@ -1,7 +1,7 @@
 import React, { SFC } from 'react';
 import { connect } from 'react-redux';
 import { startGame } from '../store/actions';
-import { MapDispatchToProps, MapStateToProps } from '../store/types';
+import { DTP, STP } from '../store/types';
 import { GameState } from '../store/util';
 import { GameOver, Start } from './Screens';
 
@@ -28,7 +28,7 @@ export const TransitionScreen: SFC<Props> = ({ gameState, onPlayClick }) => {
 
 TransitionScreen.displayName = 'TransitionScreen';
 
-const mapDispatchToProps: MapDispatchToProps<DispatchProps> = (dispatch) => {
+const mapDispatchToProps: DTP<DispatchProps> = (dispatch) => {
   return {
     onPlayClick: () => {
       dispatch(startGame());
@@ -36,7 +36,7 @@ const mapDispatchToProps: MapDispatchToProps<DispatchProps> = (dispatch) => {
   };
 };
 
-const mapStateToProps: MapStateToProps<StateProps> = (state) => ({
+const mapStateToProps: STP<StateProps> = (state) => ({
   gameState: state.gameState,
 });
 
