@@ -1,7 +1,5 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import { createGame } from './app';
-import { Paint } from './paint/Paint';
 
 jest.mock('react-dom', () => ({
   render: jest.fn(),
@@ -18,7 +16,7 @@ describe('createGame', () => {
 
   it('paints the game to the DOM node', () => {
     expect(ReactDOM.render).toHaveBeenCalledWith(
-      <Paint />,
+      expect.any(Object),
       document.getElementById('root'),
     );
   });

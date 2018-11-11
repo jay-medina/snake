@@ -38,3 +38,12 @@ Game starts with an initial screen of the game title and a play button. In order
 - Eating each food item also increases the speed in which the snake moves.
 
 - The high score is recorded and stored.
+
+## Libraries
+
+- Redux
+- React
+- TypeScript
+- Enzyme
+- Redux-Mock-Store: https://github.com/dmitry-zaets/redux-mock-store
+- Webpack
