@@ -35,11 +35,10 @@ const mapDispatchToProps: MapDispatchToProps<DispatchProps> = (dispatch) => {
     },
   };
 };
-const mapStateToProps: MapStateToProps<StateProps> = (state) => {
-  return {
-    gameState: state.gameState,
-  };
-};
+
+const mapStateToProps: MapStateToProps<StateProps> = (state) => ({
+  gameState: state.gameState,
+});
 
 export default connect(
   mapStateToProps,
