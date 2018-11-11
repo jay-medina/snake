@@ -34,9 +34,6 @@ exports[`<Paint /> renders the component 1`] = `
       ]
     }
   />
-  <TransitionScreen
-    gameState="start"
-    onPlayClick={[Function]}
-  />
+  <Connect(TransitionScreen) />
 </div>
 `;
