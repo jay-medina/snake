@@ -1,19 +1,23 @@
 import React, { SFC } from 'react';
-import { GameState } from '../common/types';
+import { connect } from 'react-redux';
+import { startGame } from '../store/actions';
+import { MapDispatchToProps, MapStateToProps } from '../store/types';
+import { GameState } from '../store/util';
 import { PlayButton } from './PlayButton';
-
-interface TransitionScreenProps {
-  gameState: GameState;
-  onPlayClick(): void;
-}
-
-interface GameOverProps {
-  onPlayClick: () => void;
-}
 
 interface StartProps {
   onPlayClick(): void;
 }
+
+interface StateProps {
+  gameState: GameState;
+}
+
+interface DispatchProps {
+  onPlayClick(): void;
+}
+
+type TransitionScreenProps = StateProps & DispatchProps;
 
 const Start = ({ onPlayClick }: StartProps) => (
   <div className="snake__start-screen">
@@ -22,7 +26,7 @@ const Start = ({ onPlayClick }: StartProps) => (
   </div>
 );
 
-const GameOver = ({ onPlayClick }: GameOverProps) => {
+const GameOver = ({ onPlayClick }: StartProps) => {
   return (
     <div className="snake__game-over-screen">
       <div className="snake__game-over-title">Game Over</div>
@@ -35,10 +39,10 @@ export const TransitionScreen: SFC<TransitionScreenProps> = ({
   gameState,
   onPlayClick,
 }) => {
-  if (gameState === 'start') {
+  if (gameState === GameState.Start) {
     return <Start onPlayClick={onPlayClick} />;
   }
-  if (gameState === 'gameover') {
+  if (gameState === GameState.GameOver) {
     return <GameOver onPlayClick={onPlayClick} />;
   }
 
@@ -46,3 +50,21 @@ export const TransitionScreen: SFC<TransitionScreenProps> = ({
 };
 
 TransitionScreen.displayName = 'TransitionScreen';
+
+const mapDispatchToProps: MapDispatchToProps<DispatchProps> = (dispatch) => {
+  return {
+    onPlayClick: () => {
+      dispatch(startGame());
+    },
+  };
+};
+const mapStateToProps: MapStateToProps<StateProps> = (state) => {
+  return {
+    gameState: state.gameState,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TransitionScreen);

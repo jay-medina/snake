@@ -1,11 +1,12 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import React from 'react';
+import { GameState } from '../store/util';
 import { TransitionScreen } from './TransitionScreen';
 
 describe('<Start />', () => {
   it('renders the component', () => {
     const wrapper = shallow(
-      <TransitionScreen gameState="start" onPlayClick={jest.fn()} />,
+      <TransitionScreen gameState={GameState.Start} onPlayClick={jest.fn()} />,
     ).dive();
 
     expect(wrapper).toMatchSnapshot();
@@ -15,7 +16,10 @@ describe('<Start />', () => {
 describe('<GameOver />', () => {
   it('renders the component', () => {
     const wrapper = shallow(
-      <TransitionScreen gameState="gameover" onPlayClick={jest.fn()} />,
+      <TransitionScreen
+        gameState={GameState.GameOver}
+        onPlayClick={jest.fn()}
+      />,
     ).dive();
 
     expect(wrapper).toMatchSnapshot();
@@ -28,7 +32,7 @@ describe('<TransitionScreen />', () => {
   describe('when the game is running', () => {
     it('doesnt render anything', () => {
       wrapper = shallow(
-        <TransitionScreen gameState="run" onPlayClick={jest.fn()} />,
+        <TransitionScreen gameState={GameState.Run} onPlayClick={jest.fn()} />,
       );
       expect(wrapper).toMatchSnapshot();
     });
@@ -40,7 +44,10 @@ describe('<TransitionScreen />', () => {
     beforeEach(() => {
       onPlayClick = jest.fn();
       wrapper = shallow(
-        <TransitionScreen gameState="start" onPlayClick={onPlayClick} />,
+        <TransitionScreen
+          gameState={GameState.Start}
+          onPlayClick={onPlayClick}
+        />,
       );
     });
 
@@ -62,7 +69,10 @@ describe('<TransitionScreen />', () => {
     beforeEach(() => {
       onPlayClick = jest.fn();
       wrapper = shallow(
-        <TransitionScreen gameState="gameover" onPlayClick={onPlayClick} />,
+        <TransitionScreen
+          gameState={GameState.GameOver}
+          onPlayClick={onPlayClick}
+        />,
       );
     });
 
