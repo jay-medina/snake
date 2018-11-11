@@ -1,16 +1,9 @@
 import { AppAction } from './actions';
+import { AppState, GameState, initialState } from './util';
 
-enum GameState {
-  Start,
-  Run,
-  GameOver,
-}
+type Game = (start: AppState | undefined, action: AppAction) => AppState;
 
-interface AppState {
-  gameState: GameState;
-}
-
-export function game(state: AppState, action: AppAction): AppState {
+export const game: Game = (state = initialState, action) => {
   if (action.type === 'START_GAME') {
     return {
       gameState: GameState.Run,
@@ -18,4 +11,4 @@ export function game(state: AppState, action: AppAction): AppState {
   }
 
   return state;
-}
+};
