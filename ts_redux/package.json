@@ -47,10 +47,11 @@
     "react-dom": "^16.6.1",
     "react-redux": "^5.1.1",
     "react-test-renderer": "^16.6.1",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
   },
   "prettier": {
-    "printWidth": 80,
+    "printWidth": 100,
     "trailingComma": "all",
     "singleQuote": true,
     "useTabs": false,
