@@ -1,5 +1,5 @@
 import React from 'react';
-import { Apple, Snake } from 'store/util';
+import { Apple, Snake } from '../../store/util';
 import { isSnakeAtPosition, isTheApple } from '../common/util';
 import { Col } from './Column';
 
@@ -33,3 +33,5 @@ export const Row: React.SFC<RowProps> = ({ cols, row, snake, apple }) => {
 
   return <div className="snake__board-row">{colComponents}</div>;
 };
+
+Row.displayName = 'Row';

@@ -1,11 +1,11 @@
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
 import configureStore, { MockStoreCreator, MockStoreEnhanced } from 'redux-mock-store';
-import { GameState, AppState } from 'store/util';
+import { GameState, AppState } from '../../store/util';
 import TransitionScreen from './TransitionScreen';
 import { Provider } from 'react-redux';
-import { startGame } from 'store/actions';
-import { createMockState } from 'store/mockState';
+import { startGame } from '../../store/actions';
+import { createMockState } from '../../store/mockState';
 
 describe('<TransitionScreen />', () => {
   let wrapper: ReactWrapper;

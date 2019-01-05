@@ -1,7 +1,7 @@
 import React from 'react';
-import { Apple, Snake } from 'store/util';
+import { Apple, Snake } from '../../store/util';
 import { Row } from './Row';
-import { AppState } from 'store/util';
+import { AppState } from '../../store/util';
 import { connect } from 'react-redux';
 
 interface StateProps {

@@ -3,7 +3,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const {TsconfigPathsPlugin} = require('tsconfig-paths-webpack-plugin');
 
 
 /**
@@ -17,10 +16,7 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-    plugins: [
-      new TsconfigPathsPlugin()
-    ]
+    extensions: ['.tsx', '.ts', '.js']
   },
   devtool: 'inline-source-map',
   devServer: {

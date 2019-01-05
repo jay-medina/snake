@@ -23,3 +23,5 @@ function getClassName(filled?: Filled): string {
 export const Col: React.SFC<ColProps> = ({ filled }) => {
   return <div className={getClassName(filled)} />;
 };
+
+Col.displayName = 'Col';
