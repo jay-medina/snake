@@ -1,4 +1,4 @@
-import { createGame } from './components/app';
+import { createGame } from './app';
 
 import './style.css';
 

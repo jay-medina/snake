@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     /* Basic Options */
+    "baseUrl": "./src",
     "target": "esnext",
     "module": "commonjs",
     "allowJs": false /* Allow javascript files to be compiled. */,

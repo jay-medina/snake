@@ -1,13 +1,17 @@
 import React from 'react';
-import { Apple, Snake } from '../store/util';
+import { Apple, Snake } from 'store/util';
 import { Row } from './Row';
+import { AppState } from 'store/util';
+import { connect } from 'react-redux';
 
-interface BoardProps {
+interface StateProps {
   rows: number;
   cols: number;
   apple: Apple;
   snake: Snake;
 }
+
+type BoardProps = StateProps;
 
 export const Board: React.SFC<BoardProps> = ({ rows, cols, snake, apple }) => {
   const components = [];
@@ -20,3 +24,18 @@ export const Board: React.SFC<BoardProps> = ({ rows, cols, snake, apple }) => {
 };
 
 Board.displayName = 'Board';
+
+const mapStateToProps = (state: AppState): StateProps => {
+  const rows = 25;
+  const cols = 25;
+  const snake = [{ row: 5, col: 1 }, { row: 5, col: 2 }, { row: 5, col: 3 }];
+
+  return {
+    apple: state.apple,
+    rows,
+    cols,
+    snake,
+  };
+};
+
+export default connect(mapStateToProps)(Board);

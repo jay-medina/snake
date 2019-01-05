@@ -1,7 +1,13 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import { game } from './reducer';
+import { game, apple } from './reducer';
+import { AppState } from './util';
+
+const app = combineReducers<AppState>({
+  apple,
+  gameState: game,
+});
 
 export function createGameStore() {
-  return createStore(game, applyMiddleware(thunk));
+  return createStore(app, applyMiddleware(thunk));
 }

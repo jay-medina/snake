@@ -17,8 +17,3 @@ export interface GridItem {
 export type Apple = GridItem;
 
 export type Snake = GridItem[];
-
-export const initialState: Partial<AppState> = {
-  gameState: GameState.Start,
-  apple: { row: 1, col: 1 },
-};

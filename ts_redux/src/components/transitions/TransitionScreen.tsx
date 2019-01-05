@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startGame } from '../store/actions';
-import { DTP, STP } from '../store/types';
-import { GameState } from '../store/util';
+import { startGame } from 'store/actions';
+import { DTP, STP } from 'store/types';
+import { GameState } from 'store/util';
 import { GameOver, Start } from './Screens';
 
 interface StateProps {

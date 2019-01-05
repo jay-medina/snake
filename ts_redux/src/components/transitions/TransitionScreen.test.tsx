@@ -1,20 +1,20 @@
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
-import configureStore, {
-  MockStoreCreator,
-  MockStoreEnhanced,
-} from 'redux-mock-store';
-import { GameState, AppState } from '../store/util';
+import configureStore, { MockStoreCreator, MockStoreEnhanced } from 'redux-mock-store';
+import { GameState, AppState } from 'store/util';
 import TransitionScreen from './TransitionScreen';
 import { Provider } from 'react-redux';
-import { startGame } from '../store/actions';
+import { startGame } from 'store/actions';
+import { createMockState } from 'store/mockState';
 
 describe('<TransitionScreen />', () => {
   let wrapper: ReactWrapper;
+  let mockState: AppState;
   let mockStore: MockStoreCreator<AppState>;
   type noop = () => void;
 
   beforeEach(() => {
+    mockState = createMockState();
     mockStore = configureStore();
   });
 
@@ -23,6 +23,7 @@ describe('<TransitionScreen />', () => {
 
     beforeEach(() => {
       store = mockStore({
+        ...mockState,
         gameState: GameState.Run,
       });
 
@@ -38,9 +39,7 @@ describe('<TransitionScreen />', () => {
     });
 
     it('passes the gameState to the Transition Screen', () => {
-      expect(wrapper.find('TransitionScreen').prop('gameState')).toBe(
-        GameState.Run,
-      );
+      expect(wrapper.find('TransitionScreen').prop('gameState')).toBe(GameState.Run);
     });
   });
 
@@ -49,6 +48,7 @@ describe('<TransitionScreen />', () => {
 
     beforeEach(() => {
       store = mockStore({
+        ...mockState,
         gameState: GameState.Start,
       });
 
@@ -78,6 +78,7 @@ describe('<TransitionScreen />', () => {
 
     beforeEach(() => {
       store = mockStore({
+        ...mockState,
         gameState: GameState.GameOver,
       });
 
