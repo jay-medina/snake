@@ -1,22 +1,35 @@
-// import { GameThunkAction } from './types';
-// import { AppState } from './util';
+import { Apple } from './util';
+import { GameThunkAction } from './types';
+import { findNewPosition } from '../components/common/util';
 
 interface GameAction {
   type: 'START_GAME';
 }
 
-export type AppAction = GameAction;
+interface AppleAction {
+  type: 'UPDATE_APPLE';
+  payload: {
+    apple: Apple;
+  };
+}
+
+export type AppAction = GameAction | AppleAction;
 
 export const startGame = (): GameAction => ({
   type: 'START_GAME',
 });
 
-// export function randomizeApple(appState: AppState) {
+export const newApplePosition = (position: Apple): AppleAction => ({
+  type: 'UPDATE_APPLE',
+  payload: {
+    apple: position,
+  },
+});
 
-// }
+export const startGameThunk = (): GameThunkAction => (dispatch, getState) => {
+  const appState = getState();
+  const newApple = findNewPosition(appState);
 
-// export const startGameThunk = (): GameThunkAction => (dispatch) => {
-//   // randomize the apple position
-//   // start the game
-// //  return dispatch(startGame);
-// };
+  dispatch(startGame());
+  dispatch(newApplePosition(newApple));
+};

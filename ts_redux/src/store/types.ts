@@ -3,7 +3,7 @@ import { AppState } from './util';
 import { ThunkDispatch, ThunkAction } from 'redux-thunk';
 import { AppAction } from './actions';
 
-export type GameThunkAction<ReturnValue> = ThunkAction<ReturnValue, AppState, {}, AppAction>;
+export type GameThunkAction = ThunkAction<void, AppState, {}, AppAction>;
 
 export type GameThunkDispatch = ThunkDispatch<AppState, {}, AppAction>;
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startGame } from '../../store/actions';
+import { startGameThunk } from '../../store/actions';
 import { DTP, STP } from '../../store/types';
 import { GameState } from '../../store/util';
 import { GameOver, Start } from './Screens';
@@ -29,7 +29,7 @@ function TransitionScreen({ gameState, onPlayClick }: Props) {
 const mapDispatchToProps: DTP<DispatchProps> = (dispatch) => {
   return {
     onPlayClick: () => {
-      dispatch(startGame());
+      dispatch(startGameThunk());
     },
   };
 };
