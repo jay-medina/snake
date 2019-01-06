@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { startGame, startGameThunk } from '../../store/actions';
 import {
   createMockState,
-  createMockStore,
+  createTestStore,
   StoreCreator,
   MockStore,
 } from '../../common/testhelpers';
@@ -23,7 +23,7 @@ describe('<TransitionScreen />', () => {
 
   beforeEach(() => {
     mockState = createMockState();
-    storeCreator = createMockStore();
+    storeCreator = createTestStore();
   });
 
   describe('when the game is running', () => {

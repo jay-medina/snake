@@ -1,6 +1,12 @@
-import { AppState, GameState } from './types';
-import configureStore, { MockStoreCreator, MockStoreEnhanced } from 'redux-mock-store';
+import { AppState, GameState, GameThunkDispatch } from './types';
+import createMockStore, { MockStoreCreator, MockStoreEnhanced } from 'redux-mock-store';
 import thunk from 'redux-thunk';
+
+export type StoreCreator = MockStoreCreator<AppState, GameThunkDispatch>;
+
+export type MockStore = MockStoreEnhanced<AppState, GameThunkDispatch>;
+
+export const createTestStore = (): StoreCreator => createMockStore([thunk]);
 
 export const createMockState = (): AppState => {
   return {
@@ -12,14 +18,6 @@ export const createMockState = (): AppState => {
       cols: 10,
     },
   };
-};
-
-export type StoreCreator = MockStoreCreator<AppState>;
-
-export type MockStore = MockStoreEnhanced<AppState>;
-
-export const createMockStore = (): StoreCreator => {
-  return configureStore([thunk]);
 };
 
 export const mockRandom = (values: number[]) => {
