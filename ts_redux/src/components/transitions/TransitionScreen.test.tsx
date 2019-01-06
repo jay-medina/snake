@@ -1,28 +1,36 @@
+jest.mock('../../common/util');
+
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
-import configureStore, { MockStoreCreator, MockStoreEnhanced } from 'redux-mock-store';
-import { GameState, AppState } from '../../common/types';
+import { GameState, AppState, Apple } from '../../common/types';
 import TransitionScreen from './TransitionScreen';
 import { Provider } from 'react-redux';
-import { startGameThunk } from '../../store/actions';
-import { createMockState } from '../../store/mockState';
+import { startGame, newApplePosition } from '../../store/actions';
+import {
+  createMockState,
+  createMockStore,
+  StoreCreator,
+  MockStore,
+} from '../../common/testhelpers';
+import { findNewPosition } from '../../common/util';
+
+type noop = () => void;
 
 describe('<TransitionScreen />', () => {
   let wrapper: ReactWrapper;
   let mockState: AppState;
-  let mockStore: MockStoreCreator<AppState>;
-  type noop = () => void;
+  let storeCreator: StoreCreator;
+  let store: MockStore;
 
   beforeEach(() => {
     mockState = createMockState();
-    mockStore = configureStore();
+    storeCreator = createMockStore();
   });
 
   describe('when the game is running', () => {
-    let store: MockStoreEnhanced<AppState>;
 
     beforeEach(() => {
-      store = mockStore({
+      store = storeCreator({
         ...mockState,
         gameState: GameState.Run,
       });
@@ -44,10 +52,8 @@ describe('<TransitionScreen />', () => {
   });
 
   describe('when the game is in start state', () => {
-    let store: MockStoreEnhanced<AppState>;
-
     beforeEach(() => {
-      store = mockStore({
+      store = storeCreator({
         ...mockState,
         gameState: GameState.Start,
       });
@@ -64,20 +70,30 @@ describe('<TransitionScreen />', () => {
     });
 
     describe('when user clicks play', () => {
-      it('dispatches the start game thunk action', () => {
+      let newApple: Apple;
+
+      beforeEach(() => {
+        newApple = { row: 10, col: 10 };
+
+        (findNewPosition as jest.Mock).mockReturnValue(newApple);
         const onPlayClick = wrapper.find('Start').prop<noop>('onPlayClick');
 
         onPlayClick();
-        expect(store.getActions()).toEqual([startGameThunk()]);
+      });
+
+      it('dispatches the start game action', () => {
+        expect(store.getActions()).toContainEqual(startGame());
+      });
+
+      it('dispatches update apple action', () => {
+        expect(store.getActions()).toContainEqual(newApplePosition(newApple));
       });
     });
   });
 
   describe('when the game is in end state', () => {
-    let store: MockStoreEnhanced<AppState>;
-
     beforeEach(() => {
-      store = mockStore({
+      store = storeCreator({
         ...mockState,
         gameState: GameState.GameOver,
       });
@@ -94,11 +110,23 @@ describe('<TransitionScreen />', () => {
     });
 
     describe('when user clicks play', () => {
-      it('dispatches the start game action', () => {
+      let newApple: Apple;
+
+      beforeEach(() => {
+        newApple = { row: 10, col: 10 };
+
+        (findNewPosition as jest.Mock).mockReturnValue(newApple);
         const onPlayClick = wrapper.find('GameOver').prop<noop>('onPlayClick');
 
         onPlayClick();
-        expect(store.getActions()).toEqual([startGameThunk()]);
+      });
+
+      it('dispatches the start game action', () => {
+        expect(store.getActions()).toContainEqual(startGame());
+      });
+
+      it('dispatches update apple action', () => {
+        expect(store.getActions()).toContainEqual(newApplePosition(newApple));
       });
     });
   });
