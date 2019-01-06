@@ -31,3 +31,12 @@ describe('apple', () => {
     });
   });
 });
+
+describe('snake', () => {
+  it('initializes the snake', () => {
+    const action: any = {};
+
+    const nextState = app(undefined, action);
+    expect(nextState.snake).toEqual([{ row: 5, col: 1 }, { row: 5, col: 2 }, { row: 5, col: 3 }]);
+  });
+});

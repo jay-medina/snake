@@ -10,6 +10,7 @@ describe('<Board />', () => {
     const mockStore = configureStore<AppState>();
     const store = mockStore({
       gameState: GameState.Start,
+      snake: [{ row: 5, col: 1 }, { row: 5, col: 2 }, { row: 5, col: 3 }],
       apple: {
         row: 3,
         col: 3,

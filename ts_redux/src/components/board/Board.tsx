@@ -26,8 +26,7 @@ export const Board: React.SFC<BoardProps> = ({ rows, cols, snake, apple }) => {
 Board.displayName = 'Board';
 
 const mapStateToProps = (state: AppState): StateProps => {
-  const { dimensions } = state;
-  const snake = [{ row: 5, col: 1 }, { row: 5, col: 2 }, { row: 5, col: 3 }];
+  const { dimensions, snake } = state;
 
   return {
     apple: state.apple,

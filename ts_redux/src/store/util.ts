@@ -7,6 +7,7 @@ export enum GameState {
 export interface AppState {
   gameState: GameState;
   apple: Apple;
+  snake: Snake;
   dimensions: {
     rows: number;
     cols: number;
