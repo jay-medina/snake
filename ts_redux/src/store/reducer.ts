@@ -1,9 +1,8 @@
 import { AppAction } from './actions';
-import { GameState, Apple } from './util';
+import { GameState, Apple, AppState } from './util';
+import { getInitialState } from './initialState';
 
-type Game = (start: GameState | undefined, action: AppAction) => GameState;
-
-export const game: Game = (state = GameState.Start, action) => {
+const gameState = (state: GameState, action: AppAction): GameState => {
   if (action.type === 'START_GAME') {
     return GameState.Run;
   }
@@ -11,11 +10,14 @@ export const game: Game = (state = GameState.Start, action) => {
   return state;
 };
 
-const initialApple: Apple = {
-  row: 0,
-  col: 0,
+const apple = (state: Apple, _action: AppAction): Apple => {
+  return state;
 };
 
-export const apple = (state: Apple = initialApple, _action: AppAction): Apple => {
-  return state;
+export const app = (state: AppState = getInitialState(), action: AppAction): AppState => {
+  return {
+    ...state,
+    apple: apple(state.apple, action),
+    gameState: gameState(state.gameState, action),
+  };
 };
