@@ -12,7 +12,7 @@ import {
   StoreCreator,
   MockStore,
 } from '../../common/testhelpers';
-import { findNewPosition } from '../../common/util';
+import { findNewApplePosition } from '../../common/util';
 
 type noop = () => void;
 
@@ -75,7 +75,7 @@ describe('<TransitionScreen />', () => {
       beforeEach(() => {
         newApple = { row: 10, col: 10 };
 
-        (findNewPosition as jest.Mock).mockReturnValue(newApple);
+        (findNewApplePosition as jest.Mock).mockReturnValue(newApple);
         const onPlayClick = wrapper.find('Start').prop<noop>('onPlayClick');
 
         onPlayClick();
@@ -115,7 +115,7 @@ describe('<TransitionScreen />', () => {
       beforeEach(() => {
         newApple = { row: 10, col: 10 };
 
-        (findNewPosition as jest.Mock).mockReturnValue(newApple);
+        (findNewApplePosition as jest.Mock).mockReturnValue(newApple);
         const onPlayClick = wrapper.find('GameOver').prop<noop>('onPlayClick');
 
         onPlayClick();

@@ -1,5 +1,5 @@
 import { GameThunkAction, Apple } from '../common/types';
-import { findNewPosition } from '../common/util';
+import { findNewApplePosition } from '../common/util';
 
 interface GameAction {
   type: 'START_GAME';
@@ -27,7 +27,7 @@ export const newApplePosition = (position: Apple): AppleAction => ({
 
 export const startGameThunk = (): GameThunkAction => (dispatch, getState) => {
   const appState = getState();
-  const newApple = findNewPosition(appState);
+  const newApple = findNewApplePosition(appState);
 
   dispatch(startGame());
   dispatch(newApplePosition(newApple));
