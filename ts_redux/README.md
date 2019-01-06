@@ -47,3 +47,4 @@ Game starts with an initial screen of the game title and a play button. In order
 - Enzyme
 - Redux-Mock-Store: https://github.com/dmitry-zaets/redux-mock-store
 - Webpack
+- Redux-thunk: https://github.com/reduxjs/redux-thunk

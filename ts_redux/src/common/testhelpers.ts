@@ -21,3 +21,16 @@ export type MockStore = MockStoreEnhanced<AppState>;
 export const createMockStore = (): StoreCreator => {
   return configureStore([thunk]);
 };
+
+export const mockRandom = (values: number[]) => {
+  const mockMath = Object.create(global.Math);
+  global.Math = mockMath;
+
+  const randomMock = jest.fn().mockReturnValue(0);
+
+  values.forEach((value) => {
+    randomMock.mockReturnValueOnce(value);
+  });
+
+  mockMath.random = randomMock;
+};

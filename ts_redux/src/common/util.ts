@@ -1,18 +1,9 @@
-import { GridItem, Snake, AppState } from './types';
+import { GridItem, Snake, AppState, Apple } from './types';
 
 const isAtPosition = (gridItem1: GridItem) => (gridItem2: GridItem) => {
   return gridItem1.row === gridItem2.row && gridItem1.col === gridItem2.col;
 };
 
-export const isSnakeAtPosition = (snake: Snake) => (gridItem: GridItem) =>
-  !!snake.find(isAtPosition(gridItem));
-
-export const isTheApple = isAtPosition;
-
-/**
- * Returns a random number from 0 - num
- *
- */
 const randomNumber = (num: number) => {
   return Math.floor(Math.random() * num);
 };
@@ -24,7 +15,12 @@ const randomGridItem = (dimensions: AppState['dimensions']): GridItem => {
   };
 };
 
-export function findNewPosition(appState: AppState) {
+export const isTheApple = isAtPosition;
+
+export const isSnakeAtPosition = (snake: Snake) => (gridItem: GridItem) =>
+  !!snake.find(isAtPosition(gridItem));
+
+export function findNewApplePosition(appState: AppState): Apple {
   const { snake, dimensions } = appState;
 
   let newApple = randomGridItem(dimensions);
