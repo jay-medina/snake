@@ -1,4 +1,4 @@
-import { createApp } from './components/app/app';
+import { createApp } from './components/app/App';
 import './style.css';
 
 createApp({
