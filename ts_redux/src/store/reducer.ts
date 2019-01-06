@@ -1,5 +1,5 @@
 import { AppAction } from './actions';
-import { GameState, Apple, AppState, Snake } from './util';
+import { GameState, Apple, AppState, Snake } from '../common/types';
 
 const initialState: AppState = {
   dimensions: {
@@ -22,7 +22,11 @@ const gameState = (state: GameState, action: AppAction): GameState => {
   return state;
 };
 
-const apple = (state: Apple, _action: AppAction): Apple => {
+const apple = (state: Apple, action: AppAction): Apple => {
+  if (action.type === 'UPDATE_APPLE') {
+    return action.payload.apple;
+  }
+
   return state;
 };
 

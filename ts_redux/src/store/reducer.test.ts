@@ -1,6 +1,6 @@
 import { app } from './reducer';
-import { GameState } from './util';
-import { startGame } from './actions';
+import { GameState } from '../common/types';
+import { startGame, newApplePosition } from './actions';
 
 describe('game', () => {
   it('initializes to start', () => {
@@ -28,6 +28,16 @@ describe('apple', () => {
     expect(nextState.apple).toEqual({
       row: 2,
       col: 2,
+    });
+  });
+
+  describe('when the action is the update the apple', () => {
+    it('sets a new apple position', () => {
+      const apple = { row: 0, col: 0 };
+      const action = newApplePosition(apple);
+      const nextState = app(undefined, action);
+
+      expect(nextState.apple).toBe(apple);
     });
   });
 });

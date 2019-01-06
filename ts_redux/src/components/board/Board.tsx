@@ -1,8 +1,7 @@
 import React from 'react';
-import { Apple, Snake } from '../../store/util';
 import { Row } from './Row';
-import { AppState } from '../../store/util';
 import { connect } from 'react-redux';
+import { STP, Apple, Snake } from '../../common/types';
 
 interface StateProps {
   rows: number;
@@ -25,7 +24,7 @@ export const Board: React.SFC<BoardProps> = ({ rows, cols, snake, apple }) => {
 
 Board.displayName = 'Board';
 
-const mapStateToProps = (state: AppState): StateProps => {
+const mapStateToProps: STP<StateProps> = (state) => {
   const { dimensions, snake } = state;
 
   return {

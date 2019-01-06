@@ -3,7 +3,7 @@ import React from 'react';
 import Board from './Board';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import { AppState, GameState } from '../../store/util';
+import { AppState, GameState } from '../../common/types';
 
 describe('<Board />', () => {
   it('renders a 5x5 board', () => {
