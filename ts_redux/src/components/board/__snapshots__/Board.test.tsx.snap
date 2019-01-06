@@ -9,6 +9,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
     }
   }
   cols={5}
+  dispatch={[Function]}
   rows={5}
   snake={
     Array [

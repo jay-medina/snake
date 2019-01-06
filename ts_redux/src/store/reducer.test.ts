@@ -26,8 +26,8 @@ describe('apple', () => {
 
     const nextState = app(undefined, action);
     expect(nextState.apple).toEqual({
-      row: 4,
-      col: 4,
+      row: 2,
+      col: 2,
     });
   });
 });
