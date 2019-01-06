@@ -8,32 +8,7 @@ exports[`<Paint /> renders the component 1`] = `
     highScore={10}
     score={10}
   />
-  <Board
-    apple={
-      Object {
-        "col": 1,
-        "row": 1,
-      }
-    }
-    cols={25}
-    rows={25}
-    snake={
-      Array [
-        Object {
-          "col": 1,
-          "row": 5,
-        },
-        Object {
-          "col": 2,
-          "row": 5,
-        },
-        Object {
-          "col": 3,
-          "row": 5,
-        },
-      ]
-    }
-  />
+  <Connect(Board) />
   <Connect(TransitionScreen) />
 </div>
 `;

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Paint } from './paint/Paint';
+import { Paint } from './components/paint/Paint';
 import { createGameStore } from './store/gameStore';
 
 export function createGame() {

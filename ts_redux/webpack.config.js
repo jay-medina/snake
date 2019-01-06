@@ -1,9 +1,9 @@
 // @ts-check
 
 const path = require('path');
-// @ts-ignore
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 /**
  * @type webpack.Configuration
@@ -16,7 +16,7 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js']
   },
   devtool: 'inline-source-map',
   devServer: {
@@ -27,7 +27,10 @@ const config = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        exclude: [
+          /node_modules/,
+          /\.test.tsx?$/,
+        ],
       },
       {
         test: /\.css$/,
