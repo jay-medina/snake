@@ -12,8 +12,8 @@ export const game: Game = (state = GameState.Start, action) => {
 };
 
 const initialApple: Apple = {
-  row: 2,
-  col: 2,
+  row: 0,
+  col: 0,
 };
 
 export const apple = (state: Apple = initialApple, _action: AppAction): Apple => {

@@ -7,6 +7,10 @@ export enum GameState {
 export interface AppState {
   gameState: GameState;
   apple: Apple;
+  dimensions: {
+    rows: number;
+    cols: number;
+  };
 }
 
 export interface GridItem {
