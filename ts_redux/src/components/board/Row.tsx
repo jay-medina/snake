@@ -1,6 +1,6 @@
 import React from 'react';
-import { Apple, Snake } from '../../store/util';
-import { isSnakeAtPosition, isTheApple } from '../common/util';
+import { Apple, Snake } from '../../common/types';
+import { isSnakeAtPosition, isTheApple } from '../../common/util';
 import { Col } from './Column';
 
 interface RowProps {

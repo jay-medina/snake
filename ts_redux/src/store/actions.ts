@@ -1,6 +1,5 @@
-import { Apple } from './util';
-import { GameThunkAction } from './types';
-import { findNewPosition } from '../components/common/util';
+import { GameThunkAction, Apple } from '../common/types';
+import { findNewPosition } from '../common/util';
 
 interface GameAction {
   type: 'START_GAME';

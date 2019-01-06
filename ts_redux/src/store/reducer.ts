@@ -1,5 +1,5 @@
 import { AppAction } from './actions';
-import { GameState, Apple, AppState, Snake } from './util';
+import { GameState, Apple, AppState, Snake } from '../common/types';
 
 const initialState: AppState = {
   dimensions: {

@@ -1,10 +1,10 @@
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
 import configureStore, { MockStoreCreator, MockStoreEnhanced } from 'redux-mock-store';
-import { GameState, AppState } from '../../store/util';
+import { GameState, AppState } from '../../common/types';
 import TransitionScreen from './TransitionScreen';
 import { Provider } from 'react-redux';
-import { startGame } from '../../store/actions';
+import { startGameThunk } from '../../store/actions';
 import { createMockState } from '../../store/mockState';
 
 describe('<TransitionScreen />', () => {
@@ -64,11 +64,11 @@ describe('<TransitionScreen />', () => {
     });
 
     describe('when user clicks play', () => {
-      it('dispatches the start game action', () => {
+      it('dispatches the start game thunk action', () => {
         const onPlayClick = wrapper.find('Start').prop<noop>('onPlayClick');
 
         onPlayClick();
-        expect(store.getActions()).toEqual([startGame()]);
+        expect(store.getActions()).toEqual([startGameThunk()]);
       });
     });
   });
@@ -98,7 +98,7 @@ describe('<TransitionScreen />', () => {
         const onPlayClick = wrapper.find('GameOver').prop<noop>('onPlayClick');
 
         onPlayClick();
-        expect(store.getActions()).toEqual([startGame()]);
+        expect(store.getActions()).toEqual([startGameThunk()]);
       });
     });
   });

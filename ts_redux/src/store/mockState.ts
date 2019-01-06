@@ -1,4 +1,4 @@
-import { AppState, GameState } from './util';
+import { AppState, GameState } from '../common/types';
 
 export const createMockState = (): AppState => {
   return {

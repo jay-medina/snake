@@ -1,4 +1,4 @@
-import { GridItem, Snake, AppState } from '../../store/util';
+import { GridItem, Snake, AppState } from './types';
 
 const isAtPosition = (gridItem1: GridItem) => (gridItem2: GridItem) => {
   return gridItem1.row === gridItem2.row && gridItem1.col === gridItem2.col;

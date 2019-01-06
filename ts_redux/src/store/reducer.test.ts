@@ -1,5 +1,5 @@
 import { app } from './reducer';
-import { GameState } from './util';
+import { GameState } from '../common/types';
 import { startGame } from './actions';
 
 describe('game', () => {

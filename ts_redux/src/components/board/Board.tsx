@@ -1,8 +1,7 @@
 import React from 'react';
-import { Apple, Snake } from '../../store/util';
 import { Row } from './Row';
 import { connect } from 'react-redux';
-import { STP } from '../../store/types';
+import { STP, Apple, Snake } from '../../common/types';
 
 interface StateProps {
   rows: number;

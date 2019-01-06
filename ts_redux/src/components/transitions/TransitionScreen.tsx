@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { startGameThunk } from '../../store/actions';
-import { DTP, STP } from '../../store/types';
-import { GameState } from '../../store/util';
+import { DTP, STP, GameState } from '../../common/types';
 import { GameOver, Start } from './Screens';
 
 interface StateProps {
