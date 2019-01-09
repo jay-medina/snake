@@ -1,4 +1,4 @@
-import { GameThunkAction, Apple } from '../common/types';
+import { GameThunkAction, Apple, TimeStamp } from '../common/types';
 import { findNewApplePosition } from '../common/util';
 
 interface GameAction {
@@ -12,7 +12,14 @@ interface AppleAction {
   };
 }
 
-export type AppAction = GameAction | AppleAction;
+interface TickTimeAction {
+  type: 'TICK_TIME';
+  payload: {
+    timestamp: TimeStamp;
+  };
+}
+
+export type AppAction = GameAction | AppleAction | TickTimeAction;
 
 export const startGame = (): GameAction => ({
   type: 'START_GAME',

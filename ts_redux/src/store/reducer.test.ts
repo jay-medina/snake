@@ -47,6 +47,10 @@ describe('snake', () => {
     const action: any = {};
 
     const nextState = app(undefined, action);
-    expect(nextState.snake).toEqual([{ row: 5, col: 1 }, { row: 5, col: 2 }, { row: 5, col: 3 }]);
+    expect(nextState.snake).toEqual({
+      body: [{ row: 5, col: 1 }, { row: 5, col: 2 }, { row: 5, col: 3 }],
+      incrementTimer: 200,
+      lastIncrementTimestamp: 0,
+    });
   });
 });

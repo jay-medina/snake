@@ -1,4 +1,4 @@
-import { GridItem, Snake, AppState, Apple } from './types';
+import { GridItem, Snake, AppState, Apple, TimeStamp } from './types';
 
 const isAtPosition = (gridItem1: GridItem) => (gridItem2: GridItem) => {
   return gridItem1.row === gridItem2.row && gridItem1.col === gridItem2.col;
@@ -17,7 +17,7 @@ const randomGridItem = (dimensions: AppState['dimensions']): GridItem => {
 
 export const isTheApple = isAtPosition;
 
-export const isSnakeAtPosition = (snake: Snake) => (gridItem: GridItem) =>
+export const isSnakeAtPosition = (snake: Snake['body']) => (gridItem: GridItem) =>
   !!snake.find(isAtPosition(gridItem));
 
 export function findNewApplePosition(appState: AppState): Apple {
@@ -25,9 +25,16 @@ export function findNewApplePosition(appState: AppState): Apple {
 
   let newApple = randomGridItem(dimensions);
 
-  while (isSnakeAtPosition(snake)(newApple)) {
+  while (isSnakeAtPosition(snake.body)(newApple)) {
     newApple = randomGridItem(dimensions);
   }
 
   return newApple;
+}
+
+export function isSnakeAbleToMove(snake: Snake, timestamp: TimeStamp) {
+  return (
+    snake.lastIncrementTimestamp === 0 ||
+    timestamp - snake.lastIncrementTimestamp >= snake.incrementTimer
+  );
 }

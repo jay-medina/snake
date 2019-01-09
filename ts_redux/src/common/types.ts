@@ -36,4 +36,10 @@ export interface GridItem {
 
 export type Apple = GridItem;
 
-export type Snake = GridItem[];
+export interface Snake {
+  body: GridItem[];
+  incrementTimer: number;
+  lastIncrementTimestamp: number;
+}
+
+export type TimeStamp = number;
