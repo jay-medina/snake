@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app creates the app state 1`] = `
+Object {
+  "apple": Object {
+    "col": 2,
+    "row": 2,
+  },
+  "dimensions": Object {
+    "cols": 25,
+    "rows": 25,
+  },
+  "gameState": 0,
+  "snake": Object {
+    "body": Array [
+      Object {
+        "col": 1,
+        "row": 5,
+      },
+      Object {
+        "col": 2,
+        "row": 5,
+      },
+      Object {
+        "col": 3,
+        "row": 5,
+      },
+    ],
+    "direction": "right",
+    "incrementTimer": 200,
+    "lastIncrementTimestamp": 0,
+  },
+}
+`;

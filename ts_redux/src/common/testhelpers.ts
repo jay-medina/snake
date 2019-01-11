@@ -1,4 +1,4 @@
-import { AppState, GameState, GameThunkDispatch } from './types';
+import { AppState, GameThunkDispatch } from './types';
 import createMockStore, { MockStoreCreator, MockStoreEnhanced } from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
@@ -10,12 +10,13 @@ export const createTestStore = (): StoreCreator => createMockStore([thunk]);
 
 export const createMockState = (): AppState => {
   return {
-    gameState: GameState.Start,
+    gameState: 'Start',
     apple: { row: 1, col: 1 },
     snake: {
       body: [{ row: 5, col: 1 }, { row: 5, col: 2 }, { row: 5, col: 3 }],
       incrementTimer: 200,
       lastIncrementTimestamp: 100,
+      direction: 'right',
     },
     dimensions: {
       rows: 10,

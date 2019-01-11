@@ -15,10 +15,10 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps;
 
 function TransitionScreen({ gameState, onPlayClick }: Props) {
-  if (gameState === GameState.Start) {
+  if (gameState === 'Start') {
     return <Start onPlayClick={onPlayClick} />;
   }
-  if (gameState === GameState.GameOver) {
+  if (gameState === 'GameOver') {
     return <GameOver onPlayClick={onPlayClick} />;
   }
 

@@ -1,4 +1,4 @@
-import { GridItem, Snake, AppState, Apple, TimeStamp } from './types';
+import { GridItem, Snake, AppState, Apple } from './types';
 
 const isAtPosition = (gridItem1: GridItem) => (gridItem2: GridItem) => {
   return gridItem1.row === gridItem2.row && gridItem1.col === gridItem2.col;
@@ -30,11 +30,4 @@ export function findNewApplePosition(appState: AppState): Apple {
   }
 
   return newApple;
-}
-
-export function isSnakeAbleToMove(snake: Snake, timestamp: TimeStamp) {
-  return (
-    snake.lastIncrementTimestamp === 0 ||
-    timestamp - snake.lastIncrementTimestamp >= snake.incrementTimer
-  );
 }
