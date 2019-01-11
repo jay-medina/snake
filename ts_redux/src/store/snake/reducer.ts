@@ -38,5 +38,14 @@ export const snakeReducer = (snake: Snake, action: AppAction): Snake => {
     }
   }
 
+  if (action.type === 'UPDATE_SNAKE_DIRECTION') {
+    const { payload } = action;
+
+    return {
+      ...snake,
+      direction: payload.direction,
+    };
+  }
+
   return snake;
 };
