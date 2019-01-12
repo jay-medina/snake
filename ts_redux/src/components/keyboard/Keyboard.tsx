@@ -59,13 +59,11 @@ class Keyboard extends React.Component<KeyboardProps> {
   }
 }
 
-const dtp: DTP<KeyboardProps> = (dispatch) => {
-  return {
-    onDirectionChange(direction) {
-      dispatch(updateSnakeDirection(direction))
-    },
-  }
-}
+const dtp: DTP<KeyboardProps> = (dispatch) => ({
+  onDirectionChange(direction) {
+    dispatch(updateSnakeDirection(direction))
+  },
+})
 
 export default connect(
   null,
