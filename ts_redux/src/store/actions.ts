@@ -39,6 +39,13 @@ export const newApplePosition = (position: Apple): AppleAction => ({
   },
 });
 
+export const tickForward = (timestamp: TimeStamp): TickTimeAction => ({
+  type: 'TICK_TIME',
+  payload: {
+    timestamp,
+  },
+});
+
 export const startGameThunk = (): GameThunkAction => (dispatch, getState) => {
   const appState = getState();
   const newApple = findNewApplePosition(appState);
