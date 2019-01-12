@@ -19,14 +19,20 @@ export interface TickTimeAction {
   }
 }
 
-export interface DirectionAction {
+export interface SnakeDirectionAction {
   type: 'UPDATE_SNAKE_DIRECTION'
   payload: {
     direction: Direction
   }
 }
 
-export type AppAction = GameAction | AppleAction | TickTimeAction | DirectionAction
+export interface SnakeSizeAction {
+  type: 'UPDATE_SNAKE_SIZE'
+}
+
+export type SnakeAction = SnakeDirectionAction | SnakeSizeAction
+
+export type AppAction = GameAction | AppleAction | TickTimeAction | SnakeAction
 
 export const startGame = (): GameAction => ({
   type: 'START_GAME',
@@ -46,6 +52,10 @@ export const tickForward = (timestamp: TimeStamp): TickTimeAction => ({
   },
 })
 
+export const growSnake = (): SnakeSizeAction => ({
+  type: 'UPDATE_SNAKE_SIZE',
+})
+
 export const newAppleThunk = (): GameThunkAction => (dispatch, getState) => {
   const appState = getState()
 
@@ -60,6 +70,7 @@ export const tickForwardThunk = (timestamp: TimeStamp): GameThunkAction => (disp
   const { snake, apple } = appState
 
   if (isSnakeAtPosition(snake.body)(apple)) {
+    dispatch(growSnake())
     dispatch(newAppleThunk())
   }
 }
@@ -69,7 +80,7 @@ export const startGameThunk = (): GameThunkAction => (dispatch) => {
   dispatch(newAppleThunk())
 }
 
-export const updateSnakeDirection = (direction: Direction): DirectionAction => ({
+export const updateSnakeDirection = (direction: Direction): SnakeDirectionAction => ({
   type: 'UPDATE_SNAKE_DIRECTION',
   payload: {
     direction,

@@ -28,5 +28,17 @@ export const snakeReducer = (snake: Snake, action: AppAction): Snake => {
     }
   }
 
+  if (action.type === 'UPDATE_SNAKE_SIZE') {
+    const { body } = snake
+    const lastPosition = body[body.length - 1]
+    const newBody = moveSnake(snake)
+    newBody.push(lastPosition)
+
+    return {
+      ...snake,
+      body: newBody,
+    }
+  }
+
   return snake
 }
