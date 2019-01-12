@@ -1,62 +1,77 @@
-import { GameThunkAction, Apple, TimeStamp, Direction } from '../common/types';
-import { findNewApplePosition } from '../common/util';
+import { GameThunkAction, Apple, TimeStamp, Direction } from '../common/types'
+import { findNewApplePosition, isSnakeAtPosition } from '../common/util'
 
 interface GameAction {
-  type: 'START_GAME';
+  type: 'START_GAME'
 }
 
 interface AppleAction {
-  type: 'UPDATE_APPLE';
+  type: 'UPDATE_APPLE'
   payload: {
-    apple: Apple;
-  };
+    apple: Apple
+  }
 }
 
 export interface TickTimeAction {
-  type: 'TICK_TIME';
+  type: 'TICK_TIME'
   payload: {
-    timestamp: TimeStamp;
-  };
+    timestamp: TimeStamp
+  }
 }
 
 export interface DirectionAction {
-  type: 'UPDATE_SNAKE_DIRECTION';
+  type: 'UPDATE_SNAKE_DIRECTION'
   payload: {
-    direction: Direction;
-  };
+    direction: Direction
+  }
 }
 
-export type AppAction = GameAction | AppleAction | TickTimeAction | DirectionAction;
+export type AppAction = GameAction | AppleAction | TickTimeAction | DirectionAction
 
 export const startGame = (): GameAction => ({
   type: 'START_GAME',
-});
+})
 
 export const newApplePosition = (position: Apple): AppleAction => ({
   type: 'UPDATE_APPLE',
   payload: {
     apple: position,
   },
-});
+})
 
 export const tickForward = (timestamp: TimeStamp): TickTimeAction => ({
   type: 'TICK_TIME',
   payload: {
     timestamp,
   },
-});
+})
 
-export const startGameThunk = (): GameThunkAction => (dispatch, getState) => {
-  const appState = getState();
-  const newApple = findNewApplePosition(appState);
+export const newAppleThunk = (): GameThunkAction => (dispatch, getState) => {
+  const appState = getState()
 
-  dispatch(startGame());
-  dispatch(newApplePosition(newApple));
-};
+  const newApple = findNewApplePosition(appState)
+  return dispatch(newApplePosition(newApple))
+}
+
+export const tickForwardThunk = (timestamp: TimeStamp): GameThunkAction => (dispatch, getState) => {
+  dispatch(tickForward(timestamp))
+
+  const appState = getState()
+  const { snake, apple } = appState
+
+  if (isSnakeAtPosition(snake.body)(apple)) {
+    dispatch(newAppleThunk())
+  }
+}
+
+export const startGameThunk = (): GameThunkAction => (dispatch) => {
+  dispatch(startGame())
+  dispatch(newAppleThunk())
+}
 
 export const updateSnakeDirection = (direction: Direction): DirectionAction => ({
   type: 'UPDATE_SNAKE_DIRECTION',
   payload: {
     direction,
   },
-});
+})

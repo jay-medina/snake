@@ -12,7 +12,8 @@
     "variable-name": false,
     "curly": false,
     "member-access": false,
-    "semicolon": false
+    "semicolon": false,
+    "trailing-comma": false
   },
   "linterOptions": {
     "exclude": ["coverage/**/*"]

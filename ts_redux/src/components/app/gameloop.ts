@@ -1,10 +1,9 @@
-import { Store } from 'redux'
-import { AppState, TimeStamp } from '../../common/types'
-import { AppAction, tickForward } from '../../store/actions'
+import { TimeStamp, GameStore } from '../../common/types'
+import { tickForwardThunk } from '../../store/actions'
 
-function loop(store: Store<AppState, AppAction>) {
+function loop(store: GameStore) {
   function step(timestamp: TimeStamp) {
-    store.dispatch(tickForward(timestamp))
+    store.dispatch(tickForwardThunk(timestamp))
 
     requestAnimationFrame(step)
   }
@@ -12,7 +11,7 @@ function loop(store: Store<AppState, AppAction>) {
   requestAnimationFrame(step)
 }
 
-export function startLoop(store: Store<AppState, AppAction>) {
+export function startLoop(store: GameStore) {
   let started = false
 
   const gameloop = () => {
