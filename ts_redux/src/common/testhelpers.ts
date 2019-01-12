@@ -9,7 +9,7 @@ export type MockStore = MockStoreEnhanced<AppState, GameThunkDispatch>
 export const createTestStore = (): StoreCreator => createMockStore([thunk])
 
 export const createMockSnake = (): Snake => ({
-  body: [{ row: 5, col: 1 }, { row: 5, col: 2 }, { row: 5, col: 3 }],
+  body: [{ row: 5, col: 3 }, { row: 5, col: 2 }, { row: 5, col: 1 }],
   incrementTimer: 200,
   lastTimestamp: 100,
   direction: 'right',

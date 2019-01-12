@@ -14,7 +14,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
   snake={
     Array [
       Object {
-        "col": 1,
+        "col": 3,
         "row": 5,
       },
       Object {
@@ -22,7 +22,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
         "row": 5,
       },
       Object {
-        "col": 3,
+        "col": 1,
         "row": 5,
       },
     ]
@@ -44,7 +44,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
       snake={
         Array [
           Object {
-            "col": 1,
+            "col": 3,
             "row": 5,
           },
           Object {
@@ -52,7 +52,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
             "row": 5,
           },
           Object {
-            "col": 3,
+            "col": 1,
             "row": 5,
           },
         ]
@@ -146,7 +146,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
       snake={
         Array [
           Object {
-            "col": 1,
+            "col": 3,
             "row": 5,
           },
           Object {
@@ -154,7 +154,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
             "row": 5,
           },
           Object {
-            "col": 3,
+            "col": 1,
             "row": 5,
           },
         ]
@@ -249,7 +249,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
       snake={
         Array [
           Object {
-            "col": 1,
+            "col": 3,
             "row": 5,
           },
           Object {
@@ -257,7 +257,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
             "row": 5,
           },
           Object {
-            "col": 3,
+            "col": 1,
             "row": 5,
           },
         ]
@@ -351,7 +351,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
       snake={
         Array [
           Object {
-            "col": 1,
+            "col": 3,
             "row": 5,
           },
           Object {
@@ -359,7 +359,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
             "row": 5,
           },
           Object {
-            "col": 3,
+            "col": 1,
             "row": 5,
           },
         ]
@@ -453,7 +453,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
       snake={
         Array [
           Object {
-            "col": 1,
+            "col": 3,
             "row": 5,
           },
           Object {
@@ -461,7 +461,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
             "row": 5,
           },
           Object {
-            "col": 3,
+            "col": 1,
             "row": 5,
           },
         ]
@@ -555,7 +555,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
       snake={
         Array [
           Object {
-            "col": 1,
+            "col": 3,
             "row": 5,
           },
           Object {
@@ -563,7 +563,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
             "row": 5,
           },
           Object {
-            "col": 3,
+            "col": 1,
             "row": 5,
           },
         ]
@@ -660,7 +660,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
       snake={
         Array [
           Object {
-            "col": 1,
+            "col": 3,
             "row": 5,
           },
           Object {
@@ -668,7 +668,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
             "row": 5,
           },
           Object {
-            "col": 3,
+            "col": 1,
             "row": 5,
           },
         ]
@@ -762,7 +762,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
       snake={
         Array [
           Object {
-            "col": 1,
+            "col": 3,
             "row": 5,
           },
           Object {
@@ -770,7 +770,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
             "row": 5,
           },
           Object {
-            "col": 3,
+            "col": 1,
             "row": 5,
           },
         ]
@@ -864,7 +864,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
       snake={
         Array [
           Object {
-            "col": 1,
+            "col": 3,
             "row": 5,
           },
           Object {
@@ -872,7 +872,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
             "row": 5,
           },
           Object {
-            "col": 3,
+            "col": 1,
             "row": 5,
           },
         ]
@@ -966,7 +966,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
       snake={
         Array [
           Object {
-            "col": 1,
+            "col": 3,
             "row": 5,
           },
           Object {
@@ -974,7 +974,7 @@ exports[`<Board /> renders a 5x5 board 1`] = `
             "row": 5,
           },
           Object {
-            "col": 3,
+            "col": 1,
             "row": 5,
           },
         ]
