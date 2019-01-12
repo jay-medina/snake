@@ -11,6 +11,10 @@ Object {
     "rows": 25,
   },
   "gameState": "Start",
+  "score": Object {
+    "current": 0,
+    "high": 100,
+  },
   "snake": Object {
     "body": Array [
       Object {

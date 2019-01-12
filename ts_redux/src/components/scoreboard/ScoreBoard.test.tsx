@@ -14,6 +14,6 @@ describe('<ScoreBoard /> ', () => {
         <ScoreBoard />
       </Provider>,
     )
-    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.find('Scoreboard')).toMatchSnapshot()
   })
 })
