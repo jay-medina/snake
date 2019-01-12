@@ -5,7 +5,7 @@ describe('snake', () => {
   const initialSnake: Snake = {
     body: [{ row: 5, col: 1 }, { row: 5, col: 2 }, { row: 5, col: 3 }],
     incrementTimer: 200,
-    lastIncrementTimestamp: 0,
+    lastTimestamp: 0,
     direction: 'right',
   };
 

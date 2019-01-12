@@ -28,7 +28,7 @@ Object {
     ],
     "direction": "right",
     "incrementTimer": 200,
-    "lastIncrementTimestamp": 0,
+    "lastTimestamp": 0,
   },
 }
 `;

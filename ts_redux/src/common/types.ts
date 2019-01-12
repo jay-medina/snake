@@ -37,7 +37,7 @@ export type Direction = 'left' | 'right' | 'up' | 'down';
 export interface Snake {
   body: GridItem[];
   incrementTimer: number;
-  lastIncrementTimestamp: number;
+  lastTimestamp: number;
   direction: Direction;
 }
 

@@ -2,8 +2,8 @@ import { Snake, TimeStamp, Direction } from '../../common/types'
 
 export function isSnakeAbleToMove(snake: Snake, timestamp: TimeStamp) {
   return (
-    snake.lastIncrementTimestamp === 0 ||
-    timestamp - snake.lastIncrementTimestamp >= snake.incrementTimer
+    snake.lastTimestamp === 0 ||
+    timestamp - snake.lastTimestamp >= snake.incrementTimer
   )
 }
 

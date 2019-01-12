@@ -12,7 +12,7 @@ export const snakeReducer = (snake: Snake, action: AppAction): Snake => {
       return {
         ...snake,
         body: moveSnake(snake),
-        lastIncrementTimestamp: payload.timestamp,
+        lastTimestamp: payload.timestamp,
       }
     }
   }
