@@ -1,6 +1,6 @@
-import { AppAction } from './actions';
-import { GameState, Apple, AppState } from '../common/types';
-import { snakeReducer } from './snake/reducer';
+import { AppAction } from './actions'
+import { GameState, Apple, AppState } from '../common/types'
+import { snakeReducer } from './snake/reducer'
 
 const initialState: AppState = {
   dimensions: {
@@ -18,29 +18,37 @@ const initialState: AppState = {
     direction: 'right',
   },
   gameState: 'Start',
-};
+}
 
 const gameState = (state: GameState, action: AppAction): GameState => {
   if (action.type === 'START_GAME') {
-    return 'Run';
+    return 'Run'
   }
 
-  return state;
-};
+  return state
+}
 
 const apple = (state: Apple, action: AppAction): Apple => {
   if (action.type === 'UPDATE_APPLE') {
-    return action.payload.apple;
+    return action.payload.apple
   }
 
-  return state;
-};
+  return state
+}
 
 export const app = (state: AppState = initialState, action: AppAction): AppState => {
+  if (state.gameState === 'Run') {
+    return {
+      ...state,
+      snake: snakeReducer(state.snake, action),
+      apple: apple(state.apple, action),
+      gameState: gameState(state.gameState, action),
+    }
+  }
+
   return {
     ...state,
-    snake: snakeReducer(state.snake, action),
     apple: apple(state.apple, action),
     gameState: gameState(state.gameState, action),
-  };
-};
+  }
+}
