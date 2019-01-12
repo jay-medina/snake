@@ -28,6 +28,7 @@ export interface AppState {
     rows: number
     cols: number
   }
+  score: Score
 }
 
 export interface GridItem {
@@ -38,6 +39,11 @@ export interface GridItem {
 export type Apple = GridItem
 
 export type Direction = 'left' | 'right' | 'up' | 'down'
+
+export interface Score {
+  current: number
+  high: number
+}
 
 export interface Snake {
   body: GridItem[]

@@ -12,6 +12,10 @@ interface AppleAction {
   }
 }
 
+interface ScoreAction {
+  type: 'INCREASE_SCORE'
+}
+
 export interface TickTimeAction {
   type: 'TICK_TIME'
   payload: {
@@ -32,7 +36,7 @@ export interface SnakeSizeAction {
 
 export type SnakeAction = SnakeDirectionAction | SnakeSizeAction
 
-export type AppAction = GameAction | AppleAction | TickTimeAction | SnakeAction
+export type AppAction = GameAction | AppleAction | TickTimeAction | SnakeAction | ScoreAction
 
 export const startGame = (): GameAction => ({
   type: 'START_GAME',
@@ -56,6 +60,10 @@ export const growSnake = (): SnakeSizeAction => ({
   type: 'UPDATE_SNAKE_SIZE',
 })
 
+export const updateScore = (): ScoreAction => ({
+  type: 'INCREASE_SCORE',
+})
+
 export const newAppleThunk = (): GameThunkAction => (dispatch, getState) => {
   const appState = getState()
 
@@ -72,6 +80,7 @@ export const tickForwardThunk = (timestamp: TimeStamp): GameThunkAction => (disp
   if (isSnakeAtPosition(snake.body)(apple)) {
     dispatch(growSnake())
     dispatch(newAppleThunk())
+    dispatch(updateScore())
   }
 }
 
