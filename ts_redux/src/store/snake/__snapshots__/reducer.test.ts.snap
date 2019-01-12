@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snake when the time ticks forward when the snake is able to move updates the snakes body 1`] = `
+Array [
+  Object {
+    "col": 4,
+    "row": 5,
+  },
+  Object {
+    "col": 3,
+    "row": 5,
+  },
+  Object {
+    "col": 2,
+    "row": 5,
+  },
+]
+`;

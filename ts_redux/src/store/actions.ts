@@ -12,14 +12,14 @@ interface AppleAction {
   };
 }
 
-interface TickTimeAction {
+export interface TickTimeAction {
   type: 'TICK_TIME';
   payload: {
     timestamp: TimeStamp;
   };
 }
 
-interface DirectionAction {
+export interface DirectionAction {
   type: 'UPDATE_SNAKE_DIRECTION';
   payload: {
     direction: Direction;
