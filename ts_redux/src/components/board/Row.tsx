@@ -7,10 +7,10 @@ interface RowProps {
   row: number;
   cols: number;
   apple: Apple;
-  snake: Snake;
+  snake: Snake['body'];
 }
 
-function getFilled(snake: Snake, apple: Apple, row: number, col: number) {
+function getFilled(snake: Snake['body'], apple: Apple, row: number, col: number) {
   const gridItem = { row, col };
 
   if (isSnakeAtPosition(snake)(gridItem)) {

@@ -1,9 +1,9 @@
-import { Snake, AppState } from './types';
+import { AppState } from './types';
 import { isSnakeAtPosition, isTheApple, findNewApplePosition } from './util';
 import { createMockState, mockRandom } from './testhelpers';
 
 describe('isSnakeAtPosition', () => {
-  const snake: Snake = [{ row: 1, col: 1 }, { row: 2, col: 1 }, { row: 3, col: 1 }];
+  const snake = [{ row: 1, col: 1 }, { row: 2, col: 1 }, { row: 3, col: 1 }];
   const check = isSnakeAtPosition(snake);
 
   it('returns true for overlapping grid item', () => {
@@ -32,7 +32,7 @@ describe('findNewApplePosition', () => {
 
   beforeEach(() => {
     mockState = createMockState();
-    mockState.snake = [{ row: 1, col: 1 }, { row: 2, col: 1 }, { row: 3, col: 1 }];
+    mockState.snake.body = [{ row: 1, col: 1 }, { row: 2, col: 1 }, { row: 3, col: 1 }];
   });
 
   it('returns back the new apple position', () => {

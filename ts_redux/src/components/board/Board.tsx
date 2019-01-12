@@ -7,7 +7,7 @@ interface StateProps {
   rows: number;
   cols: number;
   apple: Apple;
-  snake: Snake;
+  snake: Snake['body'];
 }
 
 type BoardProps = StateProps;
@@ -31,7 +31,7 @@ const mapStateToProps: STP<StateProps> = (state) => {
     apple: state.apple,
     rows: dimensions.rows,
     cols: dimensions.cols,
-    snake,
+    snake: snake.body,
   };
 };
 

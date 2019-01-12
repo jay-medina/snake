@@ -17,7 +17,7 @@ const randomGridItem = (dimensions: AppState['dimensions']): GridItem => {
 
 export const isTheApple = isAtPosition;
 
-export const isSnakeAtPosition = (snake: Snake) => (gridItem: GridItem) =>
+export const isSnakeAtPosition = (snake: Snake['body']) => (gridItem: GridItem) =>
   !!snake.find(isAtPosition(gridItem));
 
 export function findNewApplePosition(appState: AppState): Apple {
@@ -25,7 +25,7 @@ export function findNewApplePosition(appState: AppState): Apple {
 
   let newApple = randomGridItem(dimensions);
 
-  while (isSnakeAtPosition(snake)(newApple)) {
+  while (isSnakeAtPosition(snake.body)(newApple)) {
     newApple = randomGridItem(dimensions);
   }
 

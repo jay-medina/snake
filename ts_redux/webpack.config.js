@@ -29,7 +29,6 @@ const config = {
         use: 'ts-loader',
         exclude: [
           /node_modules/,
-          /\.test.tsx?$/,
         ],
       },
       {

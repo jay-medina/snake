@@ -13,11 +13,7 @@ export type DTP<DispatchProps, OwnProps = {}> = (
 
 export type STP<StateProps, OwnProps = {}> = MSTP<StateProps, OwnProps, AppState>;
 
-export enum GameState {
-  Start,
-  Run,
-  GameOver,
-}
+export type GameState = 'Start' | 'Run' | 'GameOver';
 
 export interface AppState {
   gameState: GameState;
@@ -36,4 +32,13 @@ export interface GridItem {
 
 export type Apple = GridItem;
 
-export type Snake = GridItem[];
+export type Direction = 'left' | 'right' | 'up' | 'down';
+
+export interface Snake {
+  body: GridItem[];
+  incrementTimer: number;
+  lastTimestamp: number;
+  direction: Direction;
+}
+
+export type TimeStamp = number;

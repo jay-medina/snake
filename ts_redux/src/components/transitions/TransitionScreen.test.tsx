@@ -2,7 +2,7 @@ jest.mock('../../common/util');
 
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
-import { GameState, AppState } from '../../common/types';
+import { AppState } from '../../common/types';
 import TransitionScreen from './TransitionScreen';
 import { Provider } from 'react-redux';
 import { startGame, startGameThunk } from '../../store/actions';
@@ -30,7 +30,7 @@ describe('<TransitionScreen />', () => {
     beforeEach(() => {
       store = storeCreator({
         ...mockState,
-        gameState: GameState.Run,
+        gameState: 'Run',
       });
 
       wrapper = mount(
@@ -45,7 +45,7 @@ describe('<TransitionScreen />', () => {
     });
 
     it('passes the gameState to the Transition Screen', () => {
-      expect(wrapper.find('TransitionScreen').prop('gameState')).toBe(GameState.Run);
+      expect(wrapper.find('TransitionScreen').prop('gameState')).toBe('Run');
     });
   });
 
@@ -53,7 +53,7 @@ describe('<TransitionScreen />', () => {
     beforeEach(() => {
       store = storeCreator({
         ...mockState,
-        gameState: GameState.Start,
+        gameState: 'Start',
       });
 
       wrapper = mount(
@@ -87,7 +87,7 @@ describe('<TransitionScreen />', () => {
     beforeEach(() => {
       store = storeCreator({
         ...mockState,
-        gameState: GameState.GameOver,
+        gameState: 'GameOver',
       });
 
       wrapper = mount(

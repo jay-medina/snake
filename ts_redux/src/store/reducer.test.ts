@@ -1,13 +1,22 @@
 import { app } from './reducer';
-import { GameState } from '../common/types';
 import { startGame, newApplePosition } from './actions';
+
+describe('app', () => {
+  it('creates the app state', () => {
+    const action: any = {};
+
+    const nextState = app(undefined, action);
+
+    expect(nextState).toMatchSnapshot();
+  });
+});
 
 describe('game', () => {
   it('initializes to start', () => {
     const action: any = {};
 
     const nextState = app(undefined, action);
-    expect(nextState.gameState).toEqual(GameState.Start);
+    expect(nextState.gameState).toEqual('Start');
   });
 
   describe('when the action is to start the game', () => {
@@ -15,7 +24,7 @@ describe('game', () => {
       const action = startGame();
 
       const nextState = app(undefined, action);
-      expect(nextState.gameState).toEqual(GameState.Run);
+      expect(nextState.gameState).toEqual('Run');
     });
   });
 });
@@ -39,14 +48,5 @@ describe('apple', () => {
 
       expect(nextState.apple).toBe(apple);
     });
-  });
-});
-
-describe('snake', () => {
-  it('initializes the snake', () => {
-    const action: any = {};
-
-    const nextState = app(undefined, action);
-    expect(nextState.snake).toEqual([{ row: 5, col: 1 }, { row: 5, col: 2 }, { row: 5, col: 3 }]);
   });
 });
