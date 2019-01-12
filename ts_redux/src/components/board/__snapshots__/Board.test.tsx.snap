@@ -4,18 +4,26 @@ exports[`<Board /> renders a 5x5 board 1`] = `
 <Board
   apple={
     Object {
-      "col": 3,
-      "row": 3,
+      "col": 1,
+      "row": 1,
     }
   }
-  cols={5}
+  cols={10}
   dispatch={[Function]}
-  rows={5}
+  rows={10}
   snake={
     Array [
       Object {
         "col": 1,
-        "row": 1,
+        "row": 5,
+      },
+      Object {
+        "col": 2,
+        "row": 5,
+      },
+      Object {
+        "col": 3,
+        "row": 5,
       },
     ]
   }
@@ -26,18 +34,26 @@ exports[`<Board /> renders a 5x5 board 1`] = `
     <Row
       apple={
         Object {
-          "col": 3,
-          "row": 3,
+          "col": 1,
+          "row": 1,
         }
       }
-      cols={5}
+      cols={10}
       key="0"
       row={0}
       snake={
         Array [
           Object {
             "col": 1,
-            "row": 1,
+            "row": 5,
+          },
+          Object {
+            "col": 2,
+            "row": 5,
+          },
+          Object {
+            "col": 3,
+            "row": 5,
           },
         ]
       }
@@ -80,23 +96,475 @@ exports[`<Board /> renders a 5x5 board 1`] = `
             className="snake__board-col"
           />
         </Col>
+        <Col
+          key="5"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="6"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="7"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="8"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="9"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
       </div>
     </Row>
     <Row
       apple={
         Object {
-          "col": 3,
-          "row": 3,
+          "col": 1,
+          "row": 1,
         }
       }
-      cols={5}
+      cols={10}
       key="1"
       row={1}
       snake={
         Array [
           Object {
             "col": 1,
-            "row": 1,
+            "row": 5,
+          },
+          Object {
+            "col": 2,
+            "row": 5,
+          },
+          Object {
+            "col": 3,
+            "row": 5,
+          },
+        ]
+      }
+    >
+      <div
+        className="snake__board-row"
+      >
+        <Col
+          key="0"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          filled="apple"
+          key="1"
+        >
+          <div
+            className="snake__board-col snake__board-col-apple"
+          />
+        </Col>
+        <Col
+          key="2"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="3"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="4"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="5"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="6"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="7"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="8"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="9"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+      </div>
+    </Row>
+    <Row
+      apple={
+        Object {
+          "col": 1,
+          "row": 1,
+        }
+      }
+      cols={10}
+      key="2"
+      row={2}
+      snake={
+        Array [
+          Object {
+            "col": 1,
+            "row": 5,
+          },
+          Object {
+            "col": 2,
+            "row": 5,
+          },
+          Object {
+            "col": 3,
+            "row": 5,
+          },
+        ]
+      }
+    >
+      <div
+        className="snake__board-row"
+      >
+        <Col
+          key="0"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="1"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="2"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="3"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="4"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="5"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="6"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="7"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="8"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="9"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+      </div>
+    </Row>
+    <Row
+      apple={
+        Object {
+          "col": 1,
+          "row": 1,
+        }
+      }
+      cols={10}
+      key="3"
+      row={3}
+      snake={
+        Array [
+          Object {
+            "col": 1,
+            "row": 5,
+          },
+          Object {
+            "col": 2,
+            "row": 5,
+          },
+          Object {
+            "col": 3,
+            "row": 5,
+          },
+        ]
+      }
+    >
+      <div
+        className="snake__board-row"
+      >
+        <Col
+          key="0"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="1"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="2"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="3"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="4"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="5"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="6"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="7"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="8"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="9"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+      </div>
+    </Row>
+    <Row
+      apple={
+        Object {
+          "col": 1,
+          "row": 1,
+        }
+      }
+      cols={10}
+      key="4"
+      row={4}
+      snake={
+        Array [
+          Object {
+            "col": 1,
+            "row": 5,
+          },
+          Object {
+            "col": 2,
+            "row": 5,
+          },
+          Object {
+            "col": 3,
+            "row": 5,
+          },
+        ]
+      }
+    >
+      <div
+        className="snake__board-row"
+      >
+        <Col
+          key="0"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="1"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="2"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="3"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="4"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="5"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="6"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="7"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="8"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="9"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+      </div>
+    </Row>
+    <Row
+      apple={
+        Object {
+          "col": 1,
+          "row": 1,
+        }
+      }
+      cols={10}
+      key="5"
+      row={5}
+      snake={
+        Array [
+          Object {
+            "col": 1,
+            "row": 5,
+          },
+          Object {
+            "col": 2,
+            "row": 5,
+          },
+          Object {
+            "col": 3,
+            "row": 5,
           },
         ]
       }
@@ -120,21 +588,58 @@ exports[`<Board /> renders a 5x5 board 1`] = `
           />
         </Col>
         <Col
+          filled="snake"
           key="2"
         >
           <div
-            className="snake__board-col"
+            className="snake__board-col snake__board-col-snake"
           />
         </Col>
         <Col
+          filled="snake"
           key="3"
         >
           <div
-            className="snake__board-col"
+            className="snake__board-col snake__board-col-snake"
           />
         </Col>
         <Col
           key="4"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="5"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="6"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="7"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="8"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="9"
         >
           <div
             className="snake__board-col"
@@ -145,18 +650,26 @@ exports[`<Board /> renders a 5x5 board 1`] = `
     <Row
       apple={
         Object {
-          "col": 3,
-          "row": 3,
+          "col": 1,
+          "row": 1,
         }
       }
-      cols={5}
-      key="2"
-      row={2}
+      cols={10}
+      key="6"
+      row={6}
       snake={
         Array [
           Object {
             "col": 1,
-            "row": 1,
+            "row": 5,
+          },
+          Object {
+            "col": 2,
+            "row": 5,
+          },
+          Object {
+            "col": 3,
+            "row": 5,
           },
         ]
       }
@@ -199,83 +712,66 @@ exports[`<Board /> renders a 5x5 board 1`] = `
             className="snake__board-col"
           />
         </Col>
+        <Col
+          key="5"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="6"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="7"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="8"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="9"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
       </div>
     </Row>
     <Row
       apple={
         Object {
-          "col": 3,
-          "row": 3,
+          "col": 1,
+          "row": 1,
         }
       }
-      cols={5}
-      key="3"
-      row={3}
+      cols={10}
+      key="7"
+      row={7}
       snake={
         Array [
           Object {
             "col": 1,
-            "row": 1,
+            "row": 5,
           },
-        ]
-      }
-    >
-      <div
-        className="snake__board-row"
-      >
-        <Col
-          key="0"
-        >
-          <div
-            className="snake__board-col"
-          />
-        </Col>
-        <Col
-          key="1"
-        >
-          <div
-            className="snake__board-col"
-          />
-        </Col>
-        <Col
-          key="2"
-        >
-          <div
-            className="snake__board-col"
-          />
-        </Col>
-        <Col
-          filled="apple"
-          key="3"
-        >
-          <div
-            className="snake__board-col snake__board-col-apple"
-          />
-        </Col>
-        <Col
-          key="4"
-        >
-          <div
-            className="snake__board-col"
-          />
-        </Col>
-      </div>
-    </Row>
-    <Row
-      apple={
-        Object {
-          "col": 3,
-          "row": 3,
-        }
-      }
-      cols={5}
-      key="4"
-      row={4}
-      snake={
-        Array [
           Object {
-            "col": 1,
-            "row": 1,
+            "col": 2,
+            "row": 5,
+          },
+          Object {
+            "col": 3,
+            "row": 5,
           },
         ]
       }
@@ -313,6 +809,245 @@ exports[`<Board /> renders a 5x5 board 1`] = `
         </Col>
         <Col
           key="4"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="5"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="6"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="7"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="8"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="9"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+      </div>
+    </Row>
+    <Row
+      apple={
+        Object {
+          "col": 1,
+          "row": 1,
+        }
+      }
+      cols={10}
+      key="8"
+      row={8}
+      snake={
+        Array [
+          Object {
+            "col": 1,
+            "row": 5,
+          },
+          Object {
+            "col": 2,
+            "row": 5,
+          },
+          Object {
+            "col": 3,
+            "row": 5,
+          },
+        ]
+      }
+    >
+      <div
+        className="snake__board-row"
+      >
+        <Col
+          key="0"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="1"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="2"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="3"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="4"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="5"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="6"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="7"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="8"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="9"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+      </div>
+    </Row>
+    <Row
+      apple={
+        Object {
+          "col": 1,
+          "row": 1,
+        }
+      }
+      cols={10}
+      key="9"
+      row={9}
+      snake={
+        Array [
+          Object {
+            "col": 1,
+            "row": 5,
+          },
+          Object {
+            "col": 2,
+            "row": 5,
+          },
+          Object {
+            "col": 3,
+            "row": 5,
+          },
+        ]
+      }
+    >
+      <div
+        className="snake__board-row"
+      >
+        <Col
+          key="0"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="1"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="2"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="3"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="4"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="5"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="6"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="7"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="8"
+        >
+          <div
+            className="snake__board-col"
+          />
+        </Col>
+        <Col
+          key="9"
         >
           <div
             className="snake__board-col"

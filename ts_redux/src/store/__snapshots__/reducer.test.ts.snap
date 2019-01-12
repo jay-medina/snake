@@ -10,11 +10,11 @@ Object {
     "cols": 25,
     "rows": 25,
   },
-  "gameState": 0,
+  "gameState": "Start",
   "snake": Object {
     "body": Array [
       Object {
-        "col": 1,
+        "col": 3,
         "row": 5,
       },
       Object {
@@ -22,7 +22,7 @@ Object {
         "row": 5,
       },
       Object {
-        "col": 3,
+        "col": 1,
         "row": 5,
       },
     ],
