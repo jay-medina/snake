@@ -19,6 +19,10 @@ export const createMockState = (): AppState => {
   return {
     gameState: 'Start',
     apple: { row: 1, col: 1 },
+    score: {
+      current: 10,
+      high: 20,
+    },
     snake: createMockSnake(),
     dimensions: {
       rows: 10,
