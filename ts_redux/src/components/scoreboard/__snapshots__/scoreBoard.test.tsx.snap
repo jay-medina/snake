@@ -2,6 +2,7 @@
 
 exports[`<ScoreBoard />  displays the scoreboard 1`] = `
 <Scoreboard
+  dispatch={[Function]}
   highScore={20}
   score={10}
 >

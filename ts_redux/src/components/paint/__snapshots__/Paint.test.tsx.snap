@@ -5,10 +5,7 @@ exports[`<Paint /> renders the component 1`] = `
   className="snake__app"
 >
   <Connect(Keyboard)>
-    <Scoreboard
-      highScore={10}
-      score={10}
-    />
+    <Connect(Scoreboard) />
     <Connect(Board) />
     <Connect(TransitionScreen) />
   </Connect(Keyboard)>

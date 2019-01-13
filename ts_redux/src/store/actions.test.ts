@@ -1,9 +1,16 @@
 jest.mock('../common/util');
 
-import { startGame, newApplePosition, startGameThunk } from './actions';
-import { findNewApplePosition } from '../common/util';
-import { createMockState, createTestStore, MockStore } from '../common/testhelpers';
-import { AppState } from '../common/types';
+import {
+  startGame,
+  newApplePosition,
+  startGameThunk,
+  tickForwardThunk,
+  tickForward,
+  growSnake,
+  updateScore,
+} from './actions';
+import { findNewApplePosition, isSnakeAtPosition } from '../common/util';
+import { createTestStore, MockStore } from '../common/testhelpers';
 
 describe('startGame', () => {
   it('returns the action', () => {
@@ -26,21 +33,61 @@ describe('newApplePosition', () => {
   });
 });
 
+describe('tickForwardThunk', () => {
+  const timestamp = 10;
+
+  describe('by default', () => {
+    it('ticks the game forward', () => {
+      (isSnakeAtPosition as jest.Mock).mockReturnValue(() => false);
+
+      const store = createTestStore();
+      store.dispatch(tickForwardThunk(timestamp));
+
+      expect(store.getActions()).toContainEqual(tickForward(timestamp));
+    });
+  });
+
+  describe('when the snake has eaten the apple', () => {
+    let actions: any[];
+    const apple = { row: 0, col: 0 };
+
+    beforeEach(() => {
+      (isSnakeAtPosition as jest.Mock).mockReturnValue(() => true);
+
+      (findNewApplePosition as jest.Mock).mockReturnValue(apple);
+
+      const store = createTestStore();
+      store.dispatch(tickForwardThunk(timestamp));
+
+      actions = store.getActions();
+    });
+
+    it('grows the snake', () => {
+      expect(actions).toContainEqual(growSnake());
+    });
+
+    it('finds new apple', () => {
+      expect(actions).toContainEqual(newApplePosition(apple));
+    });
+
+    it('updates the score', () => {
+      expect(actions).toContainEqual(updateScore());
+    });
+  });
+});
+
 describe('startGameThunk', () => {
-  const mockStoreCreator = createTestStore();
   const apple = { row: 0, col: 0 };
   let store: MockStore;
-  let state: AppState;
 
   beforeEach(() => {
-    (findNewApplePosition as jest.Mock).mockReturnValue(apple);
-    state = createMockState();
-    store = mockStoreCreator(state);
+    (findNewApplePosition as jest.Mock).mockReturnValueOnce(apple);
+    store = createTestStore();
     store.dispatch(startGameThunk());
   });
 
   it('finds the new apple position', () => {
-    expect(findNewApplePosition).toHaveBeenCalledWith(state);
+    expect(findNewApplePosition).toHaveBeenCalledWith(store.getState());
   });
 
   it('dispatches start game action', () => {
