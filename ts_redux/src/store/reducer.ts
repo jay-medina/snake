@@ -29,6 +29,10 @@ const gameState = (state: GameState, action: AppAction): GameState => {
     return 'Run';
   }
 
+  if (action.type === 'END_GAME') {
+    return 'GameOver';
+  }
+
   return state;
 };
 
@@ -55,11 +59,23 @@ const score = (state: Score, action: AppAction): Score => {
 };
 
 export const app = (state: AppState = initialState, action: AppAction): AppState => {
-    return {
-      ...state,
-      snake: snakeReducer(state.snake, action),
-      apple: apple(state.apple, action),
-      gameState: gameState(state.gameState, action),
-      score: score(state.score, action),
+  let newState = state;
+
+  if (action.type === 'START_GAME') {
+    newState = {
+      ...initialState,
+      score: {
+        current: initialState.score.current,
+        high: newState.score.high,
+      },
     };
+  }
+
+  return {
+    ...newState,
+    snake: snakeReducer(newState.snake, action),
+    apple: apple(newState.apple, action),
+    gameState: gameState(newState.gameState, action),
+    score: score(newState.score, action),
+  };
 };
