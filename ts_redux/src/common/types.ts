@@ -50,6 +50,7 @@ export interface Snake {
   incrementTimer: number
   lastTimestamp: number
   direction: Direction
+  newDirection?: Direction
 }
 
 export type TimeStamp = number
