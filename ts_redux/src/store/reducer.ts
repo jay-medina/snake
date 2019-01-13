@@ -17,7 +17,7 @@ const initialState: AppState = {
   },
   snake: {
     body: [{ row: 5, col: 3 }, { row: 5, col: 2 }, { row: 5, col: 1 }],
-    incrementTimer: 200,
+    incrementTimer: 150,
     lastTimestamp: 0,
     direction: 'right',
   },
