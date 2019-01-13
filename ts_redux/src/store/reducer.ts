@@ -55,7 +55,6 @@ const score = (state: Score, action: AppAction): Score => {
 };
 
 export const app = (state: AppState = initialState, action: AppAction): AppState => {
-  if (state.gameState === 'Run') {
     return {
       ...state,
       snake: snakeReducer(state.snake, action),
@@ -63,11 +62,4 @@ export const app = (state: AppState = initialState, action: AppAction): AppState
       gameState: gameState(state.gameState, action),
       score: score(state.score, action),
     };
-  }
-
-  return {
-    ...state,
-    apple: apple(state.apple, action),
-    gameState: gameState(state.gameState, action),
-  };
 };

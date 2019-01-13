@@ -1,5 +1,5 @@
 import { app } from './reducer';
-import { startGame, newApplePosition } from './actions';
+import { startGame, newApplePosition, updateScore } from './actions';
 
 describe('app', () => {
   it('creates the app state', () => {
@@ -25,6 +25,28 @@ describe('game', () => {
 
       const nextState = app(undefined, action);
       expect(nextState.gameState).toEqual('Run');
+    });
+  });
+});
+
+describe('score', () => {
+  it('initializes to score', () => {
+    const action: any = {};
+
+    const nextState = app(undefined, action);
+    expect(nextState.score).toEqual({
+      current: 0,
+      high: 100,
+    });
+  });
+
+  describe('when action is the increase the score', () => {
+    it('updates the current score', () => {
+      const nextState = app(undefined, updateScore());
+      expect(nextState.score).toEqual({
+        current: 10,
+        high: 100,
+      });
     });
   });
 });

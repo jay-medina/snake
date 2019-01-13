@@ -52,7 +52,7 @@ describe('tickForwardThunk', () => {
     const apple = { row: 0, col: 0 };
 
     beforeEach(() => {
-      (isSnakeAtPosition as jest.Mock).mockReturnValue(() => false);
+      (isSnakeAtPosition as jest.Mock).mockReturnValue(() => true);
 
       (findNewApplePosition as jest.Mock).mockReturnValue(apple);
 
@@ -62,7 +62,7 @@ describe('tickForwardThunk', () => {
       actions = store.getActions();
     });
 
-    fit('grows the snake', () => {
+    it('grows the snake', () => {
       expect(actions).toContainEqual(growSnake());
     });
 
