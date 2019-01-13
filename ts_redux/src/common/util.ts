@@ -31,3 +31,21 @@ export function findNewApplePosition(appState: AppState): Apple {
 
   return newApple;
 }
+
+export function isSnakeDead(appState: AppState) {
+  const { snake } = appState;
+  return isSnakeInWall(appState) || isSnakeAtItself(snake.body);
+}
+
+function isSnakeInWall({ snake, dimensions }: AppState) {
+  const [{ row, col }] = snake.body;
+  const { rows, cols } = dimensions;
+
+  return row < 0 || row >= rows || col < 0 || col >= cols;
+}
+
+function isSnakeAtItself(snake: Snake['body']) {
+  const [head, ...rest] = snake;
+
+  return isSnakeAtPosition(rest)(head);
+}

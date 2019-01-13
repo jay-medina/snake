@@ -14,7 +14,17 @@ function updateDirection(snake: Snake): Snake {
   return snake;
 }
 
-// TODO determine if snake is ded
+function updateTimer(timer: number) {
+  const timerDecrementor = 2.5;
+  const timerThreshold = 40;
+
+  if (timer <= timerThreshold) {
+    return timerThreshold;
+  }
+
+  return timer - timerDecrementor;
+}
+
 export const snakeReducer = (snake: Snake, action: AppAction): Snake => {
   if (action.type === 'TICK_TIME') {
     const { payload } = action;
@@ -48,6 +58,7 @@ export const snakeReducer = (snake: Snake, action: AppAction): Snake => {
     return {
       ...newSnake,
       body: [...body, lastPosition],
+      incrementTimer: updateTimer(newSnake.incrementTimer),
     };
   }
 

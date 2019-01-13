@@ -1,8 +1,8 @@
 import { GameThunkAction, Apple, TimeStamp, Direction } from '../common/types';
-import { findNewApplePosition, isSnakeAtPosition } from '../common/util';
+import { findNewApplePosition, isSnakeAtPosition, isSnakeDead } from '../common/util';
 
 interface GameAction {
-  type: 'START_GAME';
+  type: 'START_GAME' | 'END_GAME';
 }
 
 interface AppleAction {
@@ -40,6 +40,10 @@ export type AppAction = GameAction | AppleAction | TickTimeAction | SnakeAction 
 
 export const startGame = (): GameAction => ({
   type: 'START_GAME',
+});
+
+export const endGame = (): GameAction => ({
+  type: 'END_GAME',
 });
 
 export const newApplePosition = (position: Apple): AppleAction => ({
@@ -81,6 +85,10 @@ export const tickForwardThunk = (timestamp: TimeStamp): GameThunkAction => (disp
     dispatch(growSnake());
     dispatch(newAppleThunk());
     dispatch(updateScore());
+  }
+
+  if (isSnakeDead(appState)) {
+    dispatch(endGame());
   }
 };
 
