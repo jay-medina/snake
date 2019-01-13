@@ -1,26 +1,26 @@
-import { TimeStamp, GameStore } from '../../common/types'
-import { tickForwardThunk } from '../../store/actions'
+import { TimeStamp, GameStore } from '../../common/types';
+import { tickForwardThunk } from '../../store/actions';
 
 function loop(store: GameStore) {
   function step(timestamp: TimeStamp) {
-    store.dispatch(tickForwardThunk(timestamp))
+    store.dispatch(tickForwardThunk(timestamp));
 
-    requestAnimationFrame(step)
+    requestAnimationFrame(step);
   }
 
-  requestAnimationFrame(step)
+  requestAnimationFrame(step);
 }
 
 export function startLoop(store: GameStore) {
-  let started = false
+  let started = false;
 
   const gameloop = () => {
-    if (started) return
+    if (started) return;
 
-    started = true
+    started = true;
 
-    loop(store)
-  }
+    loop(store);
+  };
 
-  store.subscribe(gameloop)
+  store.subscribe(gameloop);
 }
