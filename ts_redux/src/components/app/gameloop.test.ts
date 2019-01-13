@@ -1,4 +1,4 @@
-import { createTestStore, createMockState, MockStore } from '../../common/testhelpers'
+import { createTestStore, MockStore } from '../../common/testhelpers'
 import { startLoop } from './gameloop'
 import { startGame, tickForward } from '../../store/actions'
 import { TimeStamp } from '../../common/types'
@@ -11,8 +11,7 @@ describe('startLoop', () => {
 
   beforeEach(() => {
     window.requestAnimationFrame = jest.fn((step) => (stepFn = step))
-    const createStore = createTestStore()
-    store = createStore(createMockState())
+    store = createTestStore()
   })
 
   it('subscribes to the store', () => {

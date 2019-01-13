@@ -6,8 +6,6 @@ export type StoreCreator = MockStoreCreator<AppState, GameThunkDispatch>
 
 export type MockStore = MockStoreEnhanced<AppState, GameThunkDispatch>
 
-export const createTestStore = (): StoreCreator => createMockStore([thunk])
-
 export const createMockSnake = (): Snake => ({
   body: [{ row: 5, col: 3 }, { row: 5, col: 2 }, { row: 5, col: 1 }],
   incrementTimer: 200,
@@ -30,6 +28,16 @@ export const createMockState = (): AppState => {
     },
   }
 }
+
+export const createTestStore = (() => {
+  const mockStore: StoreCreator = createMockStore([thunk])
+
+  return (state: Partial<AppState> = {}) =>
+    mockStore({
+      ...createMockState(),
+      ...state,
+    })
+})()
 
 export const mockRandom = (values: number[]) => {
   const mockMath = Object.create(global.Math)
