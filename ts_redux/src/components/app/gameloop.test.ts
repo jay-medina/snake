@@ -10,7 +10,7 @@ describe('startLoop', () => {
   let stepFn: Step;
 
   beforeEach(() => {
-    window.requestAnimationFrame = jest.fn((step) => (stepFn = step));
+    (window.requestAnimationFrame as any) = jest.fn((step) => (stepFn = step));
     store = createTestStore();
   });
 
