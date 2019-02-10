@@ -11,6 +11,10 @@ describe('<Start />', () => {
     wrapper = shallow(<Start onPlayClick={onPlayClick} />);
   });
 
+  afterEach(() => {
+    wrapper && wrapper.unmount();
+  });
+
   it('renders the component', () => {
     expect(wrapper).toMatchSnapshot();
   });
@@ -30,6 +34,10 @@ describe('<GameOver />', () => {
   beforeEach(() => {
     onPlayClick = jest.fn();
     wrapper = shallow(<GameOver onPlayClick={onPlayClick} />);
+  });
+
+  afterEach(() => {
+    wrapper && wrapper.unmount();
   });
 
   it('renders the component', () => {

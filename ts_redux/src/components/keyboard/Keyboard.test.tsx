@@ -4,24 +4,30 @@ import { ReactWrapper, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import Keyboard from './Keyboard';
 import { updateSnakeDirection } from '../../store/actions';
+import { act } from 'react-dom/test-utils';
 
 describe('Keyboard', () => {
   let wrapper: ReactWrapper;
   let store: MockStore;
   let child: JSX.Element;
-  let keydownFn: (e: { keyCode: number }) => void;
+
+  afterEach(() => {
+    wrapper && wrapper.unmount();
+  });
 
   beforeEach(() => {
-    window.addEventListener = jest.fn((_, cb) => (keydownFn = cb));
-    window.removeEventListener = jest.fn();
+    jest.spyOn(document.body, 'addEventListener');
+    jest.spyOn(document.body, 'removeEventListener');
     store = createTestStore();
     child = <div>hello</div>;
 
-    wrapper = mount(
-      <Provider store={store}>
-        <Keyboard>{child}</Keyboard>
-      </Provider>,
-    );
+    act(() => {
+      wrapper = mount(
+        <Provider store={store}>
+          <Keyboard>{child}</Keyboard>
+        </Provider>,
+      );
+    });
   });
 
   describe('on render', () => {
@@ -31,46 +37,58 @@ describe('Keyboard', () => {
   });
 
   describe('on mount', () => {
-    it('wires a keydown listener on the window', () => {
-      expect(window.addEventListener).toHaveBeenCalledWith('keydown', expect.any(Function));
+    it('wires a keydown listener on the body', () => {
+      expect(document.body.addEventListener).toHaveBeenCalledWith('keydown', expect.any(Function));
     });
   });
 
   describe('on unmount', () => {
     it('removes the keydown listener', () => {
-      wrapper.unmount();
-      expect(window.removeEventListener).toHaveBeenCalledWith('keydown', expect.any(Function));
+      expect(document.body.removeEventListener).toHaveBeenCalledWith(
+        'keydown',
+        expect.any(Function),
+      );
     });
   });
 
   describe('when user types a key', () => {
     it('doesnt dispatch the action for an allowed key', () => {
-      keydownFn({ keyCode: 12 });
+      dispatchKeydownEvent(12);
       expect(store.getActions()).toEqual([]);
     });
 
     it('updates the snake direction: up', () => {
-      keydownFn({ keyCode: 38 });
+      dispatchKeydownEvent(38);
       const actions = store.getActions();
       expect(actions).toContainEqual(updateSnakeDirection('up'));
     });
 
     it('updates the snake direction: down', () => {
-      keydownFn({ keyCode: 40 });
+      dispatchKeydownEvent(40);
       const actions = store.getActions();
       expect(actions).toContainEqual(updateSnakeDirection('down'));
     });
 
     it('updates the snake direction: left', () => {
-      keydownFn({ keyCode: 37 });
+      dispatchKeydownEvent(37);
       const actions = store.getActions();
       expect(actions).toContainEqual(updateSnakeDirection('left'));
     });
 
     it('updates the snake direction: right', () => {
-      keydownFn({ keyCode: 39 });
+      dispatchKeydownEvent(39);
       const actions = store.getActions();
       expect(actions).toContainEqual(updateSnakeDirection('right'));
     });
   });
 });
+
+function dispatchKeydownEvent(keyCode: number) {
+  class MyEvent extends KeyboardEvent {
+    get keyCode() {
+      return keyCode;
+    }
+  }
+
+  document.body.dispatchEvent(new MyEvent('keydown'));
+}

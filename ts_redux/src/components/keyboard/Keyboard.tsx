@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Direction, DTP } from '../../common/types';
 import { connect } from 'react-redux';
 import { updateSnakeDirection } from '../../store/actions';
@@ -38,26 +38,25 @@ interface KeyboardProps {
   onDirectionChange(direction: Direction): void;
 }
 
-class Keyboard extends React.Component<KeyboardProps> {
-  onKeyDown = (e: KeyboardEvent) => {
+const Keyboard: React.FC<KeyboardProps> = (props) => {
+  function onKeyDown(e: KeyboardEvent) {
     const newDirection = mapArrowKeysToDirection(e.keyCode);
 
     if (newDirection) {
-      this.props.onDirectionChange(newDirection);
+      props.onDirectionChange(newDirection);
     }
-  };
-
-  componentDidMount() {
-    window.addEventListener('keydown', this.onKeyDown);
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.onKeyDown);
-  }
-  render() {
-    return <>{this.props.children}</>;
-  }
-}
+  useEffect(() => {
+    document.body.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.body.removeEventListener('keydown', onKeyDown);
+    };
+  }, []);
+
+  return <>{props.children}</>;
+};
 
 const dtp: DTP<KeyboardProps> = (dispatch) => ({
   onDirectionChange(direction) {
