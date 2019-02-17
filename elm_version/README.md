@@ -10,6 +10,10 @@ The application uses modules loaded natively in the browser. The expectation is 
 
 In order to run the application, the user must have node installed.
 
+Need `elm` and `elm-live` installed globally.
+
+[elm-live](https://github.com/wking-io/elm-live)
+
 #### Node
 
 - Mac and Windows: https://nodejs.org
