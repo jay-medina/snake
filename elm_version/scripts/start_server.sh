@@ -1,1 +1,1 @@
-elm-live src/Main.elm --port 8080 --open --dir=dist -- --output=dist/elm.js
+elm-live src/Main.elm --port 8080 --dir=dist -- --output=dist/elm.js
