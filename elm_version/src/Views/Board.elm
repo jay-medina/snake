@@ -2,12 +2,15 @@ module Views.Board exposing (board)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Types exposing (Model, Msg)
+import Types exposing (..)
+import Util exposing (..)
+
 
 type Filled
     = Snake
     | Apple
     | None
+
 
 getClassName : Filled -> String
 getClassName filled =
@@ -28,10 +31,27 @@ col filled =
         []
 
 
+getFilled : Model -> GridItem -> Filled
+getFilled model gridItem =
+    if isSnakeAtPosition model.snake gridItem then
+        Snake
+
+    else if isTheApple model.apple gridItem then
+        Apple
+
+    else
+        None
+
+
 row : Model -> Int -> Html Msg
 row model currentRow =
+    let
+        createCol c =
+            col <|
+                getFilled model { row = currentRow, col = c }
+    in
     div [ class "snake__board-row" ] <|
-        List.map (\n -> col None)
+        List.map createCol
             (List.range 0 model.columns)
 
 

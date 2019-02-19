@@ -1,4 +1,4 @@
-module Types exposing (Direction(..), Model, Msg(..))
+module Types exposing (Direction(..), GridItem, Model, Msg(..), Snake)
 
 
 type Direction
