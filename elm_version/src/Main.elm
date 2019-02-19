@@ -8,6 +8,10 @@ import Views.Board exposing (board)
 import Views.Scoreboard exposing (scoreboard)
 
 
+
+-- initial Model
+
+
 init : Model
 init =
     { currentscore = 0
@@ -29,9 +33,17 @@ init =
     }
 
 
+
+-- Update
+
+
 update : Msg -> Model -> Model
 update msg model =
     model
+
+
+
+-- Main View
 
 
 playingarea : Model -> Html Msg

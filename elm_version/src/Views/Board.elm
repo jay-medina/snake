@@ -43,6 +43,10 @@ getFilled model gridItem =
         None
 
 
+
+-- Row
+
+
 row : Model -> Int -> Html Msg
 row model currentRow =
     let
