@@ -19,7 +19,11 @@ init =
         , col = 4
         }
     , snake =
-        { body = []
+        { body =
+            [ { row = 8, col = 8 }
+            , { row = 8, col = 7 }
+            , { row = 8, col = 6 }
+            ]
         , direction = Right
         }
     }
