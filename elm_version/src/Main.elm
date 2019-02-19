@@ -3,7 +3,7 @@ module Main exposing (main)
 import Browser exposing (sandbox)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Types exposing (Model, Msg)
+import Types exposing (Direction(..), Model, Msg)
 import Views.Board exposing (board)
 import Views.Scoreboard exposing (scoreboard)
 
@@ -14,6 +14,14 @@ init =
     , highscore = 130
     , rows = 25
     , columns = 25
+    , apple =
+        { row = 4
+        , col = 4
+        }
+    , snake =
+        { body = []
+        , direction = Right
+        }
     }
 
 

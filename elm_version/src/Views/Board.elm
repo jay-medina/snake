@@ -4,23 +4,35 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Types exposing (Model, Msg)
 
+type Filled
+    = Snake
+    | Apple
+    | None
 
-col : Model -> Html Msg
-col model =
-    div [ class "snake__board-col" ]
+getClassName : Filled -> String
+getClassName filled =
+    case filled of
+        Apple ->
+            "snake__board-col snake__board-col-apple"
+
+        Snake ->
+            "snake__board-col snake__board-col-snake"
+
+        _ ->
+            "snake__board-col"
+
+
+col : Filled -> Html Msg
+col filled =
+    div [ class <| getClassName filled ]
         []
 
 
 row : Model -> Int -> Html Msg
 row model currentRow =
     div [ class "snake__board-row" ] <|
-        List.map (\_ -> col model)
+        List.map (\n -> col None)
             (List.range 0 model.columns)
-
-
-toText numbers =
-    List.map text
-        (List.map String.fromInt numbers)
 
 
 board : Model -> Html Msg

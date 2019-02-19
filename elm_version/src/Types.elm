@@ -1,4 +1,27 @@
-module Types exposing (Model, Msg(..))
+module Types exposing (Direction(..), Model, Msg(..))
+
+
+type Direction
+    = Left
+    | Right
+    | Up
+    | Down
+
+
+type alias GridItem =
+    { row : Int
+    , col : Int
+    }
+
+
+type alias Apple =
+    GridItem
+
+
+type alias Snake =
+    { body : List GridItem
+    , direction : Direction
+    }
 
 
 type alias Model =
@@ -6,6 +29,8 @@ type alias Model =
     , highscore : Int
     , rows : Int
     , columns : Int
+    , apple : Apple
+    , snake : Snake
     }
 
 
