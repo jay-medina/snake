@@ -1,4 +1,4 @@
-module Types exposing (Direction(..), GridItem, Model, Msg(..), Snake)
+module Types exposing (Direction(..), GameState(..), GridItem, Model, Msg(..), Snake)
 
 
 type Direction
@@ -6,6 +6,12 @@ type Direction
     | Right
     | Up
     | Down
+
+
+type GameState
+    = Start
+    | GameOver
+    | Running
 
 
 type alias GridItem =
@@ -31,6 +37,7 @@ type alias Model =
     , columns : Int
     , apple : Apple
     , snake : Snake
+    , gameState : GameState
     }
 
 

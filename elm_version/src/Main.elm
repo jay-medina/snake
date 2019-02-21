@@ -3,9 +3,10 @@ module Main exposing (main)
 import Browser exposing (sandbox)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Types exposing (Direction(..), Model, Msg)
+import Types exposing (Direction(..), GameState(..), Model, Msg)
 import Views.Board exposing (board)
 import Views.Scoreboard exposing (scoreboard)
+import Views.TransitionScreen exposing (transitionScreen)
 
 
 
@@ -30,6 +31,7 @@ init =
             ]
         , direction = Right
         }
+    , gameState = Start
     }
 
 
@@ -51,6 +53,7 @@ playingarea model =
     div []
         [ scoreboard model
         , board model
+        , transitionScreen model
         ]
 
 
