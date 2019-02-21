@@ -2,12 +2,13 @@ module Views.TransitionScreen exposing (transitionScreen)
 
 import Html exposing (..)
 import Html.Attributes exposing (class)
-import Types exposing (GameState(..), Model, Msg)
+import Html.Events exposing (onClick)
+import Types exposing (GameState(..), Model, Msg(..))
 
 
 playbutton =
     div [ class "snake__start-screen-play-container" ]
-        [ button [ class "snake__start-screen-play" ] [ text "Play" ]
+        [ button [ class "snake__start-screen-play", onClick StartGame ] [ text "Play" ]
         ]
 
 

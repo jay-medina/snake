@@ -3,7 +3,7 @@ module Main exposing (main)
 import Browser exposing (sandbox)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Types exposing (Direction(..), GameState(..), Model, Msg)
+import Types exposing (Direction(..), GameState(..), Model, Msg(..))
 import Views.Board exposing (board)
 import Views.Scoreboard exposing (scoreboard)
 import Views.TransitionScreen exposing (transitionScreen)
@@ -41,7 +41,9 @@ init =
 
 update : Msg -> Model -> Model
 update msg model =
-    model
+    case msg of
+        StartGame ->
+            { model | gameState = Running }
 
 
 
