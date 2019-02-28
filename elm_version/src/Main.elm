@@ -47,7 +47,11 @@ init () =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    onAnimationFrame Tick
+    if model.gameState == Running then
+        onAnimationFrame Tick
+
+    else
+        Sub.none
 
 
 
