@@ -1,9 +1,11 @@
 module Main exposing (main)
 
 import Browser
+import Browser.Events exposing (onAnimationFrame)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Types exposing (Direction(..), GameState(..), Model, Msg(..))
+import Update exposing (update)
 import Views.Board exposing (board)
 import Views.Scoreboard exposing (scoreboard)
 import Views.TransitionScreen exposing (transitionScreen)
@@ -25,11 +27,13 @@ init () =
             }
       , snake =
             { body =
-                [ { row = 8, col = 8 }
-                , { row = 8, col = 7 }
-                , { row = 8, col = 6 }
+                [ { row = 8, col = 4 }
+                , { row = 8, col = 3 }
+                , { row = 8, col = 2 }
                 ]
             , direction = Right
+            , lastTimestamp = 0
+            , incrementTimer = 150
             }
       , gameState = Start
       }
@@ -38,23 +42,12 @@ init () =
 
 
 
--- Update
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    case msg of
-        StartGame ->
-            ( { model | gameState = Running }, Cmd.none )
-
-
-
 -- subscriptions
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    onAnimationFrame Tick
 
 
 
@@ -77,11 +70,3 @@ main =
         , update = update
         , subscriptions = subscriptions
         }
-
-
-
--- Browser.sandbox
---     { init = init
---     , view = playingarea
---     , update = update
---     }

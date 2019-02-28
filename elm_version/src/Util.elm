@@ -1,4 +1,4 @@
-module Util exposing (isSnakeAtPosition, isTheApple)
+module Util exposing (isAtPosition, isSnakeAbleToMove, isSnakeAtPosition, isTheApple)
 
 import Types exposing (..)
 
@@ -15,3 +15,8 @@ isSnakeAtPosition snake gridItem =
 
 isTheApple =
     isAtPosition
+
+
+isSnakeAbleToMove : Snake -> Int -> Bool
+isSnakeAbleToMove snake timestamp =
+    snake.lastTimestamp == 0 || timestamp - snake.lastTimestamp >= snake.incrementTimer

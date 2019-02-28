@@ -1,5 +1,7 @@
 module Types exposing (Direction(..), GameState(..), GridItem, Model, Msg(..), Snake)
 
+import Time
+
 
 type Direction
     = Left
@@ -27,6 +29,8 @@ type alias Apple =
 type alias Snake =
     { body : List GridItem
     , direction : Direction
+    , lastTimestamp : Int
+    , incrementTimer : Int
     }
 
 
@@ -43,3 +47,4 @@ type alias Model =
 
 type Msg
     = StartGame
+    | Tick Time.Posix
