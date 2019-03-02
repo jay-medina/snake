@@ -6,23 +6,24 @@ import Html.Events exposing (onClick)
 import Types exposing (GameState(..), Model, Msg(..))
 
 
-playbutton =
+playbutton : Msg -> Html Msg
+playbutton msg =
     div [ class "snake__start-screen-play-container" ]
-        [ button [ class "snake__start-screen-play", onClick StartGame ] [ text "Play" ]
+        [ button [ class "snake__start-screen-play", onClick msg ] [ text "Play" ]
         ]
 
 
 start =
     div [ class "snake__start-screen" ]
         [ div [ class "snake__start-screen-title" ] [ text "Snake" ]
-        , playbutton
+        , playbutton StartGame
         ]
 
 
 gameover =
     div [ class "snake__game-over-screen" ]
         [ div [ class "snake__game-over-title" ] [ text "Game Over" ]
-        , playbutton
+        , playbutton RestartGame
         ]
 
 

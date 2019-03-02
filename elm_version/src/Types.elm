@@ -47,4 +47,5 @@ type alias Model =
 
 type Msg
     = StartGame
+    | RestartGame
     | Tick Time.Posix
