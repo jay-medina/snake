@@ -2,7 +2,7 @@ module Update exposing (update)
 
 import Time exposing (posixToMillis)
 import Types exposing (Direction(..), GameState(..), GridItem, Model, Msg(..), Snake)
-import Util exposing (isSnakeAbleToMove)
+import Util exposing (isSnakeAbleToMove, isSnakeDead)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -16,7 +16,10 @@ update msg model =
                 timestamp =
                     posixToMillis time
             in
-            if isSnakeAbleToMove model.snake timestamp then
+            if isSnakeDead model then
+                ( { model | gameState = GameOver }, Cmd.none )
+
+            else if isSnakeAbleToMove model.snake timestamp then
                 ( { model | snake = updateSnake model timestamp }, Cmd.none )
 
             else

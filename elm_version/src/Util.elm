@@ -1,4 +1,4 @@
-module Util exposing (isAtPosition, isSnakeAbleToMove, isSnakeAtPosition, isTheApple)
+module Util exposing (isAtPosition, isSnakeAbleToMove, isSnakeAtItself, isSnakeAtPosition, isSnakeAtWall, isSnakeDead, isTheApple)
 
 import Types exposing (..)
 
@@ -8,9 +8,9 @@ isAtPosition gridItem1 gridItem2 =
     gridItem1.row == gridItem2.row && gridItem1.col == gridItem2.col
 
 
-isSnakeAtPosition : Snake -> GridItem -> Bool
-isSnakeAtPosition snake gridItem =
-    List.any (isAtPosition gridItem) snake.body
+isSnakeAtPosition : List GridItem -> GridItem -> Bool
+isSnakeAtPosition snakeBody gridItem =
+    List.any (isAtPosition gridItem) snakeBody
 
 
 isTheApple =
@@ -20,3 +20,39 @@ isTheApple =
 isSnakeAbleToMove : Snake -> Int -> Bool
 isSnakeAbleToMove snake timestamp =
     snake.lastTimestamp == 0 || timestamp - snake.lastTimestamp >= snake.incrementTimer
+
+
+isSnakeDead : Model -> Bool
+isSnakeDead model =
+    isSnakeAtWall model || isSnakeAtItself model
+
+
+isSnakeAtWall : Model -> Bool
+isSnakeAtWall model =
+    let
+        snakeHead =
+            List.head model.snake.body
+    in
+    case snakeHead of
+        Nothing ->
+            False
+
+        Just { row, col } ->
+            row < 0 || row >= model.rows || col < 0 || col >= model.columns
+
+
+isSnakeAtItself : Model -> Bool
+isSnakeAtItself model =
+    let
+        snakeHead =
+            List.head model.snake.body
+
+        snakeBody =
+            List.drop 1 model.snake.body
+    in
+    case snakeHead of
+        Nothing ->
+            False
+
+        Just h ->
+            isSnakeAtPosition snakeBody h

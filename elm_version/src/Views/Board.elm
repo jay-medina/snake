@@ -33,7 +33,7 @@ col filled =
 
 getFilled : Model -> GridItem -> Filled
 getFilled model gridItem =
-    if isSnakeAtPosition model.snake gridItem then
+    if isSnakeAtPosition model.snake.body gridItem then
         Snake
 
     else if isTheApple model.apple gridItem then
