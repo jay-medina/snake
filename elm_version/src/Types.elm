@@ -48,4 +48,6 @@ type alias Model =
 type Msg
     = StartGame
     | RestartGame
+    | UpdateDirection Direction
     | Tick Time.Posix
+    | NoOp

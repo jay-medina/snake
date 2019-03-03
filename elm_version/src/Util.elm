@@ -1,4 +1,4 @@
-module Util exposing (isAtPosition, isSnakeAbleToMove, isSnakeAtItself, isSnakeAtPosition, isSnakeAtWall, isSnakeDead, isTheApple)
+module Util exposing (isAtPosition, isOppositeDirection, isSnakeAbleToMove, isSnakeAtItself, isSnakeAtPosition, isSnakeAtWall, isSnakeDead, isTheApple)
 
 import Types exposing (..)
 
@@ -38,7 +38,7 @@ isSnakeAtWall model =
             False
 
         Just { row, col } ->
-            row < 0 || row >= model.rows || col < 0 || col >= model.columns
+            row < 0 || row > model.rows || col < 0 || col > model.columns
 
 
 isSnakeAtItself : Model -> Bool
@@ -56,3 +56,10 @@ isSnakeAtItself model =
 
         Just h ->
             isSnakeAtPosition snakeBody h
+
+
+isOppositeDirection direction newDirection =
+    (direction == Left && newDirection == Right)
+        || (direction == Right && newDirection == Left)
+        || (direction == Up && newDirection == Down)
+        || (direction == Down && newDirection == Up)

@@ -2,7 +2,7 @@ module Update exposing (init, update)
 
 import Time exposing (posixToMillis)
 import Types exposing (Direction(..), GameState(..), GridItem, Model, Msg(..), Snake)
-import Util exposing (isSnakeAbleToMove, isSnakeDead)
+import Util exposing (isOppositeDirection, isSnakeAbleToMove, isSnakeDead)
 
 
 
@@ -27,7 +27,7 @@ init () =
                 ]
             , direction = Right
             , lastTimestamp = 0
-            , incrementTimer = 150
+            , incrementTimer = 250
             }
       , gameState = Start
       }
@@ -57,14 +57,38 @@ update msg model =
                 ( { model | gameState = GameOver }, Cmd.none )
 
             else if isSnakeAbleToMove model.snake timestamp then
-                ( { model | snake = updateSnake model timestamp }, Cmd.none )
+                ( { model | snake = updateSnakeTimestamp model timestamp }, Cmd.none )
 
             else
                 ( model, Cmd.none )
 
+        UpdateDirection newDirection ->
+            let
+                currentDirection =
+                    model.snake.direction
+            in
+            if currentDirection == newDirection then
+                ( model, Cmd.none )
 
-updateSnake : Model -> Int -> Snake
-updateSnake { snake } timestamp =
+            else if isOppositeDirection currentDirection newDirection then
+                ( model, Cmd.none )
+
+            else
+                ( { model | snake = updatedSnakeDirection model newDirection }
+                , Cmd.none
+                )
+
+        NoOp ->
+            ( model, Cmd.none )
+
+
+updatedSnakeDirection : Model -> Direction -> Snake
+updatedSnakeDirection { snake } newDirection =
+    { snake | direction = newDirection }
+
+
+updateSnakeTimestamp : Model -> Int -> Snake
+updateSnakeTimestamp { snake } timestamp =
     { snake
         | body = moveSnake snake
         , lastTimestamp = timestamp
