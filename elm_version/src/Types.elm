@@ -29,7 +29,6 @@ type alias Apple =
 type alias Snake =
     { body : List GridItem
     , direction : Direction
-    , pendingDirection : Maybe Direction
     , lastTimestamp : Int
     , incrementTimer : Int
     }
@@ -49,6 +48,7 @@ type alias Model =
 type Msg
     = StartGame
     | RestartGame
+    | GrowSnake
     | UpdateDirection Direction
     | Tick Time.Posix
     | NewApplePosition ( Int, Int )

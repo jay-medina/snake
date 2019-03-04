@@ -27,7 +27,6 @@ init () =
                 , { row = 8, col = 2 }
                 ]
             , direction = Right
-            , pendingDirection = Nothing
             , lastTimestamp = 0
             , incrementTimer = 150
             }
@@ -61,6 +60,21 @@ update msg model =
             in
             update StartGame m
 
+        GrowSnake ->
+            let
+                { snake } =
+                    model
+
+                lastPosition =
+                    List.drop (List.length snake.body - 1) snake.body
+
+                updatedSnake =
+                    { snake
+                        | body = List.append snake.body lastPosition
+                    }
+            in
+            ( { model | snake = updatedSnake }, Cmd.none )
+
         Tick time ->
             let
                 timestamp =
@@ -70,7 +84,7 @@ update msg model =
                 ( { model | gameState = GameOver }, Cmd.none )
 
             else if isSnakeAtPosition model.snake.body model.apple then
-                ( model, generateNewApple model )
+                updateSnakeAtPosition model
 
             else if isSnakeAbleToMove model.snake timestamp then
                 ( { model | snake = updateSnake model timestamp }, Cmd.none )
@@ -86,12 +100,7 @@ update msg model =
                 currentDirection =
                     model.snake.direction
             in
-            if snake.pendingDirection /= Nothing && isInvalidDirection model newDirection then
-                -- Pending Direction hasn't been read but new one came in
-                -- Resets the direction because the new one is invalid
-                ( { model | snake = updatedSnakeDirection model snake.direction }, Cmd.none )
-
-            else if isInvalidDirection model newDirection then
+            if isInvalidDirection model newDirection then
                 ( model, Cmd.none )
 
             else
@@ -101,6 +110,19 @@ update msg model =
 
         NoOp ->
             ( model, Cmd.none )
+
+
+updateSnakeAtPosition model =
+    let
+        ( newModel, cmds ) =
+            update GrowSnake model
+    in
+    ( newModel
+    , Cmd.batch
+        [ generateNewApple newModel
+        , cmds
+        ]
+    )
 
 
 generateNewApple : Model -> Cmd Msg
@@ -115,25 +137,14 @@ randomGridPosition model =
 
 updatedSnakeDirection : Model -> Direction -> Snake
 updatedSnakeDirection { snake } newDirection =
-    { snake | pendingDirection = Just newDirection }
+    { snake | direction = newDirection }
 
 
 updateSnake : Model -> Int -> Snake
 updateSnake { snake } timestamp =
-    let
-        newDirection =
-            case snake.pendingDirection of
-                Just d ->
-                    d
-
-                Nothing ->
-                    snake.direction
-    in
     { snake
         | body = moveSnake snake
         , lastTimestamp = timestamp
-        , direction = newDirection
-        , pendingDirection = Nothing
     }
 
 
