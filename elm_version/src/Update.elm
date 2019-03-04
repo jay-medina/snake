@@ -41,7 +41,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         StartGame ->
-            ( { model | gameState = Running }, generateRandomGridPosition model )
+            ( { model | gameState = Running }, generateNewApple model )
 
         NewApplePosition ( x, y ) ->
             let
@@ -49,7 +49,7 @@ update msg model =
                     isSnakeAtPosition model.snake.body { row = x, col = y }
             in
             if invalidSpot then
-                ( model, generateRandomGridPosition model )
+                ( model, generateNewApple model )
 
             else
                 ( { model | apple = { row = x, col = y } }, Cmd.none )
@@ -68,6 +68,9 @@ update msg model =
             in
             if isSnakeDead model then
                 ( { model | gameState = GameOver }, Cmd.none )
+
+            else if isSnakeAtPosition model.snake.body model.apple then
+                ( model, generateNewApple model )
 
             else if isSnakeAbleToMove model.snake timestamp then
                 ( { model | snake = updateSnake model timestamp }, Cmd.none )
@@ -100,8 +103,8 @@ update msg model =
             ( model, Cmd.none )
 
 
-generateRandomGridPosition : Model -> Cmd Msg
-generateRandomGridPosition model =
+generateNewApple : Model -> Cmd Msg
+generateNewApple model =
     Random.generate NewApplePosition (randomGridPosition model)
 
 
