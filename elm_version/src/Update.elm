@@ -1,8 +1,9 @@
 module Update exposing (init, update)
 
+import Random
 import Time exposing (posixToMillis)
 import Types exposing (Direction(..), GameState(..), GridItem, Model, Msg(..), Snake)
-import Util exposing (isInvalidDirection, isSnakeAbleToMove, isSnakeDead)
+import Util exposing (isInvalidDirection, isSnakeAbleToMove, isSnakeAtPosition, isSnakeDead)
 
 
 
@@ -40,7 +41,18 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         StartGame ->
-            ( { model | gameState = Running }, Cmd.none )
+            ( { model | gameState = Running }, generateRandomGridPosition model )
+
+        NewApplePosition ( x, y ) ->
+            let
+                invalidSpot =
+                    isSnakeAtPosition model.snake.body { row = x, col = y }
+            in
+            if invalidSpot then
+                ( model, generateRandomGridPosition model )
+
+            else
+                ( { model | apple = { row = x, col = y } }, Cmd.none )
 
         RestartGame ->
             let
@@ -65,7 +77,8 @@ update msg model =
 
         UpdateDirection newDirection ->
             let
-                { snake } = model
+                { snake } =
+                    model
 
                 currentDirection =
                     model.snake.direction
@@ -85,6 +98,16 @@ update msg model =
 
         NoOp ->
             ( model, Cmd.none )
+
+
+generateRandomGridPosition : Model -> Cmd Msg
+generateRandomGridPosition model =
+    Random.generate NewApplePosition (randomGridPosition model)
+
+
+randomGridPosition : Model -> Random.Generator ( Int, Int )
+randomGridPosition model =
+    Random.pair (Random.int 0 (model.rows - 1)) (Random.int 0 (model.columns - 1))
 
 
 updatedSnakeDirection : Model -> Direction -> Snake

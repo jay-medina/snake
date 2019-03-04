@@ -51,4 +51,5 @@ type Msg
     | RestartGame
     | UpdateDirection Direction
     | Tick Time.Posix
+    | NewApplePosition ( Int, Int )
     | NoOp
