@@ -2,7 +2,7 @@ module Update exposing (init, update)
 
 import Time exposing (posixToMillis)
 import Types exposing (Direction(..), GameState(..), GridItem, Model, Msg(..), Snake)
-import Util exposing (isOppositeDirection, isSnakeAbleToMove, isSnakeDead)
+import Util exposing (isInvalidDirection, isSnakeAbleToMove, isSnakeDead)
 
 
 
@@ -26,8 +26,9 @@ init () =
                 , { row = 8, col = 2 }
                 ]
             , direction = Right
+            , pendingDirection = Nothing
             , lastTimestamp = 0
-            , incrementTimer = 250
+            , incrementTimer = 150
             }
       , gameState = Start
       }
@@ -57,20 +58,24 @@ update msg model =
                 ( { model | gameState = GameOver }, Cmd.none )
 
             else if isSnakeAbleToMove model.snake timestamp then
-                ( { model | snake = updateSnakeTimestamp model timestamp }, Cmd.none )
+                ( { model | snake = updateSnake model timestamp }, Cmd.none )
 
             else
                 ( model, Cmd.none )
 
         UpdateDirection newDirection ->
             let
+                { snake } = model
+
                 currentDirection =
                     model.snake.direction
             in
-            if currentDirection == newDirection then
-                ( model, Cmd.none )
+            if snake.pendingDirection /= Nothing && isInvalidDirection model newDirection then
+                -- Pending Direction hasn't been read but new one came in
+                -- Resets the direction because the new one is invalid
+                ( { model | snake = updatedSnakeDirection model snake.direction }, Cmd.none )
 
-            else if isOppositeDirection currentDirection newDirection then
+            else if isInvalidDirection model newDirection then
                 ( model, Cmd.none )
 
             else
@@ -84,14 +89,25 @@ update msg model =
 
 updatedSnakeDirection : Model -> Direction -> Snake
 updatedSnakeDirection { snake } newDirection =
-    { snake | direction = newDirection }
+    { snake | pendingDirection = Just newDirection }
 
 
-updateSnakeTimestamp : Model -> Int -> Snake
-updateSnakeTimestamp { snake } timestamp =
+updateSnake : Model -> Int -> Snake
+updateSnake { snake } timestamp =
+    let
+        newDirection =
+            case snake.pendingDirection of
+                Just d ->
+                    d
+
+                Nothing ->
+                    snake.direction
+    in
     { snake
         | body = moveSnake snake
         , lastTimestamp = timestamp
+        , direction = newDirection
+        , pendingDirection = Nothing
     }
 
 

@@ -29,6 +29,7 @@ type alias Apple =
 type alias Snake =
     { body : List GridItem
     , direction : Direction
+    , pendingDirection : Maybe Direction
     , lastTimestamp : Int
     , incrementTimer : Int
     }

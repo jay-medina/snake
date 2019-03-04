@@ -1,4 +1,4 @@
-module Util exposing (isAtPosition, isOppositeDirection, isSnakeAbleToMove, isSnakeAtItself, isSnakeAtPosition, isSnakeAtWall, isSnakeDead, isTheApple)
+module Util exposing (isAtPosition, isInvalidDirection, isSnakeAbleToMove, isSnakeAtItself, isSnakeAtPosition, isSnakeAtWall, isSnakeDead, isTheApple)
 
 import Types exposing (..)
 
@@ -63,3 +63,13 @@ isOppositeDirection direction newDirection =
         || (direction == Right && newDirection == Left)
         || (direction == Up && newDirection == Down)
         || (direction == Down && newDirection == Up)
+
+
+isInvalidDirection model newDirection =
+    let
+        currentDirection =
+            model.snake.direction
+    in
+    currentDirection
+        == newDirection
+        || isOppositeDirection currentDirection newDirection
