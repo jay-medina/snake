@@ -48,7 +48,6 @@ type alias Model =
 type Msg
     = StartGame
     | RestartGame
-    | GrowSnake
     | UpdateDirection Direction
     | Tick Time.Posix
     | NewApplePosition ( Int, Int )

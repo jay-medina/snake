@@ -26,9 +26,14 @@ playingarea model =
         ]
 
 
+initForMain : () -> ( Model, Cmd Msg )
+initForMain _ =
+    ( init, Cmd.none )
+
+
 main =
     Browser.element
-        { init = init
+        { init = initForMain
         , view = playingarea
         , update = update
         , subscriptions = subscriptions

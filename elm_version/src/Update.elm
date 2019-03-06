@@ -10,30 +10,28 @@ import Util exposing (isInvalidDirection, isSnakeAbleToMove, isSnakeAtPosition, 
 -- initial Model
 
 
-init : () -> ( Model, Cmd Msg )
-init () =
-    ( { currentscore = 0
-      , highscore = 130
-      , rows = 25
-      , columns = 25
-      , apple =
-            { row = 4
-            , col = 4
-            }
-      , snake =
-            { body =
-                [ { row = 8, col = 4 }
-                , { row = 8, col = 3 }
-                , { row = 8, col = 2 }
-                ]
-            , direction = Right
-            , lastTimestamp = 0
-            , incrementTimer = 150
-            }
-      , gameState = Start
-      }
-    , Cmd.none
-    )
+init : Model
+init =
+    { currentscore = 0
+    , highscore = 130
+    , rows = 25
+    , columns = 25
+    , apple =
+        { row = 4
+        , col = 4
+        }
+    , snake =
+        { body =
+            [ { row = 8, col = 4 }
+            , { row = 8, col = 3 }
+            , { row = 8, col = 2 }
+            ]
+        , direction = Right
+        , lastTimestamp = 0
+        , incrementTimer = 150
+        }
+    , gameState = Start
+    }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -54,26 +52,7 @@ update msg model =
                 ( { model | apple = { row = x, col = y } }, Cmd.none )
 
         RestartGame ->
-            let
-                ( m, _ ) =
-                    init ()
-            in
-            update StartGame m
-
-        GrowSnake ->
-            let
-                { snake } =
-                    model
-
-                lastPosition =
-                    List.drop (List.length snake.body - 1) snake.body
-
-                updatedSnake =
-                    { snake
-                        | body = List.append snake.body lastPosition
-                    }
-            in
-            ( { model | snake = updatedSnake }, Cmd.none )
+            update StartGame { init | highscore = model.highscore }
 
         Tick time ->
             let
@@ -84,7 +63,11 @@ update msg model =
                 ( { model | gameState = GameOver }, Cmd.none )
 
             else if isSnakeAtPosition model.snake.body model.apple then
-                updateSnakeAtPosition model
+                let
+                    newModel =
+                        model |> updateScore |> increaseSnakeSize
+                in
+                ( newModel, generateNewApple newModel )
 
             else if isSnakeAbleToMove model.snake timestamp then
                 ( { model | snake = updateSnake model timestamp }, Cmd.none )
@@ -112,17 +95,38 @@ update msg model =
             ( model, Cmd.none )
 
 
-updateSnakeAtPosition model =
+increaseSnakeSize model =
     let
-        ( newModel, cmds ) =
-            update GrowSnake model
+        { snake } =
+            model
+
+        lastPosition =
+            List.drop (List.length snake.body - 1) snake.body
+
+        updatedSnake =
+            { snake
+                | body = snake.body ++ lastPosition
+            }
     in
-    ( newModel
-    , Cmd.batch
-        [ generateNewApple newModel
-        , cmds
-        ]
-    )
+    { model | snake = updatedSnake }
+
+
+updateScore model =
+    let
+        newCurrentScore =
+            model.currentscore + 10
+
+        newHighScore =
+            if model.highscore > newCurrentScore then
+                model.highscore
+
+            else
+                newCurrentScore
+    in
+    { model
+        | currentscore = newCurrentScore
+        , highscore = newHighScore
+    }
 
 
 generateNewApple : Model -> Cmd Msg
@@ -168,13 +172,13 @@ moveSnake snake =
             []
 
         ( Just h, rest, Right ) ->
-            List.append [ { row = h.row, col = h.col + 1 } ] rest
+            { row = h.row, col = h.col + 1 } :: rest
 
         ( Just h, rest, Left ) ->
-            List.append [ { row = h.row, col = h.col - 1 } ] rest
+            { row = h.row, col = h.col - 1 } :: rest
 
         ( Just h, rest, Up ) ->
-            List.append [ { row = h.row - 1, col = h.col } ] rest
+            { row = h.row - 1, col = h.col } :: rest
 
         ( Just h, rest, Down ) ->
-            List.append [ { row = h.row + 1, col = h.col } ] rest
+            { row = h.row + 1, col = h.col } :: rest
