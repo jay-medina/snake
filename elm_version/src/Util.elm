@@ -1,85 +1,75 @@
-module Util exposing (..)
+module Util exposing (isAtPosition, isInvalidDirection, isSnakeAbleToMove, isSnakeAtItself, isSnakeAtPosition, isSnakeAtWall, isSnakeDead, isTheApple)
 
-import Model exposing (Apple, GridItem, Model, Snake, Direction(..), GameState(..))
-import Msg exposing (Msg(..))
-import Random
-
-
-increment : Int -> Int
-increment score =
-    score + 10
+import Types exposing (..)
 
 
 isAtPosition : GridItem -> GridItem -> Bool
-isAtPosition item1 item2 =
-    item1.row == item2.row && item1.col == item2.col
+isAtPosition gridItem1 gridItem2 =
+    gridItem1.row == gridItem2.row && gridItem1.col == gridItem2.col
 
 
-isTheApple : Apple -> GridItem -> Bool
+isSnakeAtPosition : List GridItem -> GridItem -> Bool
+isSnakeAtPosition snakeBody gridItem =
+    List.any (isAtPosition gridItem) snakeBody
+
+
 isTheApple =
     isAtPosition
 
 
-isSnakeAtPosition : GridItem -> Snake -> Bool
-isSnakeAtPosition gridItem =
-    List.any (isAtPosition gridItem)
+isSnakeAbleToMove : Snake -> Int -> Bool
+isSnakeAbleToMove snake timestamp =
+    snake.lastTimestamp == 0 || timestamp - snake.lastTimestamp >= snake.incrementTimer
 
 
-isSnakeAtApple : Apple -> Snake -> Bool
-isSnakeAtApple =
-    isSnakeAtPosition
+isSnakeDead : Model -> Bool
+isSnakeDead model =
+    isSnakeAtWall model || isSnakeAtItself model
 
 
-isSnakeInWall : GridItem -> Int -> Int -> Bool
-isSnakeInWall snakeHead rows cols =
-    snakeHead.row < 0 || snakeHead.row >= rows || snakeHead.col < 0 || snakeHead.col >= cols
-
-
-isSnakeAtItself : GridItem -> Snake -> Bool
-isSnakeAtItself =
-    isSnakeAtPosition
-
-
-isSnakeDead : Snake -> Int -> Int -> Bool
-isSnakeDead snake rows cols =
+isSnakeAtWall : Model -> Bool
+isSnakeAtWall model =
     let
-        head =
-            List.head snake
+        snakeHead =
+            List.head model.snake.body
     in
-        case head of
-            Just snakeHead ->
-                isSnakeInWall snakeHead rows cols
-                    || isSnakeAtItself snakeHead (List.drop 1 snake)
+    case snakeHead of
+        Nothing ->
+            False
 
-            Nothing ->
-                False
-
-
-initialModel : Model
-initialModel =
-    { score = 0
-    , highScore = 0
-    , timer = 200
-    , row = 25
-    , col = 25
-    , apple = { row = 4, col = 4 }
-    , snake = [ { row = 12, col = 12 }, { row = 12, col = 11 }, { row = 12, col = 10 } ]
-    , gameState = Start
-    , currentDirection = Right
-    , nextDirection = Right
-    }
+        Just { row, col } ->
+            row < 0 || row > model.rows || col < 0 || col > model.columns
 
 
-randomizeApple : Model -> Cmd Msg
-randomizeApple model =
+isSnakeAtItself : Model -> Bool
+isSnakeAtItself model =
     let
-        rowGenerator =
-            Random.int 1 model.row
+        snakeHead =
+            List.head model.snake.body
 
-        colGenerator =
-            Random.int 1 model.col
-
-        rowCol =
-            Random.pair rowGenerator colGenerator
+        snakeBody =
+            List.drop 1 model.snake.body
     in
-        Random.generate NewApple rowCol
+    case snakeHead of
+        Nothing ->
+            False
+
+        Just h ->
+            isSnakeAtPosition snakeBody h
+
+
+isOppositeDirection direction newDirection =
+    (direction == Left && newDirection == Right)
+        || (direction == Right && newDirection == Left)
+        || (direction == Up && newDirection == Down)
+        || (direction == Down && newDirection == Up)
+
+
+isInvalidDirection model newDirection =
+    let
+        currentDirection =
+            model.snake.direction
+    in
+    currentDirection
+        == newDirection
+        || isOppositeDirection currentDirection newDirection

@@ -1,159 +1,184 @@
-module Update exposing (..)
+module Update exposing (init, update)
 
-import Model exposing (Direction(..), GameState(..), Model)
-import Msg exposing (Msg(..))
-import Util
-    exposing
-        ( isSnakeAtPosition
-        , isSnakeAtApple
-        , isSnakeDead
-        , randomizeApple
-        , increment
-        , initialModel
-        )
+import Random
+import Time exposing (posixToMillis)
+import Types exposing (Direction(..), GameState(..), GridItem, Model, Msg(..), Snake)
+import Util exposing (isInvalidDirection, isSnakeAbleToMove, isSnakeAtPosition, isSnakeDead)
+
+
+
+-- initial Model
+
+
+init : Model
+init =
+    { currentscore = 0
+    , highscore = 130
+    , rows = 25
+    , columns = 25
+    , apple =
+        { row = 4
+        , col = 4
+        }
+    , snake =
+        { body =
+            [ { row = 8, col = 4 }
+            , { row = 8, col = 3 }
+            , { row = 8, col = 2 }
+            ]
+        , direction = Right
+        , lastTimestamp = 0
+        , incrementTimer = 150
+        }
+    , gameState = Start
+    }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         StartGame ->
-            ( { initialModel | gameState = Run }, randomizeApple model )
+            ( { model | gameState = Running }, generateNewApple model )
 
-        NewApple ( row, col ) ->
+        NewApplePosition ( x, y ) ->
             let
-                newApple =
-                    { row = row, col = col }
+                invalidSpot =
+                    isSnakeAtPosition model.snake.body { row = x, col = y }
             in
-                if isSnakeAtPosition newApple model.snake then
-                    ( model, randomizeApple model )
-                else
-                    ( { model | apple = newApple }
-                    , Cmd.none
-                    )
+            if invalidSpot then
+                ( model, generateNewApple model )
+
+            else
+                ( { model | apple = { row = x, col = y } }, Cmd.none )
+
+        RestartGame ->
+            update StartGame { init | highscore = model.highscore }
 
         Tick time ->
-            if isSnakeDead model.snake model.row model.col then
-                ( updateSnakeDead model, Cmd.none )
-            else if isSnakeAtApple model.apple model.snake then
-                updateSnakeEatingApple model
-            else
-                ( model |> updateCurrentDirection |> updateSnakeMovement, Cmd.none )
+            let
+                timestamp =
+                    posixToMillis time
+            in
+            if isSnakeDead model then
+                ( { model | gameState = GameOver }, Cmd.none )
 
-        KeyUp newDirection ->
-            ( updateNextDirection model newDirection, Cmd.none )
-
-
-updateNextDirection : Model -> Direction -> Model
-updateNextDirection model newDirection =
-    if isOppositeDirection model.nextDirection newDirection then
-        model
-    else
-        { model | nextDirection = newDirection }
-
-
-updateCurrentDirection : Model -> Model
-updateCurrentDirection model =
-    if isOppositeDirection model.nextDirection model.currentDirection then
-        model
-    else
-        { model | currentDirection = model.nextDirection }
-
-
-isOppositeDirection : Direction -> Direction -> Bool
-isOppositeDirection currentDirection newDirection =
-    currentDirection
-        == Left
-        && newDirection
-        == Right
-        || currentDirection
-        == Right
-        && newDirection
-        == Left
-        || currentDirection
-        == Up
-        && newDirection
-        == Down
-        || currentDirection
-        == Down
-        && newDirection
-        == Up
-
-
-updateSnakeDead : Model -> Model
-updateSnakeDead model =
-    { model | gameState = GameOver }
-
-
-updateSnakeEatingApple : Model -> ( Model, Cmd Msg )
-updateSnakeEatingApple model =
-    let
-        lastItem =
-            (model.snake |> List.reverse |> List.head)
-
-        newModel =
-            updateSnakeMovement model
-    in
-        case lastItem of
-            Just item ->
+            else if isSnakeAtPosition model.snake.body model.apple then
                 let
-                    snakeWithItem =
-                        (item :: (List.reverse newModel.snake)) |> List.reverse
-
-                    updatedModel =
-                        { newModel
-                            | snake = snakeWithItem
-                            , score = increment newModel.score
-                            , highScore = increment newModel.score
-                            , timer = updateTimer newModel.timer
-                        }
+                    newModel =
+                        model |> updateScore |> increaseSnakeSize
                 in
-                    ( updatedModel, randomizeApple updatedModel )
+                ( newModel, generateNewApple newModel )
 
-            Nothing ->
-                ( newModel, Cmd.none )
+            else if isSnakeAbleToMove model.snake timestamp then
+                ( { model | snake = updateSnake model timestamp }, Cmd.none )
+
+            else
+                ( model, Cmd.none )
+
+        UpdateDirection newDirection ->
+            let
+                { snake } =
+                    model
+
+                currentDirection =
+                    model.snake.direction
+            in
+            if isInvalidDirection model newDirection then
+                ( model, Cmd.none )
+
+            else
+                ( { model | snake = updatedSnakeDirection model newDirection }
+                , Cmd.none
+                )
+
+        NoOp ->
+            ( model, Cmd.none )
 
 
-updateSnakeMovement : Model -> Model
-updateSnakeMovement model =
+increaseSnakeSize model =
     let
-        snake =
-            model.snake
+        { snake } =
+            model
 
-        headOfSnake =
-            List.head snake
+        lastPosition =
+            List.drop (List.length snake.body - 1) snake.body
 
-        lastOneDropped =
-            List.take (List.length snake - 1) snake
+        updatedSnake =
+            { snake
+                | body = snake.body ++ lastPosition
+            }
     in
-        case headOfSnake of
-            Just item ->
-                case model.currentDirection of
-                    Right ->
-                        { model | snake = { row = item.row, col = item.col + 1 } :: lastOneDropped }
-
-                    Left ->
-                        { model | snake = { row = item.row, col = item.col - 1 } :: lastOneDropped }
-
-                    Up ->
-                        { model | snake = { row = item.row - 1, col = item.col } :: lastOneDropped }
-
-                    Down ->
-                        { model | snake = { row = item.row + 1, col = item.col } :: lastOneDropped }
-
-            Nothing ->
-                model
+    { model | snake = updatedSnake }
 
 
-updateTimer : Float -> Float
-updateTimer timer =
+updateScore model =
     let
-        decrementor =
-            2.5
+        newCurrentScore =
+            model.currentscore + 10
 
-        threshold =
-            40
+        newHighScore =
+            if model.highscore > newCurrentScore then
+                model.highscore
+
+            else
+                newCurrentScore
     in
-        if timer <= threshold then
-            threshold
-        else
-            timer - decrementor
+    { model
+        | currentscore = newCurrentScore
+        , highscore = newHighScore
+    }
+
+
+generateNewApple : Model -> Cmd Msg
+generateNewApple model =
+    Random.generate NewApplePosition (randomGridPosition model)
+
+
+randomGridPosition : Model -> Random.Generator ( Int, Int )
+randomGridPosition model =
+    Random.pair (Random.int 0 (model.rows - 1)) (Random.int 0 (model.columns - 1))
+
+
+updatedSnakeDirection : Model -> Direction -> Snake
+updatedSnakeDirection { snake } newDirection =
+    { snake | direction = newDirection }
+
+
+updateSnake : Model -> Int -> Snake
+updateSnake { snake } timestamp =
+    { snake
+        | body = moveSnake snake
+        , lastTimestamp = timestamp
+    }
+
+
+moveSnake : Snake -> List GridItem
+moveSnake snake =
+    let
+        { body, direction } =
+            snake
+
+        snakeHead =
+            List.head body
+
+        snakeRest =
+            List.take (List.length body - 1) body
+    in
+    case ( snakeHead, snakeRest, direction ) of
+        ( Nothing, _, _ ) ->
+            []
+
+        ( _, [], _ ) ->
+            []
+
+        ( Just h, rest, Right ) ->
+            { row = h.row, col = h.col + 1 } :: rest
+
+        ( Just h, rest, Left ) ->
+            { row = h.row, col = h.col - 1 } :: rest
+
+        ( Just h, rest, Up ) ->
+            { row = h.row - 1, col = h.col } :: rest
+
+        ( Just h, rest, Down ) ->
+            { row = h.row + 1, col = h.col } :: rest

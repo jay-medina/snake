@@ -1,74 +1,66 @@
 module Views.Board exposing (board)
 
-import Html exposing (Html, div)
-import Html.Attributes exposing (class)
-import Model exposing (Apple, Snake)
-import Msg exposing (Msg)
-import Util exposing (isSnakeAtPosition, isTheApple)
-
-
-type alias BoardProps =
-    { row : Int
-    , col : Int
-    , apple : Apple
-    , snake : Snake
-    }
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Types exposing (..)
+import Util exposing (..)
 
 
 type Filled
-    = Apple
-    | Snake
-    | Nothing
+    = Snake
+    | Apple
+    | None
 
 
-boardcol : Filled -> Html Msg
-boardcol filled =
-    let
-        className =
+getClassName : Filled -> String
+getClassName filled =
+    case filled of
+        Apple ->
+            "snake__board-col snake__board-col-apple"
+
+        Snake ->
+            "snake__board-col snake__board-col-snake"
+
+        _ ->
             "snake__board-col"
 
-        colClassName =
-            case filled of
-                Apple ->
-                    className ++ " snake__board-col-apple"
 
-                Snake ->
-                    className ++ " snake__board-col-snake"
-
-                Nothing ->
-                    className
-    in
-        div [ class colClassName ] []
+col : Filled -> Html Msg
+col filled =
+    div [ class <| getClassName filled ]
+        []
 
 
-boardrow : BoardProps -> Html Msg
-boardrow { snake, apple, row, col } =
+getFilled : Model -> GridItem -> Filled
+getFilled model gridItem =
+    if isSnakeAtPosition model.snake.body gridItem then
+        Snake
+
+    else if isTheApple model.apple gridItem then
+        Apple
+
+    else
+        None
+
+
+
+-- Row
+
+
+row : Model -> Int -> Html Msg
+row model currentRow =
     let
-        getFilled currentCol =
-            let
-                gridItem =
-                    { row = row, col = currentCol }
-            in
-                if isSnakeAtPosition gridItem snake then
-                    Snake
-                else if isTheApple apple gridItem then
-                    Apple
-                else
-                    Nothing
+        createCol c =
+            col <|
+                getFilled model { row = currentRow, col = c }
     in
-        div
-            [ class "snake__board-row" ]
-            (List.map
-                (\x -> getFilled x |> boardcol)
-                (List.range 0 col)
-            )
+    div [ class "snake__board-row" ] <|
+        List.map createCol
+            (List.range 0 model.columns)
 
 
-board : BoardProps -> Html Msg
-board props =
-    div
-        [ class "snake__board" ]
-        (List.map
-            (\r -> { props | row = r } |> boardrow)
-            (List.range 0 props.row)
-        )
+board : Model -> Html Msg
+board model =
+    div [ class "snake__board" ] <|
+        List.map (row model)
+            (List.range 0 model.rows)

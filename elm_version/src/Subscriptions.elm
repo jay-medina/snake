@@ -1,51 +1,44 @@
 module Subscriptions exposing (subscriptions)
 
-import Model exposing (Model, GameState(..), Direction(..))
-import Msg exposing (Msg)
-import Browser.Events exposing (onKeyDown)
-import Time exposing (every)
+import Browser.Events exposing (onAnimationFrame, onKeyDown)
 import Json.Decode as Decode
-
-
-keyDecoder : Decode.Decoder String
-keyDecoder =
-    Decode.field "key" Decode.string
-
-
-mapStringToDirection : Model -> String -> Msg
-mapStringToDirection model keyFired =
-    let
-        newDirection =
-            if keyFired == "ArrowLeft" || keyFired == "a" then
-                Left
-            else if keyFired == "ArrowRight" || keyFired == "d" then
-                Right
-            else if keyFired == "ArrowDown" || keyFired == "s" then
-                Down
-            else if keyFired == "ArrowUp" || keyFired == "w" then
-                Up
-            else
-                model.nextDirection
-    in
-        Msg.KeyUp newDirection
-
-
-mapper : Model -> Decode.Decoder Msg
-mapper model =
-    Decode.map (mapStringToDirection model) keyDecoder
-
-
-tickGameForward : Model -> Sub Msg
-tickGameForward model =
-    if model.gameState == Run then
-        every model.timer Msg.Tick
-    else
-        Sub.none
+import Types exposing (..)
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.batch
-        [ onKeyDown (mapper model)
-        , tickGameForward model
-        ]
+    if model.gameState == Running then
+        Sub.batch
+            [ onKeyDown <| decodeKeyboardPress model
+            , onAnimationFrame Tick
+            ]
+
+    else
+        Sub.none
+
+
+decodeKeyboardPress : Model -> Decode.Decoder Msg
+decodeKeyboardPress model =
+    let
+        toDirection string =
+            let
+                item =
+                    Debug.log string "item"
+            in
+            case string of
+                "a" ->
+                    UpdateDirection Left
+
+                "w" ->
+                    UpdateDirection Up
+
+                "d" ->
+                    UpdateDirection Right
+
+                "s" ->
+                    UpdateDirection Down
+
+                _ ->
+                    NoOp
+    in
+    Decode.map toDirection (Decode.field "key" Decode.string)

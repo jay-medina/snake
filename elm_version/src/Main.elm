@@ -1,24 +1,40 @@
-module Main exposing (..)
+module Main exposing (main)
 
 import Browser
-import Model exposing (Model, GameState(..), Direction(..))
-import Msg exposing (Msg)
-import Util exposing (initialModel)
-import Views.Screen exposing (screen)
-import Update exposing (update)
-import Subscriptions exposing (subscriptions)
+import Browser.Events exposing (onAnimationFrame, onKeyDown)
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Json.Decode as Decode
+import Subscriptions exposing (..)
+import Types exposing (Direction(..), GameState(..), Model, Msg(..))
+import Update exposing (init, update)
+import Views.Board exposing (board)
+import Views.Scoreboard exposing (scoreboard)
+import Views.TransitionScreen exposing (transitionScreen)
 
 
-main : Program Int Model Msg
+
+-- Main View
+
+
+playingarea : Model -> Html Msg
+playingarea model =
+    div []
+        [ scoreboard model
+        , board model
+        , transitionScreen model
+        ]
+
+
+initForMain : () -> ( Model, Cmd Msg )
+initForMain _ =
+    ( init, Cmd.none )
+
+
 main =
-    let
-        init : Int -> ( Model, Cmd Msg )
-        init flags =
-            ( initialModel, Cmd.none )
-    in
-        Browser.element
-            { init = init
-            , view = screen
-            , update = update
-            , subscriptions = subscriptions
-            }
+    Browser.element
+        { init = initForMain
+        , view = playingarea
+        , update = update
+        , subscriptions = subscriptions
+        }
