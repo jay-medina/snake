@@ -65,7 +65,7 @@ update msg model =
             else if isSnakeAtPosition model.snake.body model.apple then
                 let
                     newModel =
-                        model |> updateScore |> increaseSnakeSize
+                        model |> updateTimer |> updateScore |> increaseSnakeSize
                 in
                 ( newModel, generateNewApple newModel )
 
@@ -126,6 +126,41 @@ updateScore model =
     { model
         | currentscore = newCurrentScore
         , highscore = newHighScore
+    }
+
+
+updateTimer : Model -> Model
+updateTimer model =
+    let
+        { snake } =
+            model
+
+        { incrementTimer } =
+            snake
+
+        timerDecrementor =
+            2.5
+
+        timerThreshold =
+            40
+
+        newTimer =
+            if incrementTimer <= timerThreshold then
+                timerThreshold
+
+            else
+                incrementTimer - timerDecrementor
+
+        newSnake =
+            { snake
+                | incrementTimer = newTimer
+            }
+
+        nTime =
+            Debug.log "newTime" newSnake.incrementTimer
+    in
+    { model
+        | snake = newSnake
     }
 
 

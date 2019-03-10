@@ -30,7 +30,7 @@ type alias Snake =
     { body : List GridItem
     , direction : Direction
     , lastTimestamp : Int
-    , incrementTimer : Int
+    , incrementTimer : Float
     }
 
 
