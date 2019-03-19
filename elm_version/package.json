@@ -6,7 +6,9 @@
   "scripts": {
     "copy:static": "cp -R src/static/ dist/",
     "start:server": "sh scripts/start_server.sh",
-    "start" : "npm run start:server"
+    "start" : "npm run start:server",
+    "test": "elm-test",
+    "test:watch": "elm-test --watch"
   },
   "author": "",
   "license": "ISC",
