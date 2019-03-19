@@ -19,7 +19,7 @@ isTheApple =
 
 isSnakeAbleToMove : Snake -> Int -> Bool
 isSnakeAbleToMove snake timestamp =
-    snake.lastTimestamp == 0 || timestamp - snake.lastTimestamp >= snake.incrementTimer
+    snake.lastTimestamp == 0 || toFloat (timestamp - snake.lastTimestamp) >= snake.incrementTimer
 
 
 isSnakeDead : Model -> Bool
