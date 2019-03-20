@@ -1,4 +1,4 @@
-module Util exposing (isAtPosition, isInvalidDirection, isSnakeAbleToMove, isSnakeAtItself, isSnakeAtPosition, isSnakeAtWall, isSnakeDead, isTheApple)
+module Util exposing (isAtPosition, isInvalidDirection, isOppositeDirection, isSnakeAbleToMove, isSnakeAtItself, isSnakeAtPosition, isSnakeAtWall, isSnakeDead, isTheApple)
 
 import Types exposing (..)
 

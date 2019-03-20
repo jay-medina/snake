@@ -31,7 +31,11 @@ The following instructions are to start a localhost using Node.
 ### To Run Tests
 - need to install elm-test globally `npm install -g elm-test`.
 - In terminal: `elm-test`
+- To run individual test file: `elm-test <filename>`
 
+### To Run Test coverage
+https://elm-coverage.readthedocs.io/en/latest/
+- In terminal: `elm-coverage`
 
 ## Game Play
 
