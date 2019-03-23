@@ -30,32 +30,29 @@ isSnakeDead model =
 isSnakeAtWall : Model -> Bool
 isSnakeAtWall model =
     let
-        snakeHead =
-            List.head model.snake.body
+        snakeBody =
+            model.snake.body
     in
-    case snakeHead of
-        Nothing ->
-            True
-
-        Just { row, col } ->
+    case snakeBody of
+        { row, col } :: rest ->
             row < 0 || row > model.rows || col < 0 || col > model.columns
+
+        _ ->
+            True
 
 
 isSnakeAtItself : Model -> Bool
 isSnakeAtItself model =
     let
-        snakeHead =
-            List.head model.snake.body
-
         snakeBody =
-            List.drop 1 model.snake.body
+            model.snake.body
     in
-    case snakeHead of
-        Nothing ->
-            True
+    case snakeBody of
+        h :: rest ->
+            isSnakeAtPosition rest h
 
-        Just h ->
-            isSnakeAtPosition snakeBody h
+        _ ->
+            True
 
 
 isOppositeDirection direction newDirection =

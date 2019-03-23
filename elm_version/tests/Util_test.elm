@@ -155,6 +155,34 @@ suite =
                     isSnakeAtWall createModel
                         |> Expect.false "Snake is not at the wall"
             ]
+        , describe "isSnakeAtItself"
+            [ test "empty snake" <|
+                \_ ->
+                    let
+                        snake =
+                            { createSnake | body = [] }
+
+                        model =
+                            { createModel | snake = snake }
+                    in
+                    isSnakeAtItself model
+                        |> Expect.true "Snake doesnt have a body so end game"
+            , test "snakes head is at its body" <|
+                \_ ->
+                    let
+                        snake =
+                            { createSnake | body = [ { row = 0, col = 0 }, { row = 1, col = 0 }, { row = 0, col = 0 }, { row = 2, col = 0 } ] }
+
+                        model =
+                            { createModel | snake = snake }
+                    in
+                    isSnakeAtItself model
+                        |> Expect.true "Snakes head is at its body"
+            , test "snakes isnt at itself" <|
+                \_ ->
+                    isSnakeAtItself createModel
+                        |> Expect.false "Snake is good"
+            ]
         , describe "isOppositeDirection"
             [ test "Left - Right" <|
                 \_ ->
