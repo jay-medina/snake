@@ -1,4 +1,4 @@
-module Views.Scoreboard exposing (scoreboard)
+module Views.Scoreboard exposing (score, scoreboard)
 
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (class)
