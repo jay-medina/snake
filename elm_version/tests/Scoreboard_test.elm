@@ -1,6 +1,7 @@
 module Scoreboard_test exposing (suite)
 
 import Expect exposing (Expectation)
+import Fixtures exposing (createModel)
 import Html exposing (Html, div)
 import Test exposing (Test, describe, test)
 import Test.Html.Query as Query exposing (Single)
@@ -24,7 +25,6 @@ suite =
                         result =
                             score title number
 
-                        titleQuery : Single msg -> Expectation
                         titleQuery el =
                             el
                                 |> Query.find [ Selector.class "snake__score-title" ]
@@ -45,6 +45,21 @@ suite =
         , describe "scoreboard"
             [ test "renders the scoreboard" <|
                 \_ ->
-                    Expect.equal True False
+                    let
+                        model =
+                            { createModel | currentscore = 10, highscore = 120 }
+
+                        result =
+                            scoreboard model
+                    in
+                    result
+                        |> Query.fromHtml
+                        |> Expect.all
+                            [ Query.has [ Selector.class "snake__scoreboard" ]
+                            , Query.contains
+                                [ score "score" 10
+                                , score "high" 120
+                                ]
+                            ]
             ]
         ]
