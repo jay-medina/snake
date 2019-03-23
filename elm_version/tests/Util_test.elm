@@ -88,6 +88,30 @@ suite =
                     isSnakeAbleToMove snake 1100
                         |> Expect.false "Snake should not move"
             ]
+        , describe "isSnakeDead"
+            [ test "when its at the wall" <|
+                \_ ->
+                    let
+                        snake =
+                            { createSnake | body = [ { row = -1, col = 0 } ] }
+
+                        model =
+                            { createModel | snake = snake }
+                    in
+                    isSnakeDead model
+                        |> Expect.true "Snake is in left wall"
+            , test "when its at itself" <|
+                \_ ->
+                    let
+                        snake =
+                            { createSnake | body = [ { row = 0, col = 0 }, { row = 1, col = 0 }, { row = 0, col = 0 }, { row = 2, col = 0 } ] }
+
+                        model =
+                            { createModel | snake = snake }
+                    in
+                    isSnakeDead model
+                        |> Expect.true "Snakes head is at its body"
+            ]
         , describe "isSnakeAtWall"
             [ test "snake doesnt exist for some reason" <|
                 \_ ->
