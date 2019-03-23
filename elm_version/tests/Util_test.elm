@@ -88,6 +88,73 @@ suite =
                     isSnakeAbleToMove snake 1100
                         |> Expect.false "Snake should not move"
             ]
+        , describe "isSnakeAtWall"
+            [ test "snake doesnt exist for some reason" <|
+                \_ ->
+                    let
+                        snake =
+                            { createSnake | body = [] }
+
+                        model =
+                            { createModel | snake = snake }
+                    in
+                    isSnakeAtWall model
+                        |> Expect.true "Snake doesnt have a body so end game"
+            , test "snake is in the left wall" <|
+                \_ ->
+                    let
+                        snake =
+                            { createSnake | body = [ { row = -1, col = 0 } ] }
+
+                        model =
+                            { createModel | snake = snake }
+                    in
+                    isSnakeAtWall model
+                        |> Expect.true "Snake is in left wall"
+            , test "snake is in the right wall" <|
+                \_ ->
+                    let
+                        preModel =
+                            createModel
+
+                        snake =
+                            { createSnake | body = [ { row = preModel.rows + 1, col = 0 } ] }
+
+                        model =
+                            { preModel | snake = snake }
+                    in
+                    isSnakeAtWall model
+                        |> Expect.true "Snake is in right wall"
+            , test "snake is in the top wall" <|
+                \_ ->
+                    let
+                        snake =
+                            { createSnake | body = [ { row = 0, col = -1 } ] }
+
+                        model =
+                            { createModel | snake = snake }
+                    in
+                    isSnakeAtWall model
+                        |> Expect.true "Snake is in top wall"
+            , test "snake is in the bottom wall" <|
+                \_ ->
+                    let
+                        preModel =
+                            createModel
+
+                        snake =
+                            { createSnake | body = [ { row = 0, col = preModel.columns + 1 } ] }
+
+                        model =
+                            { preModel | snake = snake }
+                    in
+                    isSnakeAtWall model
+                        |> Expect.true "Snake is in bottom wall"
+            , test "snake is not at the wall" <|
+                \_ ->
+                    isSnakeAtWall createModel
+                        |> Expect.false "Snake is not at the wall"
+            ]
         , describe "isOppositeDirection"
             [ test "Left - Right" <|
                 \_ ->

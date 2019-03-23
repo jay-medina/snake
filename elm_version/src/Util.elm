@@ -35,7 +35,7 @@ isSnakeAtWall model =
     in
     case snakeHead of
         Nothing ->
-            False
+            True
 
         Just { row, col } ->
             row < 0 || row > model.rows || col < 0 || col > model.columns
@@ -52,7 +52,7 @@ isSnakeAtItself model =
     in
     case snakeHead of
         Nothing ->
-            False
+            True
 
         Just h ->
             isSnakeAtPosition snakeBody h
