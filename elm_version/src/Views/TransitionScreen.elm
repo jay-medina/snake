@@ -1,4 +1,4 @@
-module Views.TransitionScreen exposing (transitionScreen)
+module Views.TransitionScreen exposing (transitionScreen, playbutton)
 
 import Html exposing (..)
 import Html.Attributes exposing (class)
