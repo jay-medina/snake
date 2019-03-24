@@ -1,4 +1,4 @@
-module Views.Board exposing (board)
+module Views.Board exposing (Filled(..), board, col, getFilled, mapColumnClassName, row)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -12,8 +12,8 @@ type Filled
     | None
 
 
-getClassName : Filled -> String
-getClassName filled =
+mapColumnClassName : Filled -> String
+mapColumnClassName filled =
     case filled of
         Apple ->
             "snake__board-col snake__board-col-apple"
@@ -27,7 +27,7 @@ getClassName filled =
 
 col : Filled -> Html Msg
 col filled =
-    div [ class <| getClassName filled ]
+    div [ class <| mapColumnClassName filled ]
         []
 
 
@@ -56,11 +56,11 @@ row model currentRow =
     in
     div [ class "snake__board-row" ] <|
         List.map createCol
-            (List.range 0 model.columns)
+            (List.range 1 model.columns)
 
 
 board : Model -> Html Msg
 board model =
     div [ class "snake__board" ] <|
         List.map (row model)
-            (List.range 0 model.rows)
+            (List.range 1 model.rows)
