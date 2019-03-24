@@ -1,4 +1,4 @@
-module Board_test exposing (suite)
+module BoardTest exposing (suite)
 
 import Expect exposing (Expectation)
 import Fixtures exposing (createModel)

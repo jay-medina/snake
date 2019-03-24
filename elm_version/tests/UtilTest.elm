@@ -1,4 +1,4 @@
-module Util_test exposing (suite)
+module UtilTest exposing (suite)
 
 import Expect exposing (Expectation)
 import Fixtures exposing (..)

@@ -1,4 +1,4 @@
-module Scoreboard_test exposing (suite)
+module ScoreboardTest exposing (suite)
 
 import Expect exposing (Expectation)
 import Fixtures exposing (createModel)
