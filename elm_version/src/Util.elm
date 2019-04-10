@@ -1,4 +1,4 @@
-module Util exposing (isAtPosition, isInvalidDirection, isSnakeAbleToMove, isSnakeAtItself, isSnakeAtPosition, isSnakeAtWall, isSnakeDead, isTheApple)
+module Util exposing (isAtPosition, isInvalidDirection, isOppositeDirection, isSnakeAbleToMove, isSnakeAtItself, isSnakeAtPosition, isSnakeAtWall, isSnakeDead, isTheApple)
 
 import Types exposing (..)
 
@@ -19,7 +19,7 @@ isTheApple =
 
 isSnakeAbleToMove : Snake -> Int -> Bool
 isSnakeAbleToMove snake timestamp =
-    snake.lastTimestamp == 0 || timestamp - snake.lastTimestamp >= snake.incrementTimer
+    snake.lastTimestamp == 0 || toFloat (timestamp - snake.lastTimestamp) >= snake.incrementTimer
 
 
 isSnakeDead : Model -> Bool
@@ -30,32 +30,29 @@ isSnakeDead model =
 isSnakeAtWall : Model -> Bool
 isSnakeAtWall model =
     let
-        snakeHead =
-            List.head model.snake.body
+        snakeBody =
+            model.snake.body
     in
-    case snakeHead of
-        Nothing ->
-            False
-
-        Just { row, col } ->
+    case snakeBody of
+        { row, col } :: rest ->
             row < 0 || row > model.rows || col < 0 || col > model.columns
+
+        _ ->
+            True
 
 
 isSnakeAtItself : Model -> Bool
 isSnakeAtItself model =
     let
-        snakeHead =
-            List.head model.snake.body
-
         snakeBody =
-            List.drop 1 model.snake.body
+            model.snake.body
     in
-    case snakeHead of
-        Nothing ->
-            False
+    case snakeBody of
+        h :: rest ->
+            isSnakeAtPosition rest h
 
-        Just h ->
-            isSnakeAtPosition snakeBody h
+        _ ->
+            True
 
 
 isOppositeDirection direction newDirection =

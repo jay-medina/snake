@@ -28,6 +28,15 @@ The following instructions are to start a localhost using Node.
 
 - Run npm start.
 
+### To Run Tests
+- need to install elm-test globally `npm install -g elm-test`.
+- In terminal: `elm-test`
+- To run individual test file: `elm-test <filename>`
+
+### To Run Test coverage
+https://elm-coverage.readthedocs.io/en/latest/
+- In terminal: `elm-coverage`
+
 ## Game Play
 
 Game starts with an initial screen of the game title and a play button. In order to start the game, click on the play button.
@@ -46,3 +55,4 @@ Game starts with an initial screen of the game title and a play button. In order
 - Eating each food item also increases the speed in which the snake moves.
 
 - The high score is recorded and stored.
+
